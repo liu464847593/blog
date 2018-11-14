@@ -1,7 +1,8 @@
 ---
 title: 利用hexo搭建个人博客
 date: 2018-11-13 09:53:14
-tags: hexo
+tags: 
+    - hexo
 ---
 ## 步骤
 1. 安装hexo的搭建环境
