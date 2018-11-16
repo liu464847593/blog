@@ -11,16 +11,16 @@ tags: docsify
 
 ## 快速开始
 ```bash
-    npm i docsify-cli -g
+npm i docsify-cli -g
 ```
 
 ## 初始化项目
 ```bash
-    docsify init ./docs
+docsify init ./docs
 ```
 
 ## 本地预览
 ```bash
-    docsify serve docs
+docsify serve docs
 ```
 github:https://docsify.js.org
