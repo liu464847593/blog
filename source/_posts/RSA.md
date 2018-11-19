@@ -100,7 +100,7 @@ const privateKey = fs.readFileSync('D:/software/SSL/mingw64/bin/private_key.pem'
  * @descriptiones 加密
  * @param str 要加密的数据
  */
-exports.encrypted = function (str) {
+let encrypted = function (str) {
     let buffer = new Buffer(str);
     let encrypted = crypto.publicEncrypt({
         key: publicKey,
@@ -113,7 +113,7 @@ exports.encrypted = function (str) {
  * @descriptiones 解密
  * @param str 要解密的数据
  */
-exports.decrypted = function (str) {
+let decrypted = function (str) {
     let buffer = new Buffer(str, 'base64');
     let decrypted = crypto.privateDecrypt({
         key: privateKey,
@@ -125,5 +125,5 @@ exports.decrypted = function (str) {
 
 
 
- let str = JSON.parse(myCrypto.decrypted(req.body.jsEncrypt)); // 解密后的数据
+ let str = myCrypto.decrypted(req.body.jsEncrypt); // 解密后的数据
 ```
