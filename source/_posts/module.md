@@ -93,5 +93,8 @@ import()类似于 Node 的require方法，区别主要是前者是异步加载�
 >1. module.exports 初始值为一个空对象 {}
 >2. exports 是指向的 module.exports 的引用
 >3. require() 返回的是 module.exports 而不是 exports
+
+用法：
+如果模块返回的函数或者变量不止一个，那它可以通过设定exports对象的属性来指明它们，但如果模块只返回一个函数或变量，则可以设定module.exports属性
 ## 参考
 [Module 的语法](http://es6.ruanyifeng.com/#docs/module)
