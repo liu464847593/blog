@@ -153,5 +153,7 @@ BT取值为01时，PS为全FF的字符串，通过填充得到的整数会足够
 针对公钥处理的数据，BT取值为02； 
 使用伪随机的16进制字符串填充PS，而且每次操作进行填充的伪随机书都是独立的
 针对公钥处理的数据，其填充内容为伪随机的16进制字符串，每次操作的填充内容都不一样。这就是为什么每次使用公钥加密数据得到的结果都不一样了。
+
 ## 参考
-https://blog.csdn.net/guyongqiangx/article/details/74930951
+1. https://blog.csdn.net/guyongqiangx/article/details/74930951
+2. openssl安装：https://blog.csdn.net/a7442358/article/details/49300073
