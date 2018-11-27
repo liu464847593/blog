@@ -27,7 +27,7 @@ tags:
 ```
 成功后打开`http://localhost:4000`可以看见博客了
 ## github新建仓库
-![](../img/buildBlog_1.png)
+![](../../img/buildBlog_1.png)
 新建成功后输入`https://yourname.github.io`是能访问并且看到效果的
 ## 安装 hexo-deployer-git
 ```bash
