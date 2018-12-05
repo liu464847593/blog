@@ -17,7 +17,34 @@ categories:
 ```npm
 theme: next
 ```
-主题配置官网讲述的很详细，再次不多述。
+## 设置 语言
+编辑 站点配置文件， 将 language 设置成你所需要的语言。
+```
+language: zh-Hans
+```
+
+## 设置 菜单
+```
+menu:
+  home: /
+  archives: /archives
+  #about: /about
+  #categories: /categories
+  tags: /tags
+  #commonweal: /404.html
+```
+
+## 设置 侧栏
+```
+sidebar:
+  position: left
+```
+
+## 设置 头像
+```
+avatar: http://example.com/avatar.png
+```
+其它详细配置请参考官网
 
 ## 常见问题
 1. 上传到github 没有看到效果？  
