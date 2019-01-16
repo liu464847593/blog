@@ -1,5 +1,5 @@
 ---
-title: singleton
+title: 单例模式
 date: 2019-01-07 23:08:44
 tags: 单例模式
 categories:
