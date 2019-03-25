@@ -52,7 +52,9 @@ customName(); // 'foo'
 ```
 export default时，对应的import语句不需要使用大括号；  
 不使用export default时，对应的import语句需要使用大括号。
-本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字。
+本质上，export default就是输出一个叫做default的变量或方法，然后系统允许你为它取任意名字。  
+一个模块只能有一个默认输出，因此export default命令只能使用一次。但是可以输出多个
+
 ```js
 // modules.js
 function add(x, y) {
@@ -66,6 +68,20 @@ export {add as default};
 import { default as foo } from 'modules';
 // 等同于
 // import foo from 'modules';
+
+//test.js
+const a = {
+    name:"a"
+}
+const b = {
+    name:"b"
+}
+export default {
+    a,
+    b
+}
+import obj from test.js
+console.log(obj)
 ```
 
 ## import() 完成动态加载。
