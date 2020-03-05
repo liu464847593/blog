@@ -78,8 +78,10 @@ theme: next
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-    type: git
+  - type: git
     repo: https://github.com/liu464847593/liu464847593.github.io.git
+  - type: git
+    repo: git@182.61.134.173:/home/git/repos/blog.git
     branch: master
 
 search:
