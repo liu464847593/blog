@@ -121,3 +121,58 @@ Array.prototype.shift 截取arguments头一个元素
 借用Array.prototype.push的对象还要有两个条件
 - 对象本身要可以存取属性
 - 对象的length属性可以读写
+
+## 第3章 闭包和告高阶函数
+
+闭包就是能够读取其他函数内部变量的函数。（不一定要返回函数）
+
+变量的作用域指的是变量的有效范围
+声明一个变量前面没有带var，这个变量就会变成全局变量
+变量的搜索是从内到外的
+闭包的作用
+- 封装变量 把全局变量封装成私有的变量
+- 延续局部的变量寿命（可能以后还需要用这些变量）
+
+被引用的变量需要回收时候，把变量设为null
+
+```js
+var mult = (function () {
+  var cache = {}
+  return function () {
+    var args = Array.prototype.join.call(arguments,',');
+    if (args in cache){
+      return cache[args]
+    }
+    var a = 1;
+    for (var i = 0,l=arguments.length;i<l;i++){
+      a = a* arguments[i]
+    }
+    return cache[args] = a;
+  }
+})()
+console.log(mult(1, 2, 3));
+
+// 封装
+var mult = (function () {
+  var cache = {};
+  var calculate = function () {
+    var a = 1;
+    for (var i = 0,l=arguments.length;i<l;i++){
+      a = a* arguments[i]
+    }
+    return a;
+  };
+  return function () {
+    var args = Array.prototype.join.call(arguments,',');
+    if (args in cache){
+      return cache[args]
+    }
+
+    return cache[args] = calculate.apply(null,arguments);
+  }
+})()
+console.log(mult(1, 2, 3));
+console.log(mult(1, 2, 3));
+```
+
+如果闭包的作用域链保存一些DOM节点就可能造成内存泄漏
