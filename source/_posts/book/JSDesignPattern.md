@@ -176,3 +176,144 @@ console.log(mult(1, 2, 3));
 ```
 
 如果闭包的作用域链保存一些DOM节点就可能造成内存泄漏
+
+---
+高阶函数 满足以下条件
+- 函数可以作为参数传递
+- 函数可以作为返回值
+
+Object.prototype.toString 可以判断数据是不是数组
+```js
+console.log(Object.prototype.toString.call('123')); // [object String]
+console.log(Object.prototype.toString.call([1,2,3])); // [object Array]
+```
+```js
+// 判断数据类型
+  var isType = function (type) {
+    return function (obj) {
+      return Object.prototype.toString.call(obj) === '[object '+ type + ']';
+    }
+  }
+  var isString = isType('String');
+  var isArray = isType('Array');
+  var isNumber = isType('Number');
+  console.log(isArray([1, 2, 3]));
+  
+  // 单例模式
+  var getSingle = function (fn) {
+    var ret;
+    return function () {
+      return ret || (ret = fn.apply(this,arguments))
+    }
+  }
+```
+
+AOP（面向切面编程）：把一些跟核心业务逻辑模块无关的功能抽离出来，再通过动态织入的方式掺入业务逻辑模块中
+```js
+Function.prototype.before = function (beforefn) {
+  var _self = this;
+  return function () {
+    beforefn.apply(this,arguments);
+    return _self.apply(this,arguments)
+  }
+}
+Function.prototype.after = function (afterfn) {
+  var _self = this;
+  return function () {
+    var ret = _self.apply(this,arguments);
+    afterfn.apply(this,arguments);
+    return ret
+  }
+}
+
+var func = function () {
+  console.log(2);
+}
+func = func.before(function () {
+  console.log(1);
+}).after(function () {
+  console.log(3);
+})
+  func()
+```
+
+函数柯里化：一个curring函数首先接受一些参数，接受这些参数后并不会立即求值，而是继续返回另一个函数，刚才传入的参数在函数形成闭包中被保存起
+来。待到函数被真正需要求值的时候，之前传入的所有参数都会一次性用于求值
+1.curring 部分求值
+```js
+//demo
+var cost = (function () {
+  var args = [];
+  return function () {
+    if (arguments.length === 0){
+      var money = 0;
+      for (var i =0,l=args.length;i<l;i++){
+        money +=args[i];
+      }
+      return money
+    } else {
+      [].push.apply(args,arguments)
+    }
+  }
+})()
+  cost(100)
+  cost(200)
+  cost(300)
+console.log(cost());
+
+// 柯里化
+  var currying = function (fn) {
+    var args = [];
+    return function () {
+      if (arguments.length === 0) {
+        return fn.apply(this, args)
+      } else {
+        [].push.apply(args, arguments);
+        return arguments.callee;
+      }
+    }
+  }
+  var cost = (function () {
+    var money = 0;
+    return function () {
+      for (var i = 0, l = arguments.length; i < l; i++) {
+        money += arguments[i];
+      }
+      return money
+    }
+  })()
+  var cost = currying(cost);
+  cost(100);
+  cost(200);
+  cost(300);
+  console.log(cost());
+```
+
+callee: 当前正在执行的函数
+caller：返回调用指定函数的函数
+
+2.uncurring 调用对象的某个方法，不去关系原对象是否被设计拥有这个方法
+```js
+Function.prototype.uncurring = function () {
+  var self =this;
+  return function () {
+    var obj = Array.prototype.shift.call(arguments);
+    return self.apply(obj,arguments)
+  }
+}
+var push = Array.prototype.push.uncurring();
+(function () {
+  push(arguments,4);
+  console.log(arguments);
+})(1,2,3)
+
+// 另一种uncurring
+Function.prototype.uncurring = function () {
+  var self =this;
+  return function () {
+    return Function.prototype.call.apply(self,arguments)
+  }
+}
+```
+
+
