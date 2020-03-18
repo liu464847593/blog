@@ -2344,6 +2344,91 @@ tea.init();
 
 </script>
 ```
+## 第15章 装饰者模式
+装饰者模式：给对象动态地增加职责的方式
+
+模拟传统面向对象的装饰者模式
+```js
+    var Plane = function () {};
+    Plane.prototype.fire = function () {
+        console.log('发射普通子弹');
+    }
+    var MissileDecorator = function (plane) {
+        this.plane = plane
+    }
+    MissileDecorator.prototype.fire = function () {
+        this.plane.fire();
+        console.log('发射导弹');
+    };
+
+    var AtomDecorator = function (plane) {
+        this.plane = plane;
+    };
+    AtomDecorator.prototype.fire = function () {
+        this.plane.fire();
+        console.log('发射原子弹');
+    };
+
+    var plane = new Plane();
+    plane = new MissileDecorator(plane);
+    plane = new AtomDecorator(plane);
+    console.log(plane);
+    plane.fire(); // 分别输出：发射普通子弹，发射导弹，发射原子弹
+```
+JS装饰者
+```js
+    var plane = {
+        fire:function () {
+            console.log('发射普通子弹');
+        }
+    };
+    var missileDecorator = function () {
+        console.log('发射导弹');
+    };
+    var atomDecorator = function () {
+        console.log('发射原子弹');
+    };
+    var file1 = plane.fire;
+    plane.fire = function () {
+        file1();
+        missileDecorator();
+    };
+    var fire2 = plane.fire;
+    plane.fire = function () {
+        fire2();
+        atomDecorator();
+    };
+    plane.fire()
+```
+
+AOP装饰函数
+```js
+    Function.after = function (afterfn) {
+        var __self = this;
+        return function () {
+            var ret = __self.apply(this,arguments);
+            afterfn.apply(this,arguments);
+            return ret;
+        }
+    };
+    Function.prototype.before = function (beforefn) {
+        var __self = this;
+        return function () {
+            beforefn.apply(this,arguments);
+            return __self.apply(this,arguments)
+        }
+    };
+    document.getElementById = document.getElementById.before(function () {
+        alert(1)
+    });
+    var button = document.getElementById('button');
+    console.log(button);
+```
+
+代理模式和装饰者模式区别在于意图和设计目的
+代理模式目的：当直接访问本体不方便或者不符合需要时，为这个本体提供一个替代者
+装饰者模式的作用就是为对象动态加入行为
+
 
 
 
