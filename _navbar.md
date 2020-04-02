@@ -1,5 +1,5 @@
 * [css](/)
 * [JS](/)
-* [工具](/)
+* [工具](/tools/blog.md)
 * [架构](/architecture/index.md)
 * [理财](/financialManagement/index.md)
