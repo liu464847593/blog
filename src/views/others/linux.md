@@ -111,6 +111,10 @@ su -
 - `kill`：发送信号给某个进程
 - `killall`：杀死指定名字的进程
 - `shutdown`：关机或者重启系统
+- `zip`：打包压缩文件
+```shell
+zip options zipfile file ...
+```
 
 
 
