@@ -12,6 +12,9 @@ Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统致力于将 Vue
 衔接，这样你可以专注在撰写应用上，而不必花好几天去纠结配置的问题。并不建议自己去搭脚手架，可以自己研究，但是在项目里面还是推荐拿过来直接用  
 地址：https://cli.vuejs.org/zh/
 
+### 移动端适配
+移动端用postcss-pxtorem 和lib-flexible 适配
+
 ### ui框架
 移动端推荐：vant  
 pc端推荐：pc端用elementUi  
