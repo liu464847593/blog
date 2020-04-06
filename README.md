@@ -1,3 +1,16 @@
-# Headline
+## 介绍
+属于个人的学习记录博客，不定时更新，维护。。。
+## 目录
 
-> An awesome project.
+### 前端
+
+### 后端
+
+### 运维
+- [linux常用命令](/src/views/others/linux.md)
+
+### 网络
+
+### 工具
+
+### 其它

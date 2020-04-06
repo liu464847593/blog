@@ -13,15 +13,25 @@
   <div id="app">加载中</div>
   <script>
     window.$docsify = {
-      name: '',
+      name: '追风',
       repo: '',
-      loadNavbar: true, // 导航栏
-      loadSidebar: true, // 定制侧边栏
+      // loadNavbar: true, // 导航栏
+      // loadSidebar: true, // 定制侧边栏
+      subMaxLevel: 3,
       auto2top: true,
       // logo: '/src/asstes/img/logo.jpg',
-      formatUpdated: '{MM}/{DD} {HH}:{mm}', // 显示文档更新日期
+      // formatUpdated: '{MM}/{DD} {HH}:{mm}', // 显示文档更新日期
+      search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        noData: '找不到结果',//搜索不到结果时显示
+        paths: 'auto',//自动
+        placeholder: '搜索',//搜索框提示
+        depth: 6
+      },
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
+<!--  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>-->
 </body>
 </html>
