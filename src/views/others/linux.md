@@ -72,6 +72,10 @@ unalias foo
 - `grep`：打印匹配行
 - `head`：输出文件第一部分内容
 - `tail`：输出文件的最后一部分内容
+```shell
+// 会把 filename 文件里的最尾部的内容显示在屏幕上，并且不断刷新，只要 filename 更新就可以看到最新的文件内容。
+tail -f filename 
+```
 - `tee`：读取标准输入的数据，并将其内容输出到标准输出和文件中
 - `echo`：显示一行文本
 ```shell
