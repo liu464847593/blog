@@ -15,8 +15,9 @@
     window.$docsify = {
       name: '追风',
       repo: '',
+      coverpage: true, // 封面
       // loadNavbar: true, // 导航栏
-      // loadSidebar: true, // 定制侧边栏
+      loadSidebar: true, // 定制侧边栏 一定是true 才能搜索
       subMaxLevel: 3,
       auto2top: true,
       // logo: '/src/asstes/img/logo.jpg',
@@ -31,7 +32,6 @@
     }
   </script>
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
-  <script src="//unpkg.com/docsify/lib/plugins/search.js"></script>
-<!--  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>-->
+  <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
 </body>
 </html>
