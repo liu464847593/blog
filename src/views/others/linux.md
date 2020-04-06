@@ -209,6 +209,16 @@ chmod 600 foo.txt
 [o] others  
 [a] all 
 
+## 登录远程服务器
+macOS
+使用terminal
+```shell
+// 默认是22端口
+ssh username@ssh.server.com
+// or 指定端口 
+ssh username@ssh.server.com -p 2222
+```
+
 
 
 
