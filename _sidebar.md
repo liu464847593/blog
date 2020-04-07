@@ -1,4 +1,5 @@
 * 前端
+  - [JS](/src/views/js/js.md)
 * 后端
 * 运维
   - [linux常用命令](/src/views/others/linux.md)
