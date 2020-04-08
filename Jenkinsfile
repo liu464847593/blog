@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('pull') {
       steps {
-        sh 'git pull'
+        sh 'npm --version'
       }
     }
 
