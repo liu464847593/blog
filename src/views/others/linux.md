@@ -119,6 +119,11 @@ su -
 ```shell
 zip options zipfile file ...
 ```
+- `find` 查找文件
+```shell
+//find <指定目录> <指定条件> <指定动作>
+find . -name 'my*' // 搜索当前目录（含子目录，以下同）中，所有文件名以my开头的文件。
+```
 
 
 
