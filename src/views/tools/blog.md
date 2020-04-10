@@ -28,40 +28,9 @@
 
 ## jenkins 一键发布docsify
 
-### 安装docker
-```shell
-yum -y install docker
-```
-### 给Docker守护进程配置加速器
-docker使用原镜像下载太慢了，这里替换下镜像
-```shell
-// 通过配置文件启动Docker,修改/etc/docker/daemon.json 文件并添加上 registry-mirrors 键值
-sudo vim /etc/docker/daemon.json
-```
-```
-{
- "registry-mirrors": ["https://registry.docker-cn.com"]
-}
-```
-```shell
-sudo service docker restart
-```
-
-### 安装jenkins
-```shell
-docker pull jenkinsci/blueocean
-```
-```shell
-// 可以进入jenkins容器输入命令
-docker exec -it jenkins-blueocean /bin/bash
-```
 
 
 
 ## 参考地址：
 1. docsify介绍：https://docsify.js.org/#/zh-cn/
-2. docker安装：https://www.w3cschool.cn/docker/centos-docker-install.html
-3. docker更换为国内镜像：https://www.jianshu.com/p/84b6fe281b4d
-4. jenkins 安装 https://jenkins.io/zh/doc/book/installing/
-5. jenkins 配置 https://cloud.tencent.com/developer/article/1461397
 

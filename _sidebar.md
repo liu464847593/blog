@@ -6,4 +6,5 @@
 * 网络
 * 工具
   - [docsify](/src/views/tools/blog.md)
+  - [jenkins](/src/views/tools/jenkins.md)
 * 其它
