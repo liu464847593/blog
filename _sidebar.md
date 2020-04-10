@@ -5,4 +5,5 @@
   - [linux常用命令](/src/views/others/linux.md)
 * 网络
 * 工具
+  - [docsify](/src/views/tools/blog.md)
 * 其它
