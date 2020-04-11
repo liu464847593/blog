@@ -63,6 +63,11 @@
 person instanceof Object
 
 ```
+>object instanceof constructor
+
+`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上。  
+
+
 !> null表示一个空对象指针，typeof null 为object
 
 ## arguments
@@ -103,6 +108,201 @@ person instanceof Object
 Object.getOwnPropertyDescriptor() 可以取得给定属性的描述符
 
 ## 创建对象 
+
+### 工厂模式
+
+```js
+ function createPerson(name,age,job) {
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function () {
+      alert(this.name)
+    };
+    return o;
+  }
+  var person1 = createPerson('Nicholas',29,'Soft Engineer');
+  var person2 = createPerson('Greg',27,'Doctor');
+```
+解决了创建多个相似对象的问题，但没有解决对象识别的问题（即怎样知道一个对象的类型）
+
+### 构造函数模式
+```js
+ function Person(name,age,job) {
+   this.name = name;
+   this.age = age;
+   this.job = job;
+   this.sayName = function () {
+     alert(this.name)
+   }
+ }
+ var person1 = new Person('Nicholas',29,'Soft Engineer');
+ var person2 = new Person('Greg',27,'Doctor');
+ 
+ // person1.constructor == Person //true
+ // person2.constructor == Person //true
+ // person1.instanceof Object //true
+ // person1.instanceof Person //true
+ // person2.instanceof Object //true
+ // person2.instanceof Person //true
+ // person1.sayName == person2.sayName //false
+```
+
+- 没有显式地创建对象
+- 直接将属性和方法赋值给了this对象
+- 没有return语句
+- Person P 是大写
+
+>调用构造函数的步骤 new Object
+1. 创建一个新对象
+2. 将构造函数的作用域赋给新对象（this指向这个新对象）
+3. 执行构造函数中的代码（为这个新对象添加属性）
+4. 返回新对象
+
+任何函数通过`new`操作符调用就可以作为构造函数  
+优点：  
+- 自定义构造函数可以将它的实例标识为一种特定的类型（胜过工厂模式的地方）  
+
+缺点：   
+- 每个方法都要在每个实例上重新创建一遍（不同实例上的同名函数是不相等的）
+
+```js
+  function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = sayName;
+  }
+
+  function sayName() {
+    alert(this.name)
+  }
+
+  var person1 = new Person('Nicholas', 29, 'Soft Engineer');
+  var person2 = new Person('Greg', 27, 'Doctor');
+  // person1.sayName == person2.sayName //true
+```
+缺点：
+- 全局作用域中定义的函数实际上只能被某个对象调用，这让全局作用域有点名不副实
+- 如果需要多个方法就要定义多个全局函数
+
+### 原型模式
+```js
+ function Person() {
+
+  }
+
+  Person.prototype.name = 'Nicholas';
+  Person.prototype.age = 29;
+  Person.prototype.job = 'Soft Engineer';
+  Person.prototype.sayName = function () {
+    alert(this.name)
+  };
+
+  var person1 = new Person();
+  person1.sayName();
+  var person2 = new Person();
+  person2.sayName();
+  alert(person1.sayName == person2.sayName)
+  
+  // Person.prototype.isPrototypeOf(person1) // true  
+  // Person.prototype.isPrototypeOf(person2) // true
+  // Object.getPrototypeOf(person1) == Person.prototype // true
+```
+isPrototypeOf() 方法用于测试一个对象是否存在于另一个对象的原型链上。  
+Object.getPrototypeOf() 方法返回指定对象的原型  
+hasOwnProperty()检测一个属性是存在于实例中还是存在原型中
+
+
+优点：
+可以让所有对象实例共享它所包含的属性和方法
+
+缺点：改变属性会造成相互影响
+
+Person.prototype 指向原型对象  
+Person.prototype.constructor 指向Person
+
+调用构造函数时会为实例添加一个指向最初原型的指针，而把原型修改为另一个对象就等于切断了构造函数与最初原型之间的联系  
+
+!>实例中的指针仅指向原型，而不指向构造函数
+
+### 组合使用构造函数模式和原型模式
+```js
+function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = ['Shelby','Court']
+  }
+  Person.prototype = {
+    constructor: Person,
+    sayName: function () {
+      alert(this.name)
+    }
+  }
+  var person1 = new Person('Nicholas', 29, 'Soft Engineer');
+  var person2 = new Person('Greg', 27, 'Doctor');
+  person1.friends.push('van');
+  alert(person1.friends); // Shelby,Count,Van
+  alert(person2.friends); // Shelby,Count
+  alert(person1.friends === person2.friends); // false
+  alert(person1.sayName === person2.sayName); // true
+```
+
+### 动态原型模式
+```js
+  function Person(name, age, job) {
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    if (typeof this.sayName != 'function') {
+      Person.prototype.sayName = function () {
+        alert(this.name)
+      }
+    }
+  }
+
+  var friend = new Person('Nicholas', 29, 'Software Engineer')
+  friend.sayName()
+```
+
+### 寄生构造函数模式
+```js
+ function Person(name,age,job) {
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function () {
+      alert(this.name)
+    };
+    return o;
+  }
+  var friend = new Person('Nicholas',29,'Soft Engineer');
+  friend.sayName()
+```
+缺点：构造函数返回的对象与构造函数外部创建的对象没有什么不同，因此不能依赖instanceof 确定对象类型
+
+### 稳妥构造函数模式
+稳妥对象：没有公共属性，其它方法也不引用this对象
+```js
+  function Person(name,age,job) {
+    var o = new Object();
+    o.sayName = function () {
+      alert(name)
+    };
+    return o;
+  }
+  var friend = Person('Nicholas',29,'Soft Engineer');
+  friend.sayName()
+```
+类似寄生构造函数模式
+特点：
+- 新创建对象的实例方法不引用this
+- 不实用new操作符调用构造函数
+
+
 
 
 
