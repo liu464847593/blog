@@ -431,6 +431,11 @@ SuperType.prototype.sayAge = function () {
   alert(this.age)
 }
 ```
+## 闭包
+有权访问另一个函数作用域中的变量的函数
+
+!>闭包只取得包含函数中任何变量的最后一个值，闭包保存的是整个变量对象，而不是某个特点的变量
 
 
+匿名函数的执行环境有全局性，this通常执行window
 
