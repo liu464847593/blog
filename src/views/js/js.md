@@ -228,6 +228,7 @@ Person.prototype.constructor 指向Person
 !>实例中的指针仅指向原型，而不指向构造函数
 
 ### 组合使用构造函数模式和原型模式
+最广泛，认同度最高的一种创建自定义类型的方法
 ```js
 function Person(name, age, job) {
     this.name = name;
@@ -302,9 +303,134 @@ function Person(name, age, job) {
 - 新创建对象的实例方法不引用this
 - 不实用new操作符调用构造函数
 
+## 继承
 
+### 原型链继承
+```js
+function SuperType() {
+  this.property = true
+}
+SuperType.prototype.getSuperValue = function () {
+  return this.property
+}
+function SubType() {
+  this.subproperty = false
+}
+SubType.prototype = new SuperType();
+SubType.prototype.getSuperValue = function () {
+  return this.subproperty;
+}
+var instance = new SuperType();
+alert(instance.getSuperValue())
+```
+!>通过原型链实现继承时，不能使用对象字面量创建原型方法。会重写原型链
 
+缺点：
+- 包含引用类型值的原型
+- 在创建子类型的实例时，不能向超类型的构造函数中传递参数
 
+### 借用构造函数
+```js
+function SuperType() {
+  this.colors = ['red','blue','green']
+}
+function SubType() {
+  SuperType.call(this)
+}
+var instance1 = new SubType();
+instance1.colors.push('black');
+alert(instance1.colors); // red,blue,green,black
+
+var instance2 = new SubType();
+alert(instance2.colors); // red,blue,green
+```
+缺点：函数无法复用，方法都在构造函数中定义
+
+### 组合继承
+```js
+function SuperType(name) {
+  this.name = name;
+  this.colors = ['red','blue','green']
+}
+SuperType.prototype.sayName = function () {
+  alert(this.name)
+}
+function SubType(name,age) {
+  SuperType.call(this,name) // 第2次调用SuperType
+  this.age = age
+}
+SubType.prototype = new SuperType(); // 第1次调用SuperType
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function () {
+  alert(this.age)
+}
+
+var instance1 = new SubType('Nicholas',29);
+instance1.colors.push('black');
+alert(instance1.colors); // red,blue,green,black
+instance1.sayName(); // Nicholas
+instance1.sayAge(); // 29
+
+var instance2 = new SubType('Grep',27);
+instance1.colors.push('black');
+alert(instance2.colors); // red,blue,green
+instance2.sayName(); // Grep
+instance2.sayAge(); // 27
+```
+缺点：调用2次超类型构造函数
+
+### 原型式继承
+```js
+function objec(o) {
+  function F() {}
+  F.prototype = o;
+  return new F()
+}
+```
+Object.create()规范了原型式继承
+
+### 寄生式继承
+```js
+function createAnother(original) {
+  var clone = bject(original);
+  clone.sayHi = function () {
+    alert('hi')
+  };
+  return clone
+}
+
+var person = {
+  name:'Nicholas',
+  friends: ['Shelby','Court','Van']
+}
+var anotherPerson = createAnother(person);
+anotherPerson.sayHi()
+```
+
+### 寄生组合继承
+最理想的继承范式
+```js
+function inheritPrototype(subType,superType) {
+  var prototype = object(superType.prototype);
+  prototype.constructor = subType;
+  subType.prototype = prototype
+}
+function SuperType(name) {
+  this.name = name;
+  this.colors = ['red','blue','green']
+}
+SuperType.prototype.sayName = function () {
+  alert(this.name)
+};
+function SubType(name,age) {
+  SuperType.call(this,name);
+  this.age = age
+}
+inheritPrototype(SuperType,SuperType);
+SuperType.prototype.sayAge = function () {
+  alert(this.age)
+}
+```
 
 
 
