@@ -27,6 +27,30 @@
 下次直接使用 `npm run start` 就可以启动项目了
 
 ## jenkins 一键发布docsify
+主要步骤：
+1. 安装jenkins
+2. 配置好jenkins,jenkins会自动clone你的git项目，如果是vue项目可以配置要npm脚本，在服务器上进入共享的目录下把文件复制到nginx指向的
+index页面
+
+### 下载nodejs插件
+系统管理 -> 插件管理 -> 下载nodeJs Plugin 直接安装
+
+### 全局配置nodeJs
+![](../../asstes/img/jenkins/node.jpg)
+
+### 新建一个自由风格的软件项目
+![](../../asstes/img/jenkins/name.jpg)
+
+### 配置项目
+![](../../asstes/img/jenkins/git.jpg)
+![](../../asstes/img/jenkins/config.jpg)
+![](../../asstes/img/jenkins/config1.jpg)
+![](../../asstes/img/jenkins/config2.jpg)
+
+### 最后构建项目
+
+
+
 
 
 
