@@ -18,6 +18,9 @@
       coverpage: true, // 封面
       // loadNavbar: true, // 导航栏
       loadSidebar: true, // 定制侧边栏 一定是true 才能搜索
+      alias: { // 避免不必要的回退过程
+        '/.*/_sidebar.md': '/_sidebar.md'
+      },
       subMaxLevel: 3,
       auto2top: true,
       // logo: '/src/asstes/img/logo.jpg',
