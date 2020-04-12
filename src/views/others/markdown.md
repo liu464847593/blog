@@ -1,10 +1,3 @@
----
-title: markdown基本语法
-date: 2018-11-14 15:43:50
-categories:
-    - markdown
-tags: markdown
----
 ## 什么是Markdown？
 Markdown是一种可以使用普通文本编辑器编写的标记语言，通过简单的标记语法，它可以使普通文本内容具有一定的格式。
 ## 常用语法

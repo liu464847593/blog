@@ -2,7 +2,7 @@
   - [JS](/src/views/js/js.md)
 * 后端
 * 运维
-  - [linux常用命令](/src/views/others/linux.md)
+  - [linux常用命令](/src/views/linux/linux.md)
 * 网络
 * 工具
   - [docsify](/src/views/tools/blog.md)
@@ -12,3 +12,4 @@
   - [yarn](/src/views/tools/yarn.md)
   
 * 其它
+  - [markdown](/src/views/others/markdown.md)
