@@ -1,11 +1,3 @@
----
-title: 好用的google插件
-date: 2018-12-12 19:54:51
-categories:
-    - tool
-tags:
-    - 谷歌插件
----
 ## 通用类插件
 1. OneTab：节省高达95％的内存，并减轻标签页混乱现象  
 ![图片](https://lh3.googleusercontent.com/2RDguo_snb46gRYdjc7VE_cz5jCBYljwBX3kCZd_K0SYdsXwSft0EIwnQ0DsiV9KpDww9pBh-A=w440-h280-e365)

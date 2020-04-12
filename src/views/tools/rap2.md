@@ -1,11 +1,3 @@
----
-title: rap2
-date: 2019-02-26 22:04:29
-categories:
-    - tool
-tags:
-    - tool
----
 ## 什么是rap2
 阿里妈妈前端团队出品的开源接口管理工具RAP第二代
 

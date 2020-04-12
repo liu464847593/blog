@@ -1,12 +1,3 @@
----
-title: yarn
-date: 2018-12-10 22:05:00
-categories:
-    - tool
-tags:
-    - tool
----
-
 ## 什么是yarn?
 >快速、可靠、安全的依赖管理工具。
 1. 速度超快。  
