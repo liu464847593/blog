@@ -1,5 +1,6 @@
 * 前端
   - [JS](/src/views/js/js.md)
+  - [vue](/src/views/js/vue.md)
 * 后端
 * 运维
   - [linux常用命令](/src/views/linux/linux.md)
