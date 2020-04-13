@@ -97,8 +97,8 @@ person instanceof Object
  * `[[Writable]]`: 能否修改属性的值 默认true
  * `[[Value]]`: 包含这个属性的数据值 默认undefined
  
-  >要修改属性默认的特性，必须用Object,defineProperty(),接收三个参数：属性所在的对象，属性的名字和一个描述符对象，
-  Object,defineProperty()方法创建一个新属性时，如果不指定，`configurable`,`enumerable`,`writable` 默认`false`
+  >要修改属性默认的特性，必须用Object.defineProperty(),接收三个参数：属性所在的对象，属性的名字和一个描述符对象，
+  Object.defineProperty()方法创建一个新属性时，如果不指定，`configurable`,`enumerable`,`writable` 默认`false`
 - 访问器属性
  * `[[Configurable]]`: 能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性 默认true
  * `[[Enumerable]]`: 能否通过for-in循环返回属性 默认true
