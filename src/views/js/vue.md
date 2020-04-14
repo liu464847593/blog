@@ -1,8 +1,11 @@
 ## 什么是vue
 `Vue`是一套用于构建用户界面的渐进式框架。  
+
 如果你已经有一个现成的服务端应用，也就是非单页面应用，可以将Vue.js作为该应用的一部分嵌入其中，带来更加丰富的交互体验  
+
 `渐进式框架`就是把框架分层  
 分层就是说可以只用最核心的视图层渲染功能来快速开发一些需求，也可以使用一整套全家桶来开发大型应用  
+
 最核心的部分是视图层渲染，往外是组件机制，再加上路由机制，再加入状态管理，最外层是构建工具
 ![](../../../src/asstes/img/js/vue.jpg)
 
@@ -113,8 +116,9 @@ function defineReactive(data,key,val) {
 
 ### watcher
 ---
-我们收集的依赖是window.target其实就是watcher
-原理：先把自己设置到全局唯一的指定位置，然后读取数据，触发这个数据的getter，接着getter读取当前正在读取数据的Watcher，并把这个Watcher收集到
+我们收集的依赖是`window.target`其实就是`Watcher`
+
+原理：先把自己设置到全局唯一的指定位置，然后读取数据，触发这个数据的`getter`，接着`getter`读取当前正在读取数据的`Watcher`，并把这个`Watcher`收集到
 Dep中
 
 `Watcher`是一个中介的角色，数据发送变化时通知它，然后它再通知其它地方
@@ -218,5 +222,5 @@ function defineReactive(data,key,val) {
 ```
 
 ### 关于object的问题
-getter/setter只能追踪一个数据是否修改，无法追踪新增属性和删除属性  
-为obj新增属性，删除属性，vue无法检测到变化，所有不会向依赖发送通知 要用到 vm.$set,vm.$delete
+`getter`/`setter`只能追踪一个数据是否修改，无法追踪新增属性和删除属性  
+为obj新增属性，删除属性，vue无法检测到变化，所有不会向依赖发送通知 要用到 `vm.$set`，`vm.$delete`
