@@ -1,8 +1,3 @@
----
-title: JSDesignPattern
-date: 2020-03-02 21:15:34
-tags:
----
 ## 第1章 面向对象的JavaScript
 
 JS是通过原型委托的方式来实现对象之间的继承
@@ -2523,7 +2518,6 @@ JS中的状态机
 ## 第17章 适配器模式
 作用：解决两个软件实体间的接口不兼容的问题
 
-## demo
 ```js
 var googleMap = {
     show:function() {
