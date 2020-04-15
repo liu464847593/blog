@@ -224,3 +224,123 @@ function defineReactive(data,key,val) {
 ### 关于object的问题
 `getter`/`setter`只能追踪一个数据是否修改，无法追踪新增属性和删除属性  
 为obj新增属性，删除属性，vue无法检测到变化，所有不会向依赖发送通知 要用到 `vm.$set`，`vm.$delete`
+
+## Array 的变化侦测
+因为可以通过`Array`原型的方法改变数组内容，所以`Object`的`getter/setter`的实现方式行不通
+
+用一个拦截器覆盖掉Array.prototype。每当使用Array原型上的方法操作数组时，其实执行的都是拦截器中提供的方法，这样我们就可以追踪Array的变化
+```js
+const arrayProto = Array.prototype;
+export const arrayMethods = Object.create(arrayProto);
+['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
+  const original = arrayProto[method];
+  Object.defineProperty(arrayMethods, method, {
+    value: function mutator(...args) {
+      return original.apply(this, args)
+    },
+    enumerable: true,
+    writable: true,
+    configurable: true
+  })
+})
+export class Observer {
+  constructor(value) {
+    this.value = value
+    if (Array.isArray(value)) {
+      value.__proto__ = arrayMethods // 只会覆盖掉需要转换响应式的数据原型
+    } else {
+      this.walk(value)
+    }
+  }
+}
+```
+
+如果没有__proto__ 直接将arrayMethods身上的方法设置到被侦测的数组上
+```js
+import {arrayMethods}from './array'
+
+const  hasProto = '__proto__' in {};
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
+
+export class Observer {
+  constructor(value) {
+    this.value = value
+    if (Array.isArray(value)) {
+      const augment = hasProto ? protoAument : copyAument
+      augment(value,arrayMethods,arraykeys)
+    } else {
+      this.walk(value)
+    }
+  }
+  ......
+}
+
+function protoAugment(target,src,keys) {
+  target.__proto__ = src
+}
+function copyAument(target,src,keys) {
+  for (let i =0;l=keys.length;i<l;i++){
+    const key = keys[i]
+    def(target,key,src[key])
+  }
+}
+```
+Array 在getter中收集依赖，在拦截器中触发依赖
+```js
+
+export class Observer {
+  constructor(value) {
+    this.value = value;
+    this.dep = new dep()
+    if (Array.isArray(value)) {
+      const augment = hasProto ? protoAument : copyAument
+      augment(value,arrayMethods,arraykeys)
+    } else {
+      this.walk(value)
+    }
+  }
+  ......
+}
+```
+### 收集依赖
+```js
+  function defineReactive(data,key,val) {
+    let childOb = observe(val)
+    let dep = new Dep(); // 存储被收集的依赖
+    object.defineProperty(data,key,{
+      enumerable: true,
+      configurable: true,
+      get: function () {
+        dep.depend()
+        if (childOb){
+          childOb.dep.depend()
+        } 
+        return val
+      },
+      set: function (newVal) {
+        if (val === newVal){
+          return
+        }
+        dep.notify()
+        val = newVal
+      }
+    })
+  }
+    /**
+     * 尝试为value创建一个Observe实例，
+     * 如果创建成功，直接返回新建的Observe实例
+     * 如果value已经存在一个Observe实例，则直接返回它
+     */
+  export function observe(value,asRootData) {
+    if(!isObject(value)){
+      return
+    }
+    let ob
+    if (hasOwn(value,'__ob__') && value.__ob__ instanceof Observe){
+      ob = value.__ob__
+    } else{
+      ob = new Observe(value)
+    }
+    return ob
+  }
+```
