@@ -229,6 +229,7 @@ function defineReactive(data,key,val) {
 因为可以通过`Array`原型的方法改变数组内容，所以`Object`的`getter/setter`的实现方式行不通
 
 用一个拦截器覆盖掉Array.prototype。每当使用Array原型上的方法操作数组时，其实执行的都是拦截器中提供的方法，这样我们就可以追踪Array的变化
+### 拦截器
 ```js
 const arrayProto = Array.prototype;
 export const arrayMethods = Object.create(arrayProto);
@@ -243,6 +244,8 @@ export const arrayMethods = Object.create(arrayProto);
     configurable: true
   })
 })
+
+
 export class Observer {
   constructor(value) {
     this.value = value
@@ -343,4 +346,91 @@ export class Observer {
     }
     return ob
   }
+```
+
+### 拦截器中获取Observe
+```js
+function def(obj,key,val,enumerable) {
+    Object.defineProperty(obj,key,{
+      value:val,
+      enumerable: !!enumerable,
+      writable:true,
+      configurable:true
+    })
+  }
+  
+export class Observe{
+  constructor(value){
+    this.val = value
+    this.dep = new Dep()
+    def(value,'__ob__',this) // 拿到Observe实例和标记是否被Observe转换成响应式数据
+    if (Array.isArray(value)){
+      const augment = hasProto
+      ? protoAugment
+      : copyAugment
+      augment(value,arrayMethods,arraykeys)
+    } else{
+      this.walk(vaule)
+    }
+  }
+  ......
+}
+```
+
+### 向数组依赖发送通知
+```js
+  ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
+    const original = arrayProto[method];
+    def(arrayMethods,method,function mutator(...args) {
+      const result = original.apply(this,args)
+      const ob = this.__ob__
+      ob.dep.notify() // 向依赖发送消息
+      return result
+    })
+  })
+```
+
+### 侦测数组中的元素变化
+```js
+export class Observe{
+  constructor(value) {
+   this.value = value
+    def(value,'__ob__',this)
+    if (Array.isArray(value)){
+      this.observeArray(value)
+    } else {
+      this.walk(value)
+    }
+  }
+
+  observeArray(items){
+    for (let i=0,l=items.length;i<l;i++){
+      observe(items[i])
+    } 
+  }
+  ......
+}
+```
+### 侦测新增数组元素的变化
+```js
+['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
+  const original = arrayProto[method];
+  def(arrayMethods,method,function mutator(...args) {
+    const result = original.apply(this,args)
+    const ob = this.__ob__
+    let inserted
+    switch (method) {
+      case 'push':
+      case 'unshift':
+        inserted = args
+        break
+      case 'splice':
+        inserted = args.slice(2)
+        break
+    }
+    if (inserted) ob.observeArray(inserted) // 检测新增元素变化
+    ob.dep.notify() // 向依赖发送消息
+    return result
+  })
+})
 ```
