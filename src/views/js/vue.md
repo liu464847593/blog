@@ -434,3 +434,32 @@ export class Observe{
   })
 })
 ```
+
+## vm.$watch
+```js
+Vue.prototype.$watch = function (expOrFn,cb,options) {
+  const vm = this
+  options = options || {}
+  const watcher = new Watcher(vm,expOrFn,cb,options)
+  if (options.immediate){
+    cb.call(vm,watcher.value)
+  }
+  return function unwatchFn() {
+    watcher.teardown() // 取消观察数据
+  }
+}
+
+export default class Watcher{
+  constructor(vm,expOrFn,cb){
+    this.vm = vm
+    if(typeof expOrFn === 'function'){
+      this.getter = expOrFn
+    }else{
+      this.getter = parsePath(expOrFn)
+    }
+    this.cb = cb
+    this.value = this.get()
+  }
+  ......
+}
+```
