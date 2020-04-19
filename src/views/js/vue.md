@@ -534,3 +534,53 @@ export function del(target,key) {
 `Vue2.0` 引入虚拟DOM。组件级别是一个watcher实例。当这个状态发生变化时，只通知到组件，然后组件内部通过虚拟DOM去进行对比和渲染
 
 `Vue.js` 通过模版来描述状态与视图之间的映射关系，所有它会先将模版编译成渲染函数，然后执行渲染函数生成虚拟节点，最后使用虚拟节点更新视图
+
+## 什么是VNode
+是一个Javascript中的一个普通对象，是从VNode类实例化的对象。简单来说，vnode可以理解为节点描述对象，它描述了应该怎样去创建真实的DOM节点
+
+### VNode的作用
+每次渲染视图都是先创建vnode，然后使用它创建真实DOM插入页面中，将上次渲染视图的vnode缓存起来，并与当前新创建的vnode进行对比，只更新发生变化的节点
+
+### VNOde 类型
+- 注释节点
+- 文本节点
+- 元素节点
+- 组件节点
+- 函数式组件
+- 克隆节点
+```js
+// 注释节点
+export const createEmptyVnode = text =>{
+  const node = new VNode()
+  node.text = text
+  node.isComment = true
+  return node
+}
+// 文本节点
+export function createTextVNode(val) {
+  return new VNode(undefined,undefined,undefined,String(val))
+}
+
+// 克隆节点
+export function cloneVNode(vnode,deep) {
+  const cloned = new VNode(
+    vnode.tag,
+    vnode.data,
+    vnode.children,
+    vnode.text,
+    vnode.elm,
+    vnode.context,
+    vnode.componentOptions,
+    vnode.asyncFactory,
+  )
+  cloned.ns = vnode.ns
+  cloned.isStatic = vnode.isStatic
+  cloned.key = vnode.key
+  cloned.isComment = vnode.isComment
+  cloned.isCloned = true
+  if (deep && vnode.children){
+    cloned.children = cloneVNode(vnode.children)
+  }
+  return cloned
+}
+```
