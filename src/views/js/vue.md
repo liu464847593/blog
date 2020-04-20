@@ -560,7 +560,6 @@ export const createEmptyVnode = text =>{
 export function createTextVNode(val) {
   return new VNode(undefined,undefined,undefined,String(val))
 }
-
 // 克隆节点
 export function cloneVNode(vnode,deep) {
   const cloned = new VNode(
@@ -584,3 +583,18 @@ export function cloneVNode(vnode,deep) {
   return cloned
 }
 ```
+
+## patch
+虚拟DOM最核心的部分，它可以将vnode渲染成真实的DOM
+
+path的过程：
+- 创建新增节点
+- 删除已经废弃的节点
+- 修改需要更新的节点
+
+当`oldVnode`不存在时，直接使用vnode渲染视图  
+当`oldVnode`和`vnode`都存在但并不是同一个节点时，使用vnode创建的DOM元素替换旧的DOM元素  
+当`oldVnode`和`vnode`是同一个节点时，使用更详细的对比操作对真实的DOM节点进行更新
+
+### 创建节点
+只有`元素类型`，`注释类型`，`文本类型` 的类型节点会被创建并插入到DOM
