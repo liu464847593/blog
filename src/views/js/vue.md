@@ -437,6 +437,8 @@ export class Observe{
   })
 })
 ```
+### 总结
+Array是通过创建拦截器去覆盖数组原型来追踪变化，在getter中收集依赖，依赖是保存在Observer上，通过__ob__可以访问
 
 ## vm.$watch
 ```js
