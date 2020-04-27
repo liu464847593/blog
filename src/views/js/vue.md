@@ -145,7 +145,7 @@ export default class Watcher{
     return value
   }
 
-  updata(){
+  update(){
     const oldValue = this.value
     this.value = this.get()
     this.cb.call(this.vm,this.value,oldValue)
@@ -224,6 +224,9 @@ function defineReactive(data,key,val) {
 ### 关于object的问题
 `getter`/`setter`只能追踪一个数据是否修改，无法追踪新增属性和删除属性  
 为obj新增属性，删除属性，vue无法检测到变化，所有不会向依赖发送通知 要用到 `vm.$set`，`vm.$delete`
+
+### data,observer,dep,watcher关系  
+![](../../../src/asstes/img/js/vue1.jpg)
 
 ## Array 的变化侦测
 因为可以通过`Array`原型的方法改变数组内容，所以`Object`的`getter/setter`的实现方式行不通
