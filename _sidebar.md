@@ -3,6 +3,7 @@
   - [vue](/src/views/js/vue.md)
   - [设计模式](/src/views/js/JSDesignPattern.md)
   - [架构](/src/views/architecture/index.md)
+  - [常见问题](/src/views/question/index.md)
 * 后端
 * 运维
   - [linux常用命令](/src/views/linux/linux.md)
