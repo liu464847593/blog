@@ -2,6 +2,7 @@
   - [JS](/src/views/js/js.md)
   - [vue](/src/views/js/vue.md)
   - [设计模式](/src/views/js/JSDesignPattern.md)
+  - [架构](/src/views/architecture/index.md)
 * 后端
 * 运维
   - [linux常用命令](/src/views/linux/linux.md)
@@ -15,3 +16,4 @@
   
 * 其它
   - [markdown](/src/views/others/markdown.md)
+  - [理财](/src/views/financialManagement/index.md)
