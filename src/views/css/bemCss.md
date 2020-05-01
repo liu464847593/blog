@@ -1,9 +1,3 @@
----
-title: CSS BEM 书写规范
-date: 2018-11-27 10:03:27
-categories: css
-tags: BEM
----
 ## 什么是BEM
 B - 块（block）  
 E - 元素（element）  
