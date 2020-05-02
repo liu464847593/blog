@@ -13,7 +13,9 @@ Vue CLI 是一个基于 Vue.js 进行快速开发的完整系统致力于将 Vue
 地址：https://cli.vuejs.org/zh/
 
 ### 移动端适配
-移动端用postcss-pxtorem 和lib-flexible 适配
+移动端用postcss-pxtorem 和lib-flexible 适配  
+- `lib-flexible` 会自动设置`html`的`font-size`值，`lib-flexible`已放弃，可使用 `amfe-flexible`
+- `postcss-pxtorem`会把你写`px`单位转为`rem`
 
 ### ui框架
 移动端推荐：vant  
@@ -38,6 +40,8 @@ ui组件如果用到2次以上建议封装成组件，而不是一个个去重�
 - eslint规则
 - git分支管理的把控
 - git提交规范
+
+### 
 
 ### 输出文档
 文档是最重要的，不仅仅代表了自己对整个项目的理解程度也是方便新加入的开发熟悉项目尽快上手  
