@@ -776,3 +776,16 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - requestAnimationFrame
 - I/O
 - UI交互事件
+
+## vue生命周期
+- beforeCreate
+- created
+- beforeMount
+- mounted
+- beforeUpdate
+- updated
+- beforeDestroyed
+- destroyed
+- activated
+- deactivated
+- errorCaptured
