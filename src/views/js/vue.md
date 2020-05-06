@@ -778,14 +778,14 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - UI交互事件
 
 ## vue生命周期
-- beforeCreate
-- created
-- beforeMount
-- mounted
-- beforeUpdate
-- updated
-- beforeDestroyed
-- destroyed
-- activated
-- deactivated
-- errorCaptured
+- `beforeCreate`
+- `created`
+- `beforeMount`
+- `mounted`
+- `beforeUpdate`
+- `updated`
+- `beforeDestroyed`
+- `destroyed`
+- `activated`  被 keep-alive 缓存的组件激活时调用。
+- `deactivated`  被 keep-alive 缓存的组件停用时调用。
+- `errorCaptured` 当捕获一个来自子孙组件的错误时被调用
