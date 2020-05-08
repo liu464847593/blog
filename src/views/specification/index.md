@@ -1,16 +1,6 @@
----
-title: 前端规范
-date: 2019-11-05 11:40:00
-categories:
-    - 前端规范
-tags: 
-    - 前端规范
----
-
 ## 基本原则
-
-### 基本原则
-结构、样式、行为分离
+---
+结构、样式、行为分离  
 尽量确保文档和模板只包含 `HTML` 结构，样式都放到样式表里，行为都放到脚本里。
 
 ### 缩进
@@ -30,6 +20,7 @@ tags:
 <!-- Not recommended -->
 <A HREF="/">Home</A>
 ```
+
 ```css
 /* Recommended */
 color: #e5e5e5;
@@ -42,13 +33,14 @@ color: #E5E5E5;
 省略外链资源（图片及其它媒体资源）URL 中的 `http` / `https` 协议，使 URL 成为相对地址，避免Mixed Content 问题，减小文件字节数。
 
 其它协议（`ftp` 等）的 URL 不省略。
-```javascript
+```
 <!-- Recommended -->
 <script src="//www.w3cschool.cn/statics/js/autotrack.js"></script>
 
 <!-- Not recommended -->
 <script src="http://www.w3cschool.cn/statics/js/autotrack.js"></script>
 ```
+
 ```css
 /* Recommended */
 .example {
@@ -65,7 +57,9 @@ color: #E5E5E5;
 通过配置编辑器，可以提供快捷键来输出一致认可的注释模式。
 
 HTML 注释
+
 - 模块注释
+
 ```html
 <!-- 文章列表列表模块 -->
 <div class="article-list">
@@ -74,7 +68,8 @@ HTML 注释
 ```
 
 - 区块注释
-```javascript
+
+```
 <!--
 @name: Drop Down Menu
 @description: Style of top bar drop down menu.
@@ -126,13 +121,14 @@ function foo(p1, p2, p3) {
 HTML
 尽量遵循 HTML 标准和语义，但是不要以牺牲实用性为代价。任何时候都要尽量使用最少的标签并保持最小的复杂度。
 
-### 通用约定
-#### 通用约定
-#### 标签
+## 通用约定
+---
+### 标签
 - 自闭合（self-closing）标签，无需闭合 ( 例如： img input br hr 等 )；
-- 可选的闭合标签（closing tag），需闭合 ( 例如：</li> 或 </body> )；
+- 可选的闭合标签（closing tag），需闭合 ( 例如：`</li>` 或 `</body> `)；
 - 尽量减少标签数量；
-```html
+
+```
 <img src="https://atts.w3cschool.cn/attachments/image/cimg/google.png" alt="Google">
 <input type="text" name="title">
 
@@ -154,7 +150,8 @@ HTML
 - class 应以功能或内容命名，不以表现形式命名；
 - class 与 id 单词字母小写，多个单词组成时，采用中划线-分隔；
 - 使用唯一的 id 作为 Javascript hook, 同时避免创建无样式信息的 class；
-```html
+
+```
 <!-- Not recommended -->
 <div class="j-hook left contentWrapper"></div>
 
@@ -172,7 +169,8 @@ HTML 属性应该按照特定的顺序出现以保证易读性。
 - src, for, type, href
 - title, alt
 - aria-xxx, role
-```html
+
+```
 <a id="..." class="..." data-modal="toggle" href="###"></a>
 
 <input class="form-control" type="text">
@@ -182,7 +180,8 @@ HTML 属性应该按照特定的顺序出现以保证易读性。
 
 #### 引号
 属性的定义，统一使用双引号。
-```html
+
+```
 <!-- Not recommended -->
 <span id='j-hook' class=text>Google</span>
 
