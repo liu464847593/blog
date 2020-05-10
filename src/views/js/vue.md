@@ -789,3 +789,16 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - `activated`  被 keep-alive 缓存的组件激活时调用。
 - `deactivated`  被 keep-alive 缓存的组件停用时调用。
 - `errorCaptured` 当捕获一个来自子孙组件的错误时被调用
+
+## 最佳实践
+
+- 为列表渲染设置属性key
+- 在v-if/v-if-else/v-else 中使用key
+- 避免v-if和v-for一起使用（v-for比v-if优先级高）
+- 为组件样式设置作用域
+- 避免隐形的父子组件通信 优先通过prop和实践进行父子组件通信，而不是使用this.$parent或改变prop
+- 单文件组件文件名应该是单词首字母大写或者横线连接
+- 基础组件名用特定前缀，比如 Base，App或V
+- 单例组件应该以The前缀命名
+- 模版中的组件名应该是单词首字母大写
+
