@@ -42,11 +42,10 @@
 !>基本类型是按值来访问的  
 引用类型的值是保存在内存中的对象，JS不能直接操作对象的内存空间，实际上是在操作对象的引用,但是如果是为对象添加属性实际上是在操作对象
 
-基本类型存放在栈内存中 
-引用类型存放在堆内存中  
+基本类型存放在`栈内存`中，引用类型存放在`堆内存`中  
 
-栈是一种数据结构（先进后出） 类似push(),pop()  
-队列数据结构是 先进先出 unshift(),shift()
+栈是一种数据结构（`先进后出`） 类似`push()`,`pop()`
+队列数据结构是 （`先进先出`） 类似`unshift()`,`shift()`
 
 从一个变量向另一个变量复制基本类型的值，会在变量对象上创建一个新值，然后把该值复制到为新变量分配的位置上  
 从一个变量向另一个变量复制引用类型的值时，会将存储在变量对象中的`指针`复制一份放到新变量分配的空间中，指针指向存储在堆中的另一个对象  
@@ -98,7 +97,7 @@ person instanceof Object
  * `[[Writable]]`: 能否修改属性的值 默认true
  * `[[Value]]`: 包含这个属性的数据值 默认undefined
  
-  >要修改属性默认的特性，必须用Object.defineProperty(),接收三个参数：属性所在的对象，属性的名字和一个描述符对象，
+  >要修改属性默认的特性，必须用Object.defineProperty()，接收三个参数：属性所在的对象，属性的名字和一个描述符对象，
   Object.defineProperty()方法创建一个新属性时，如果不指定，`configurable`,`enumerable`,`writable` 默认`false`
 - 访问器属性
  * `[[Configurable]]`: 能否通过delete删除属性从而重新定义属性，能否修改属性的特性，能否把属性修改为访问器属性 默认true
@@ -106,7 +105,7 @@ person instanceof Object
  * `[[Get]]`: 在读取属性时调用的函数 默认undefined
  * `[[Set]]`: 在写入属性时调用的函数 默认undefined
  
-Object.getOwnPropertyDescriptor() 可以取得给定属性的描述符
+`Object.getOwnPropertyDescriptor()` 可以取得给定属性的描述符
 
 ## 创建对象 
 
