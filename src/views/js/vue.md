@@ -790,6 +790,34 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - `deactivated`  被 keep-alive 缓存的组件停用时调用。
 - `errorCaptured` 当捕获一个来自子孙组件的错误时被调用
 
+## 指令
+
+### 原理概述
+在模版解析阶段，我们在将指令解析到AST，然后使用AST生成代码字符串的过程中实现某些内置指令的功能，最后在虚拟DOM渲染的过程中触发自定义指令的
+钩子函数使指令生效
+
+```
+// v-if
+<li v-if="has">if</li>
+<li v-else>else</li>
+
+编译成
+
+(has)
+? _c('li',[_v('if')])
+: _c('li',[_v('else)])
+```
+```
+// v-for
+<li v-for="(item,index) in list">v-for{{index}}</li>
+_l((list),function(item,index){
+  return _c('li',[
+    _v('v-for'+ _s(index))
+  ])
+)
+// _l 是renderList函数，_v函数创建文本节点
+```
+
 ## 过滤器
 
 ### 过滤器原理
