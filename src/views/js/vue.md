@@ -548,7 +548,7 @@ export function del(target,key) {
 - 将虚拟节点vnode和旧虚拟节点oldVnode进行对比，然后更新视图
 
 ## 什么是VNode
-是一个Javascript中的一个普通对象，是从VNode类实例化的对象。简单来说，vnode可以理解为节点描述对象，它描述了应该怎样去创建真实的DOM节点
+是一个`Javascript`中的一个普通对象，是从`VNode`类实例化的对象。简单来说，`vnode`可以理解为节点描述对象，它描述了应该怎样去创建真实的DOM节点
 
 ### VNode的作用
 每次渲染视图都是先创建vnode，然后使用它创建真实DOM插入页面中，将上次渲染视图的vnode缓存起来，并与当前新创建的vnode进行对比，只更新发生变化的节点
