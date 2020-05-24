@@ -34,3 +34,13 @@ http.createServer(function (req,res) {
 - npm：解决NodeJs模块安装问题，其本身也是一个NodeJs模块，每次安装都会内置某个版本的npm
 - nrm：解决npm镜像访问慢的问题，提供测速，切换下载源功能
 
+## 异常处理
+- uncaughtException
+```js
+ process.on('uncaughtException',function(err){
+    console.log(err);
+  })
+```
+- 同步代码使用`try/catch`进行异常捕获，异步代码使用`Promise`
+- `PM2` 自动重启模块
+
