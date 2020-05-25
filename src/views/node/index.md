@@ -21,6 +21,12 @@ http.createServer(function (req,res) {
   res.end('hello nodeJs\n')
 }).listen(3000,'127.0.0.1')
 ```
+- require：用来引入模块
+- export：用来导出模块
+- module.exports：对外导出的对象只能有1个
+- exports：对外导出的值可以有多个
+
+!> 导出的核心是module.exports，exports只是module.exports的引用而已
 
 ## 安装Node.JS
 下载地址：https://nodejs.org/zh-cn/
