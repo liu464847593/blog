@@ -20,5 +20,4 @@
   
 * 其它
   - [markdown](/src/views/others/markdown.md)
-  - [理财](/src/views/financialManagement/index.md)
   - [WebStorm](/src/views/webstorm/index.md)
