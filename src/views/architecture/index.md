@@ -1,6 +1,6 @@
 ## 为什么要封装框架
 搭框架就像建房子，地基必须稳，项目也是如此。封装一个好的框架也是为了更快速开发项目，不重复造轮子，便于维护，统一管理项目
-核心就是少点代码
+`code once think twice`
 
 ## 怎么搭一个好的项目架构
 这里用vue项目做demo
@@ -42,7 +42,7 @@ ui组件如果用到2次以上建议封装成组件，而不是一个个去重�
 类似菜单权限，按钮权限单独文件夹处理
 
 ### 代码管理
-- [css命名BEM](../../src/views/css/bemCss.md)
+- [css命名BEM](https://github.com/Tencent/tmt-workflow/wiki/%E2%92%9B-%5B%E8%A7%84%E8%8C%83%5D--CSS-BEM-%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83)
 - eslint规则
 - style 样式规范
 - git分支管理的把控
