@@ -31,3 +31,4 @@ mysql -h hostname -u username -p
 - 修改字段排列位置： `ALTER TABLE 表名 MODIFY 字段1 数据类型 FIRST|AFTER 字段2`
 - 更改表的存储引擎： `ALTER TABLE 表名 ENGINE= 更改后的存储引擎名`
 - 删除表的外键约束： `ALTER TABLE 表名 DROP FOREIGN KEY 外键约束名`
+- 删除没有关联的表： `DROP TABLE IF EXISTS 表1，表2，...表n`
