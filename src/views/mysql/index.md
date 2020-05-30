@@ -13,6 +13,16 @@ SQL：对数据库进行查询和修改操作的语言
 mysql -h hostname -u username -p
 ```
 
+## 数据类型
+数值类型：
+- 整数类型：TINYINT,SMALLINT,MEDIUMINT,INT,BIGINT  
+- 浮点类型：FLOAT,DOUBLE  
+- 定点小数类型：DECIMAL
+
+日期/时间类型：YEAR,TIME,DATE,DATETIME,TIMESTAMP
+字符串类型：CHAR,VARCHAR,BINARY,VARBINARY,BLOB,TEXT,ENUM和SET
+
+
 ## 常用命令
 
 - 查看数据库： `SHOW DATABASES`
