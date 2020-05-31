@@ -22,6 +22,18 @@ mysql -h hostname -u username -p
 日期/时间类型：YEAR,TIME,DATE,DATETIME,TIMESTAMP
 字符串类型：CHAR,VARCHAR,BINARY,VARBINARY,BLOB,TEXT,ENUM和SET
 
+## 函数
+- 数学函数：
+绝对值ABS(X)，圆周率PI(),平方根SQRT(X),求余函数MOD(x,y),获取整数CEIL(x)，CEILING(x),FLOOR(x),获取随机数RAND(),RAND(x)
+ROUND(x),ROUND(x,y),TRUNCATE(x,y),符号函数SIGN(x),幂函数POW(x,y),POWER(x,y),EXP(x),LOG(x),LOG10(x)
+RADIANS(x),DEGREES(x),SIN(x),ASIN(x),COS(x),ACOS(x),TAN(x)
+- 字符串函数：CAHR_LENGTH(str),CONCAT(s1,s2..),INSERT(s1,x,len,s2),LOWER(str)等
+- 日期和时间函数：CURRENT_DATE(),UNIX_TIMESTAMP(date)等
+- 条件判断函数：IF(expr,v1,v2),IFNULL(v1,v2),CASE
+- 系统信息函数：VERSION(),CONNECTION_ID(),USER()
+- 加/解密函数：PASSWORD(),MD5(),ENCODE(str,pswd_str),DECODE()
+
+
 
 ## 常用命令
 
