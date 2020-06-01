@@ -54,3 +54,10 @@ RADIANS(x),DEGREES(x),SIN(x),ASIN(x),COS(x),ACOS(x),TAN(x)
 - 更改表的存储引擎： `ALTER TABLE 表名 ENGINE= 更改后的存储引擎名`
 - 删除表的外键约束： `ALTER TABLE 表名 DROP FOREIGN KEY 外键约束名`
 - 删除没有关联的表： `DROP TABLE IF EXISTS 表1，表2，...表n`
+- 查询所有字段： `SELECT * FROM tb_name`
+- 指定查询记录： `SELECT 字段1，字段2,...字段n FROM tb_name WHERE 查询条件`
+
+查询语句 IN 速度要快于OR, DISTINCT 消除重复记录
+HAVING 和 WHERE 区别：
+HAVING在数据分组后进行过滤分组，WHERE在分组前用来选择，且排除的记录不包括在分组中
+ROLLUP,ORDER BY 不能同时使用
