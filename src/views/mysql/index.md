@@ -56,6 +56,18 @@ RADIANS(x),DEGREES(x),SIN(x),ASIN(x),COS(x),ACOS(x),TAN(x)
 - 删除没有关联的表： `DROP TABLE IF EXISTS 表1，表2，...表n`
 - 查询所有字段： `SELECT * FROM tb_name`
 - 指定查询记录： `SELECT 字段1，字段2,...字段n FROM tb_name WHERE 查询条件`
+- 内连接： `SELECT xxx FROM tb_name INNER JOIN tb_name1 ON xxx`
+- 左连接： `SELECT xxx FROM tb_name LEFT OUTER JOIN tb_name1 ON xxx`
+- 右连接： `SELECT xxx FROM tb_name RIGJT OUTER JOIN tb_name1 ON xxx`
+
+## 聚合函数查询
+- AVG() 返回某列平均值
+- COUNT() 返回某列行数
+- MAX() 返回某列最大值
+- MIN() 返回某列最小值
+- SUM() 返回某列的和
+
+
 
 查询语句 IN 速度要快于OR, DISTINCT 消除重复记录
 HAVING 和 WHERE 区别：
