@@ -59,6 +59,7 @@ RADIANS(x),DEGREES(x),SIN(x),ASIN(x),COS(x),ACOS(x),TAN(x)
 - 内连接： `SELECT xxx FROM tb_name INNER JOIN tb_name1 ON xxx`
 - 左连接： `SELECT xxx FROM tb_name LEFT OUTER JOIN tb_name1 ON xxx`
 - 右连接： `SELECT xxx FROM tb_name RIGJT OUTER JOIN tb_name1 ON xxx`
+- 合并查询 `SELECT column,... FROM table1 UNION [ALL] SELECT column,... FROM table2`
 
 ## 聚合函数查询
 - AVG() 返回某列平均值
@@ -67,6 +68,9 @@ RADIANS(x),DEGREES(x),SIN(x),ASIN(x),COS(x),ACOS(x),TAN(x)
 - MIN() 返回某列最小值
 - SUM() 返回某列的和
 
+## 取名
+表名[AS]表别名  
+列名[AS]列别名
 
 
 查询语句 IN 速度要快于OR, DISTINCT 消除重复记录
