@@ -101,3 +101,23 @@ ROLLUP,ORDER BY 不能同时使用
 - 全文索引
 - 空间索引
 
+## 存储过程和函数
+
+### 创建存储过程和函数
+```
+//创建存储过程
+CREATE PROCEDURE sp_name([proc_parameter])
+[characteristics ...] routine_body
+
+// 创建存储函数
+CREATE FUNCTION func_name([func_parameter])
+RESTURNS type
+[characteristic ...] routine_body
+
+// 定义变量
+DECLARE var_name,[,varname]... date_type [DEFAULT value]
+
+// 变量赋值
+SET var_name = expr [, var_name = expr] ...;
+```
+
