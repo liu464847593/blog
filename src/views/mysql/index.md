@@ -121,3 +121,27 @@ DECLARE var_name,[,varname]... date_type [DEFAULT value]
 SET var_name = expr [, var_name = expr] ...;
 ```
 
+## 视图
+视图是个虚拟表，是从数据库中一个或多个表导出来的表。视图还可以从已经存在的视图的基础上定义
+
+```
+// 创建/修改视图
+CREATE [OR REPLACE] [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
+VIEW view_name [(column_list)]
+AS SELECT_statement
+[WITH [CASCADED | LOCAL] CHECK OPTION]
+
+// 查看视图
+DESC 视图名
+
+// 修改视图
+ALTER [ALGORITHM = {UNDEFINED | MERGE | TEMPTABLE}]
+VEIW view_name [(column_list)]
+AS SELECT_statement
+[WITH [CASCADED | LOCAL] CHECK OPTION]
+
+// 删除视图
+DROP VIEW [IF EXISTS]
+view_name [,view_name] ...
+[RESTRICT | CASCADE]
+```
