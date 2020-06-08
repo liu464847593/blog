@@ -145,3 +145,19 @@ DROP VIEW [IF EXISTS]
 view_name [,view_name] ...
 [RESTRICT | CASCADE]
 ```
+## 触发器
+```
+// 创建只有一个执行语句的触发器
+CREATE TRIGGER trigger_name trigger_time trigger_event
+ON tb1_name FOR EACH ROW trigger_stmt
+
+// 创建有多个执行语句的触发器
+CREATE TRIGGER trigger_name trigger_time trigger_event
+ON tb1_name FOR EACH ROW 
+BEGIN
+语句列表
+END
+
+// 删除触发器
+DROP TRIGGER [schema_name.]trigger_name
+```
