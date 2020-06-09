@@ -7,7 +7,6 @@
   - [常见问题](/src/views/question/index.md)
 * 后端
   - [Node.Js](/src/views/node/index.md)
-  - [MySQL](/src/views/mysql/index.md)
 * 运维
   - [linux常用命令](/src/views/linux/linux.md)
 * 网络
