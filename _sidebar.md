@@ -15,7 +15,6 @@
   - [jenkins](/src/views/tools/jenkins.md)
   - [谷歌插件](/src/views/tools/google.md)
   - [rap](/src/views/tools/rap2.md)
-  - [yarn](/src/views/tools/yarn.md)
   - [apidoc](/src/views/tools/apidoc.md)
   
 * 其它
