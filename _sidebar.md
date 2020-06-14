@@ -13,7 +13,6 @@
 * 工具
   - [docsify](/src/views/tools/blog.md)
   - [jenkins](/src/views/tools/jenkins.md)
-  - [谷歌插件](/src/views/tools/google.md)
   - [rap](/src/views/tools/rap2.md)
   - [apidoc](/src/views/tools/apidoc.md)
   
