@@ -30,7 +30,7 @@
 - `history`
 - `document`
 
-## JS基本类型
+## JS数据类型
 - `Undefined`
 - `Null`
 - `Boolean`
