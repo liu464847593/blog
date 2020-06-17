@@ -70,6 +70,15 @@ person instanceof Object
 
 !> null表示一个空对象指针，typeof null 为object
 
+## 数组的迭代，归并
+- `every()`
+- `filter()`
+- `forEach()`
+- `map()`
+- `some()`
+- `reduce()`
+- `reduceRight()`
+
 ## arguments
 是一个类数组对象（并不是一个Array的实例），因为可以用方括号访问它的每一个元素  
 `callee`指向拥有arguments对象的函数
