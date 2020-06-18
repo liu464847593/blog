@@ -158,7 +158,7 @@ person instanceof Object
  // person2.instanceof Person //true
  // person1.sayName == person2.sayName //false
 ```
-
+和工厂模式的不同点：  
 - 没有显式地创建对象
 - 直接将属性和方法赋值给了this对象
 - 没有return语句
@@ -236,6 +236,19 @@ Person.prototype.constructor 指向Person
 调用构造函数时会为实例添加一个指向最初原型的指针，而把原型修改为另一个对象就等于切断了构造函数与最初原型之间的联系  
 
 !>实例中的指针仅指向原型，而不指向构造函数
+```js
+var friend = new Person();
+Person.prototype = {
+  constructor:Person,
+  name: 'Nicholas',
+  age: 29,
+  job: 'Software Engineer',
+  sayName: function () {
+    alert(this.name)
+  }
+}
+friend.sayName(); // error
+```
 
 ### 组合使用构造函数模式和原型模式
 最广泛，认同度最高的一种创建自定义类型的方法
