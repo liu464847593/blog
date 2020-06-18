@@ -81,6 +81,7 @@ person instanceof Object
 
 ## arguments
 是一个类数组对象（并不是一个Array的实例），因为可以用方括号访问它的每一个元素  
+主要用途是保存函数的参数  
 `callee`指向拥有arguments对象的函数
 
 ## this
