@@ -306,6 +306,7 @@ function Person(name, age, job) {
   var friend = new Person('Nicholas',29,'Soft Engineer');
   friend.sayName()
 ```
+除了使用new包装函数外，这个模式跟工厂模式一模一样  
 缺点：构造函数返回的对象与构造函数外部创建的对象没有什么不同，因此不能依赖instanceof 确定对象类型
 
 ### 稳妥构造函数模式
@@ -324,7 +325,7 @@ function Person(name, age, job) {
 类似寄生构造函数模式
 特点：
 - 新创建对象的实例方法不引用this
-- 不实用new操作符调用构造函数
+- 不使用new操作符调用构造函数
 
 ## 继承
 
