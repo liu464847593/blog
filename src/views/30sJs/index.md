@@ -38,6 +38,18 @@ const filePaths = files
 // filePaths = [ '~/cool_app/foo.txt', '~/cool_app/.bar', '~/cool_app/baz.foo']
 ```
 
+## accumulate
+
+Use `Array.prototype.reduce()`, `Array.prototype.slice(-1)` and the unary `+` operator to add each value to the unary array containing the previous sum.
+
+```js
+// +acc.slice(-1) 会把字符串转为数字
+const accumulate = (...nums) => nums.reduce((acc, n) => [...acc, n + +acc.slice(-1)],[]);
+
+accumulate(1, 2, 3, 4); // [1, 3, 6, 10]
+accumulate(...[1, 2, 3, 4]); // [1, 3, 6, 10]
+```
+
 
 
 ## 参考
