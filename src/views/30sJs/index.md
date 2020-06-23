@@ -61,5 +61,16 @@ console.log(aperture(3, [1, 2, 3, 4])); // [[1, 2, 3], [2, 3, 4]]
 console.log(aperture(5, [1, 2, 3, 4])); // []
 ```
 
+## debounce
+```js
+const debounce = (fn, ms = 0) => {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => fn.apply(this, args), ms);
+  };
+};
+```
+
 ## 参考
 30 seconds of code:https://www.30secondsofcode.org/js/p/1
