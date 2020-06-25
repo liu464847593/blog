@@ -88,5 +88,14 @@ const deepClone = obj => {
 };
 ```
 
+## getURLParameters
+```js
+const getURLParameters = url =>
+  (url.match(/([^?=&]+)(=([^&]*))/g) || []).reduce(
+    (a, v) => ((a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1)), a),
+    {}
+  );
+```
+
 ## 参考
 30 seconds of code:https://www.30secondsofcode.org/js/p/1
