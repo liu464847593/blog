@@ -97,5 +97,11 @@ const getURLParameters = url =>
   );
 ```
 
+## isEmpty
+如果a值是一个空对象，集合，没有可枚举的属性或任何不视为集合的类型，则返回true。
+```js
+const isEmpty = val => val == null || !(Object.keys(val) || val).length;
+```
+
 ## 参考
 30 seconds of code:https://www.30secondsofcode.org/js/p/1
