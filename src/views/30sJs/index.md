@@ -103,5 +103,17 @@ const getURLParameters = url =>
 const isEmpty = val => val == null || !(Object.keys(val) || val).length;
 ```
 
+## scrollToTop
+```js
+const scrollToTop = () => {
+  const c = document.documentElement.scrollTop || document.body.scrollTop;
+  if (c > 0) {
+    window.requestAnimationFrame(scrollToTop);
+    window.scrollTo(0, c - c / 8);
+  }
+};
+//scrollToTop();
+```
+
 ## 参考
 30 seconds of code:https://www.30secondsofcode.org/js/p/1
