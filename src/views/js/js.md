@@ -511,3 +511,11 @@ console.log(b.jobs.first) // FE
 - 不能解决循环引用的对象
 
 推荐使用lodash 的深拷贝函数
+
+
+## 原型
+Js每个对象都有个`__proto__`属性,这个属性指向了原型，原型也是一个对象
+原型的`constructor`指向它的构造函数,`constructor`的属性`prototype` 又指向原型,但是并不是所有函数都具有这个属性，Function.prototype.bind() 就没有这个属性。
+
+![](../../../src/asstes/img/js/prototype.png)
+
