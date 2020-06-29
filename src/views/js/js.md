@@ -473,3 +473,41 @@ SuperType.prototype.sayAge = function () {
 ### DOM事件流
 事件捕获阶段 -> 处于目标阶段 -> 事件冒泡阶段
 
+## 拷贝
+
+### 浅拷贝
+```js
+let a = {
+  age: 1
+}
+let b = Object.assign({}, a)
+a.age = 2
+console.log(b.age) // 1
+```
+```js
+let a = {
+  age: 1
+}
+let b = { ...a }
+a.age = 2
+console.log(b.age) // 1
+```
+### 深拷贝
+```js
+let a = {
+  age: 1,
+  jobs: {
+    first: 'FE'
+  }
+}
+let b = JSON.parse(JSON.stringify(a))
+a.jobs.first = 'native'
+console.log(b.jobs.first) // FE
+```
+缺点：
+- 会忽略 undefined
+- 会忽略 symbol
+- 不能序列化函数
+- 不能解决循环引用的对象
+
+推荐使用lodash 的深拷贝函数
