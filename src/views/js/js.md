@@ -533,4 +533,21 @@ JavaScript 引擎说起来最流行的当然是谷歌的 V8 引擎了
 - 内存堆：这是内存分配发生的地方
 - 调用栈：这是你的代码执行时的地方
 
+## Event Loop
+
+执行栈放入函数时，看是同步代码还是异步代码，异步代码会被挂起并在需要执行的时候加入Task队列中，一旦执行栈为空，`event Loop`就会从`task`队列拿出需要
+执行的代码并放入执行栈中执行，task队列又分为微任务`（microtask）` 和 宏任务`（macrotask)`在 ES6 规范中，`microtask` 称为 `jobs`，`macrotask` 称为 `task`。
+
+所以 Event Loop 执行顺序如下所示：
+
+- 首先执行同步代码，这属于宏任务
+- 当执行完所有同步代码后，执行栈为空，查询是否有异步代码需要执行
+- 执行所有微任务
+- 当执行完所有微任务后，如有必要会渲染页面
+- 然后开始下一轮 Event Loop，执行宏任务中的异步代码，也就是 setTimeout 中的回调函数
+
+微任务包括： `process.nextTick` ，`promise` ，`MutationObserver`，其中 `process.nextTick` 为Node独有  
+宏任务包括： `script` ， `setTimeout` ，`setInterval` ，`setImmediate` ，`I/O` ，`UI rendering`。
+
+
 
