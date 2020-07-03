@@ -19,4 +19,7 @@
 2. 小程序不支持上传附件， `chooseMessageFile` 可以从客户端会话选择文件
 
 如何实现微信@人，删除人一并连@删除？
-小程序时间拖拽效果，类似支付宝
+https://github.com/ichord/At.js/
+
+小程序实现拖拽效果，类似支付宝
+https://www.cnblogs.com/haha1212/p/11562944.html
