@@ -549,5 +549,7 @@ JavaScript 引擎说起来最流行的当然是谷歌的 V8 引擎了
 微任务包括： `process.nextTick` ，`promise` ，`MutationObserver`，其中 `process.nextTick` 为Node独有  
 宏任务包括： `script` ， `setTimeout` ，`setInterval` ，`setImmediate` ，`I/O` ，`UI rendering`。
 
+## 跨域
+如果协议、域名或者端口有一个不同就是跨域
 
 
