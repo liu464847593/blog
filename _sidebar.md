@@ -1,6 +1,7 @@
 * 前端
   - [JS](/src/views/js/js.md)
   - [vue](/src/views/js/vue.md)
+  - [安全](/src/views/security/index.md)
   - [设计模式](/src/views/js/JSDesignPattern.md)
   - [架构](/src/views/architecture/index.md)
   - [代码规范](/src/views/specification/index.md)
