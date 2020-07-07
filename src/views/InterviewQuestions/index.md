@@ -29,3 +29,11 @@ const ul = {
 ```
 如果无脑替换所有的 DOM 这种场景来说，Virtual DOM 的局部更新肯定要来的快。但是如果你可以人肉也同样去局部替换 DOM，那么 Virtual DOM 必然
 没有你直接操作 DOM 来的快，毕竟还有一层 diff 算法的损耗。
+
+## 路由原理
+本质就是监听 URL 的变化，然后匹配路由规则，显示相应的页面，并且无须刷新页面。目前前端使用的路由就只有两种实现方式
+
+- Hash 模式
+当 # 后面的哈希值发生变化时，可以通过 hashchange 事件来监听到 URL 的变化
+- History 模式
+history.pushState 和 history.replaceState 改变 URL。
