@@ -48,3 +48,12 @@ history.pushState 和 history.replaceState 改变 URL。
 - updated
 - beforeDestroy
 - destroyed
+
+## 组件通信
+父组件到子组件 props，子组件到父组件emit   
+$parent，$children对象来访问组件实例中的方法和数据   
+$listeners 属性会将父组件中的 (不含 .native 修饰器的) v-on 事件监听器传递给子组件，子组件可以通过访问 $listeners 来自定义监听器。  
+.sync 属性是个语法糖，可以很简单的实现子组件与父组件通信  
+this.$parent.$children 进行兄弟组件通信   
+provide / inject    跨多层次组件通信
+Vuex 或者 Event Bus  进行任意组件通信
