@@ -57,3 +57,7 @@ $listeners 属性会将父组件中的 (不含 .native 修饰器的) v-on 事件
 this.$parent.$children 进行兄弟组件通信   
 provide / inject    跨多层次组件通信
 Vuex 或者 Event Bus  进行任意组件通信
+
+## computed和watch区别
+computed 是计算属性，依赖其他属性计算值，并且 computed 的值有缓存，只有当计算值变化才会返回内容。    
+watch 监听到值的变化就会执行回调，在回调中可以进行一些逻辑操作
