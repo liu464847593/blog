@@ -58,6 +58,13 @@ this.$parent.$children 进行兄弟组件通信
 provide / inject    跨多层次组件通信
 Vuex 或者 Event Bus  进行任意组件通信
 
+$attrs：包含了父作用域中不作为 prop 被识别 (且获取) 的 attribute 绑定 (class 和 style 除外)。当一个组件没有声明任何 prop 时，这里会
+包含所有父作用域的绑定 (class 和 style 除外)，并且可以通过 v-bind="$attrs" 传入内部组件——在创建高级别的组件时非常有用。
+
+$listeners：包含了父作用域中的 (不含 .native 修饰器的) v-on 事件监听器。它可以通过 v-on="$listeners" 传入内部组件——在创建更高层次的
+组件时非常有用。
+
 ## computed和watch区别
 computed 是计算属性，依赖其他属性计算值，并且 computed 的值有缓存，只有当计算值变化才会返回内容。    
 watch 监听到值的变化就会执行回调，在回调中可以进行一些逻辑操作
+
