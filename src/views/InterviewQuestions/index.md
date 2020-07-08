@@ -37,3 +37,14 @@ const ul = {
 当 # 后面的哈希值发生变化时，可以通过 hashchange 事件来监听到 URL 的变化
 - History 模式
 history.pushState 和 history.replaceState 改变 URL。
+
+## vue 生命周期
+- beforeCreate
+  是获取不到 props 或者 data 中的数据的
+- created
+- beforeMount
+- mounted
+- beforeUpdate
+- updated
+- beforeDestroy
+- destroyed
