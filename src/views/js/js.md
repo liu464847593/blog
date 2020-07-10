@@ -163,9 +163,9 @@ this 指向问题：
 ```
 和工厂模式的不同点：  
 - 没有显式地创建对象
-- 直接将属性和方法赋值给了this对象
-- 没有return语句
-- Person P 是大写
+- 直接将属性和方法赋值给了`this`对象
+- 没有`return`语句
+- `Person P` 是大写
 
 >调用构造函数的步骤 new Object
 1. 创建一个新对象
@@ -223,9 +223,9 @@ this 指向问题：
   // Person.prototype.isPrototypeOf(person2) // true
   // Object.getPrototypeOf(person1) == Person.prototype // true
 ```
-isPrototypeOf() 方法用于测试一个对象是否存在于另一个对象的原型链上。  
-Object.getPrototypeOf() 方法返回指定对象的原型  
-hasOwnProperty()检测一个属性是存在于实例中还是存在原型中
+`isPrototypeOf()` 方法用于测试一个对象是否存在于另一个对象的原型链上。  
+`Object.getPrototypeOf()` 方法返回指定对象的原型  
+`hasOwnProperty()`检测一个属性是存在于实例中还是存在原型中
 
 
 优点：
@@ -233,8 +233,8 @@ hasOwnProperty()检测一个属性是存在于实例中还是存在原型中
 
 缺点：改变属性会造成相互影响
 
-Person.prototype 指向原型对象  
-Person.prototype.constructor 指向Person
+`Person.prototype` 指向原型对象  
+`Person.prototype.constructor` 指向Person
 
 调用构造函数时会为实例添加一个指向最初原型的指针，而把原型修改为另一个对象就等于切断了构造函数与最初原型之间的联系  
 
@@ -464,7 +464,7 @@ SuperType.prototype.sayAge = function () {
 !>闭包只取得包含函数中任何变量的最后一个值，闭包保存的是整个变量对象，而不是某个特点的变量
 
 
-匿名函数的执行环境有全局性，this通常执行window
+匿名函数的执行环境有全局性，`this`通常执行`window`
 
 ## 事件流
 - IE：事件冒泡流（事件开始时由最具体的元素接收，逐级向上传播到不具体的节点）  
@@ -505,8 +505,8 @@ a.jobs.first = 'native'
 console.log(b.jobs.first) // FE
 ```
 缺点：
-- 会忽略 undefined
-- 会忽略 symbol
+- 会忽略 `undefined`
+- 会忽略 `symbol`
 - 不能序列化函数
 - 不能解决循环引用的对象
 
@@ -515,12 +515,12 @@ console.log(b.jobs.first) // FE
 
 ## 原型
 Js每个对象都有个`__proto__`属性,这个属性指向了原型，原型也是一个对象
-原型的`constructor`指向它的构造函数,`constructor`的属性`prototype` 又指向原型,但是并不是所有函数都具有这个属性，Function.prototype.bind() 就没有这个属性。
+原型的`constructor`指向它的构造函数,`constructor`的属性`prototype` 又指向原型,但是并不是所有函数都具有这个属性，`Function.prototype.bind()` 就没有这个属性。
 
 ![](../../../src/asstes/img/js/prototype.png)
 
 ## 进程和线程
-进程描述了 CPU 在运行指令及加载和保存上下文所需的时间，放在应用上来说就代表了一个程序。  
+进程描述了 `CPU` 在运行指令及加载和保存上下文所需的时间，放在应用上来说就代表了一个程序。  
 线程是进程中的更小单位，描述了执行一段指令所需的时间。
 
 ## 执行栈
@@ -528,7 +528,7 @@ Js每个对象都有个`__proto__`属性,这个属性指向了原型，原型也
 当我们使用递归的时候，因为栈可存放的函数是有限制的，一旦存放了过多的函数且没有得到释放的话，就会出现爆栈的问题
 
 ## JS引擎
-JavaScript 引擎说起来最流行的当然是谷歌的 V8 引擎了  
+`JavaScript` 引擎说起来最流行的当然是谷歌的 `V8` 引擎了  
 组成部分： 
 - 内存堆：这是内存分配发生的地方
 - 调用栈：这是你的代码执行时的地方
@@ -550,7 +550,7 @@ JavaScript 引擎说起来最流行的当然是谷歌的 V8 引擎了
 宏任务包括： `script` ， `setTimeout` ，`setInterval` ，`setImmediate` ，`I/O` ，`UI rendering`。
 
 ## 跨域
-如果协议、域名或者端口有一个不同就是跨域
+如果`协议`、`域名`或者`端口`有一个不同就是跨域
 
 JSONP 的原理很简单，就是利用 `<script>` 标签没有跨域限制的漏洞。通过` <script>` 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。
 只限于 get 请求。
@@ -565,17 +565,17 @@ JSONP 的原理很简单，就是利用 `<script>` 标签没有跨域限制的�
 |与服务端通信|每次都会携带在 header 中，对于请求性能影响	|不参与|不参与|不参与|
 
 ## 浏览器缓存
-- Service Worker
-- Memory Cache
-- Disk Cache
-- Push Cache
-- 网络请求
+- `Service Worker`
+- `Memory Cache`
+- `Disk Cache`
+- `Push Cache`
+- `网络请求`
 
 ## 浏览器渲染原理
-- 浏览器接收到 HTML 文件并转换为 DOM 树（字节数据->字符串->Token->Node->DOM）
-- 将 CSS 文件转换为 CSSOM 树 （字节数据->字符串->Token->Node->CSSOM）
-- 生成渲染树(当我们生成 DOM 树和 CSSOM 树以后，就需要将这两棵树组合为渲染树)
+- 浏览器接收到 `HTML` 文件并转换为 `DOM` 树（`字节数据`->`字符串`->`Token`->`Node`->`DOM`）
+- 将 `CSS` 文件转换为 `CSSOM` 树 （`字节数据`->`字符串`->`Token`->`Node`->`CSSOM`）
+- 生成渲染树(当我们生成 `DOM` 树和 `CSSOM` 树以后，就需要将这两棵树组合为渲染树)
 
-重绘是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘  
-回流是布局或者几何属性需要改变就称为回流  
+`重绘` 是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘  
+`回流` 是布局或者几何属性需要改变就称为回流  
 回流必定会发生重绘，重绘不一定会引发回流。  
