@@ -92,15 +92,17 @@ var renderMap = function (map) {
 ```
 
 原型编程范型基本原则：
-- 所有的数据都是对象
-- 要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它
-- 对象会记住它的原型
-- 如果对象无法响应某个请求，它会把这个请求委托给它自己的原型
 
-基本类型：undefined,null,number,boolean,string
-引用类型：function,object
+- `所有的数据都是对象`
+- `要得到一个对象，不是通过实例化类，而是找到一个对象作为原型并克隆它`
+- `对象会记住它的原型`
+- `如果对象无法响应某个请求，它会把这个请求委托给它自己的原型`
 
-Object.create(null) 可以创建没有原型的对象
+基本类型：`undefined`,`null`,`number`,`boolean`,`string`
+
+引用类型：`function`,`object`
+
+`Object.create(null)` 可以创建没有原型的对象
 
 ## 第2章 this,call,和apply
 
