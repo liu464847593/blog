@@ -106,25 +106,38 @@ var renderMap = function (map) {
 
 ## 第2章 this,call,和apply
 
-this的指向
-1.当函数作为对象的方法被调用时，this指向该对象
-2.当函数不作为对象的属性被调用时，this总是指向全局对象（浏览器里指的是window，在es5的strict模式下，this指向undefined）
-3.当用new运算符调用函数时，该函数总会返回一个对象，通常情况下，构造器里的this指向返回的这个对象
-(如果构造器显式地返回了一个object类型地对象，那么此次运算结果返回这个对象，如果构造器不显式地返回了任何数据，或者是返回的一个非对象类型地数据，就不会造成上述问题)
-4.Function.prototype.call 或者 Function.prototype.apply 动态地改变传入函数的this
+`this`的指向
 
-call和apply的区别
-- apply接受2个参数，第一个参数指定了函数体内this对象的指向，第二个参数为一个带下标的集合，这个集合可以为数组，也可以为类数组，当作参数传递给被调用的函数
-- call传入的参数不固定，第一个参数代表this的指向，从第二个参数开始往后，每个参数被依次传入函数
-- 当使用call或者apply时，如果第一个参数为null，this指向默认宿主对象，在浏览器是window，如果是严格模式this还是null
+1.当函数作为对象的方法被调用时，`this`指向该对象
 
-[].shift.call(arguments) (因为arguments是个类数组对象不能和数组一样进行操作，借用array.prototype对象上的方法对arguments进行push,shift操作)
-Array.prototype.slice 可以把arguments转成真正数组
-Array.prototype.shift 截取arguments头一个元素
+2.当函数不作为对象的属性被调用时，`this`总是指向全局对象（浏览器里指的是`window`，在`es5`的`strict`模式下，`this`指向`undefined`）
 
-借用Array.prototype.push的对象还要有两个条件
+3.当用`new`运算符调用函数时，该函数总会返回一个对象，通常情况下，构造器里的`this`指向返回的这个对象    
+  - 如果构造器显式地返回了一个`object`类型地对象，那么此次运算结果返回这个对象
+  - 如果构造器不显式地返回了任何数据，或者是返回的一个非对象类型地数据，就不会造成上述问题
+
+4.`Function.prototype.call` 或者 `Function.prototype.apply` 动态地改变传入函数的`this`
+
+
+`call`和`apply`的区别
+
+- `apply`接受2个参数，第一个参数指定了函数体内`this`对象的指向，第二个参数为一个带下标的集合，这个集合可以为数组，也可以为类数组，当作参数传递给被调用的函数
+
+- `call`传入的参数不固定，第一个参数代表`this`的指向，从第二个参数开始往后，每个参数被依次传入函数
+
+- 当使用`call`或者`apply`时，如果第一个参数为`null`，`this`指向默认宿主对象，在浏览器是`window`，如果是严格模式`this`还是`null`
+
+`[].shift.call(arguments) `(因为`arguments`是个类数组对象不能和数组一样进行操作，借用`array.prototype`对象上的方法对`arguments`进行`push`,`shift`操作)
+
+`Array.prototype.slice` 可以把`arguments`转成真正数组
+
+`Array.prototype.shift` 截取`arguments`头一个元素
+
+借用`Array.prototype.push`的对象还要有两个条件
+
 - 对象本身要可以存取属性
-- 对象的length属性可以读写
+
+- 对象的`length`属性可以读写
 
 ## 第3章 闭包和高阶函数
 
