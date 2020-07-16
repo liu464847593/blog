@@ -381,35 +381,35 @@ var a = Singleton.getInstance('seven1');
 var b = Singleton.getInstance('seven2');
 alert(a === b); // true
 ```
-缺点：不透明性。Singleton类的使用者必须知道这是一个单例类，跟以往通过 new XXX的方式来获取对象不同，这里偏要使用Singleton.getInstance
+缺点：不透明性。`Singleton`类的使用者必须知道这是一个单例类，跟以往通过 `new XXX`的方式来获取对象不同，这里偏要使用`Singleton.getInstance`
 来获取对象。
 ```js
 // 透明的单例模式
-var CreateDiv = (function () {
-        var instance;
-        var CreateDiv = function (html) {
-            if(instance){
-                return instance
-            }
-            this.html = html;
-            this.init();
-            return instance = this;
-        };
+  var CreateDiv = (function () {
+    var instance;
+    var CreateDiv = function (html) {
+      if(instance){
+        return instance
+      }
+      this.html = html;
+      this.init();
+      return instance = this;
+    };
 
-        CreateDiv.prototype.init = function () {
-            var div = document.createElement('div');
-            div.innerHTML = this.html;
-            document.body.appendChild(div);
-        };
-        return CreateDiv;
-    })();
+    CreateDiv.prototype.init = function () {
+      var div = document.createElement('div');
+      div.innerHTML = this.html;
+      document.body.appendChild(div);
+    };
+    return CreateDiv;
+  })();
 
 var a = new CreateDiv('seven1');
 var b = new CreateDiv('seven2');
 
 alert(a === b); // true
 ```
-缺点：使用了自执行的匿名函数和闭包，并且让这个匿名函数返回真正的Singleton 构造方法，增加了程序复杂度
+缺点：使用了自执行的匿名函数和闭包，并且让这个匿名函数返回真正的`Singleton` 构造方法，增加了程序复杂度
 ```js
 // 用代理实现单例模式
 var CreateDiv = function (html) {
