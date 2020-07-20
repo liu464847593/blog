@@ -1067,18 +1067,26 @@ $.each = function (obj, callback) {
     var uploadObj = iteratorUploadObj(getActiveUploadObj,getFlashUploadObj,getFormUpladObj);
 ```
 ## 第8章 发布-订阅模式
-发布-订阅模式又叫观察者模式，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
+`发布-订阅模式`又叫`观察者模式`，它定义对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知。
 
 发布-订阅模式和观察者模式有区别
-发布订阅模式：发布者和观察者不知道互相的存在，需要个第三方中介串联 类似中介接受售楼处消息，推送客户消息
-观察者是互相知道的，类似售楼处直接对接客户
+
+- 发布订阅模式：发布者和观察者不知道互相的存在，需要个第三方中介串联 类似中介接受售楼处消息，推送客户消息
+- 观察者是互相知道的，类似售楼处直接对接客户
 
 作用
-1.广泛应用在异步编程中，这是一种替代传递回调函数的方案。
-2.可以取代对象之间硬编码的通知机制，一个对象不用再显式地调用另外一个对象的某个接口。
 
-优点：1.时间上的解耦2.对象之间的解耦
-缺点：需要消耗一定的时间和内存，而且当你订阅一个消息后，也许此消息最后都未发生，但订阅者始终存在内存中
+- 广泛应用在异步编程中，这是一种替代传递回调函数的方案。
+- 可以取代对象之间硬编码的通知机制，一个对象不用再显式地调用另外一个对象的某个接口。
+
+优点：
+
+1.时间上的解耦  
+2.对象之间的解耦
+
+缺点：  
+
+需要消耗一定的时间和内存，而且当你订阅一个消息后，也许此消息最后都未发生，但订阅者始终存在内存中
 
 DOM 事件
 ```js
@@ -1100,11 +1108,11 @@ document.body.click();
             fn.apply(this,arguments)
         }
     };
-    salesOffices.listen(function (price,squareMeter) {
+    salesOffices.listen(function (price,squareMeter) { // 小明订阅的消息
         console.log('价格=' + price);
         console.log('squareMeter=' + squareMeter);
     });
-    salesOffices.listen(function (price,squareMeter) {
+    salesOffices.listen(function (price,squareMeter) { // 小红订阅的消息
         console.log('价格=' + price);
         console.log('squareMeter=' + squareMeter);
     });
