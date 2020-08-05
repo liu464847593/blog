@@ -52,6 +52,12 @@ externals: {
 ## 路由页面缓存
 使用`keep-alive`缓存页面
 
+## webpack 优化
+`UglifyJS`改为`webpack-parallel-uglify-plugin`
+`HappyPack`多线程同时处理多个任务
+`dll plugin `
+升级webpack
+
 ## 参考
 1. https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97
 2. https://juejin.im/post/5b39d8b0f265da59aa2da473
