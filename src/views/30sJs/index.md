@@ -157,4 +157,5 @@ const UUIDGeneratorNode = () =>
 ```
 
 ## 参考
-30 seconds of code:https://www.30secondsofcode.org/js/p/1
+1.30 seconds of code:https://www.30secondsofcode.org/js/p/1
+2.https://www.css88.com/30-seconds-of-code/
