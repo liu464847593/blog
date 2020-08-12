@@ -17,6 +17,7 @@
 ## 小程序
 1. `picker`组件第一次滑动不会触发`bindcolumnchange`，原因：没有`value`值
 2. 小程序不支持上传附件， `chooseMessageFile` 可以从客户端会话选择文件
+3. 小程序提供富文本组件`editor`
 
 如何实现微信@人，删除人一并连@删除？
 https://github.com/ichord/At.js/
