@@ -25,3 +25,62 @@
 - 在BFC中，每一个盒子的左外边缘（margin-left）会触碰到容器的左边缘(border-left)（对于从右到左的格式来说，则触碰到右边缘）
 - 形成了BFC的区域不会与float box重叠
 - 计算BFC高度时，浮动元素也参与计算
+
+## div 水平垂直居中
+
+```css
+div.parent{
+  display:flex;
+}
+div.child{
+  margin:auto;
+}
+```
+```css
+/*1定宽高 使用定位+margin*/
+element.style {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -250px;
+    width: 500px;
+    height: 500px;
+    background: yellow;
+    z-index: 1;
+}
+/*使用定位+transfrom*/
+element.style {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 500px;
+    height: 500px;
+    background: yellow;
+    z-index: 1;
+    transform: translate3d(-50%,-50%,0);
+}
+```
+
+```css
+/*不定宽高*/
+element.style {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: yellow;
+    z-index: 1;
+    transform: translate3d(-50%,-50%,0);
+}
+```
+```css
+div.parent {
+display: table;
+}
+div.child {
+display: table-cell
+vertical-align: middle;
+text-align: center;
+}
+```
+
