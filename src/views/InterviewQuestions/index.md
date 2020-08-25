@@ -1,3 +1,33 @@
+## JS
+
+### ['1', '2', '3'].map(parseInt) what & why ?
+```js
+/**
+ * @param string 必需。要被解析的字符串。
+ * @param radix 可选。表示要解析的数字的基数。该值介于 2 ~ 36 之间。
+ * 如果省略该参数或其值为 0，则数字将以 10 为基础来解析。如果它以 “0x” 或 “0X” 开头，将以 16 为基数。
+ * 如果该参数小于 2 或者大于 36，则 parseInt() 将返回 NaN。
+ */
+parseInt(string, radix)
+```
+```js
+['10','10','10','10','10'].map(parseInt);
+// [10, NaN, 2, 3, 4]
+
+// 实际上执行的代码
+['1', '2', '3'].map((item, index) => {
+	return parseInt(item, index)
+})
+
+parseInt('1', 0) // 1 默认是10为基数 1 = 0*10 + 1
+parseInt('2', 1) // NaN  
+parseInt('3', 2) // NaN, 3 不是二进制
+
+// 所以
+['1', '2', '3'].map(parseInt)
+// 1, NaN, NaN
+```
+
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
 
