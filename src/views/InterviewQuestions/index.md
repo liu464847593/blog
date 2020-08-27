@@ -69,7 +69,25 @@ function throttle(fn) {
     }
     window.addEventListener('resize', throttle(sayHi));
 ```
-
+## 下面的代码打印什么内容，为什么？
+```js
+var b = 10;
+(function b(){
+    b = 20;
+    console.log(b); 
+})();
+```
+```js
+var b = 10;
+(function b() {
+   // 内部作用域，会先去查找是有已有变量b的声明，有就直接赋值20，确实有了呀。发现了具名函数 function b(){}，拿此b做赋值；
+   // IIFE的函数无法进行赋值（内部机制，类似const定义的常量），所以无效。
+  // （这里说的“内部机制”，想搞清楚，需要去查阅一些资料，弄明白IIFE在JS引擎的工作方式，堆栈存储IIFE的方式等）
+    b = 20;
+    console.log(b); // [Function b]
+    console.log(window.b); // 10，不是20
+})();
+```
 
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
