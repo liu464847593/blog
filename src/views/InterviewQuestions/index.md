@@ -89,6 +89,18 @@ var b = 10;
 })();
 ```
 
+
+```js
+var a = 10;
+(function () {
+    console.log(a); // undefined
+    a = 5; // 局部a = 10
+    console.log(window.a); // 10
+    var a = 20; // 变量提升
+    console.log(a); // 20
+})()
+```
+
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
 
