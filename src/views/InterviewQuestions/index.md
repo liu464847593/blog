@@ -100,6 +100,16 @@ var a = 10;
     console.log(a); // 20
 })()
 ```
+```js
+var a = {n: 1};
+var b = a; // a,b 指向同一个地址
+a.x = a = {n: 2}; // .优先级大于 = 所以先执行a.x, a = b = {n:1;x:undefined},再执行a = {n:2},再a.x = {n: 2},a指向旧对象 
+                  // a = b = {n:1;x:{n: 2}}
+
+console.log(a.x) // undefined a = {n:2}
+console.log(b.x) // {n:2}  b = {n:1;x:undefined;x:{n: 2}}
+
+```
 
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
