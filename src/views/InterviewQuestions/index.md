@@ -110,6 +110,25 @@ console.log(a.x) // undefined a = {n:2}
 console.log(b.x) // {n:2}  b = {n:1;x:undefined;x:{n: 2}}
 
 ```
+```js
+// example 1
+var a={}, b='123', c=123;  
+a[b]='b';
+a[c]='c'; // c键名会转字符串'123'会覆盖掉b
+console.log(a[b]); // c
+
+// example 2
+var a={}, b=Symbol('123'), c=Symbol('123');  
+a[b]='b';
+a[c]='c';   // b,c是Symbol不相等
+console.log(a[b]); // b
+
+// example 3
+var a={}, b={key:'123'}, c={key:'456'};  
+a[b]='b'; // 对象类型会调用 toString 方法转换成字符串 [object Object]。
+a[c]='c'; // 对象类型会调用 toString 方法转换成字符串 [object Object]。这里会把 b 覆盖掉。
+console.log(a[b]); c
+```
 
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
