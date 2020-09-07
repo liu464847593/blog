@@ -18,6 +18,7 @@
 1. `picker`组件第一次滑动不会触发`bindcolumnchange`，原因：没有`value`值
 2. 小程序不支持上传附件， `chooseMessageFile` 可以从客户端会话选择文件
 3. 小程序提供富文本组件`editor`
+4. 安卓 wx.getSystemInfoSync 获取 windowHeight 不准确 应该在 `onReady`周期里面调用
 
 如何实现微信@人，删除人一并连@删除？
 https://github.com/ichord/At.js/
