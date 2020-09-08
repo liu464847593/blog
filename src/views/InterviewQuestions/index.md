@@ -129,6 +129,49 @@ a[b]='b'; // 对象类型会调用 toString 方法转换成字符串 [object Obj
 a[c]='c'; // 对象类型会调用 toString 方法转换成字符串 [object Object]。这里会把 b 覆盖掉。
 console.log(a[b]); c
 ```
+```js
+ function Foo () {
+    Foo.a = function () {
+      console.log(1)
+    }
+    this.a = function () {
+      console.log(2)
+    }
+  }
+
+  Foo.prototype.a = function () {
+    console.log(3)
+  }
+  Foo.a = function () {
+    console.log(4)
+  }
+  Foo.a();
+  let obj = new Foo();
+  obj.a();
+  Foo.a();
+```
+
+```js
+ function Foo () {
+    Foo.a = function () {
+      console.log(1)
+    }
+    this.a = function () {
+      console.log(2)
+    }
+  }
+  // 以上只是 Foo 的构建方法，没有产生实例，此刻也没有执行
+  Foo.prototype.a = function () {
+    console.log(3)
+  }
+  Foo.a = function () {
+    console.log(4)
+  }
+  Foo.a(); //4  Foo 还没有实例化 Foo.a 优先级比Foo.prototype.a 高
+  let obj = new Foo();  // 实例化Foo 重写了 Foo.a,新对象挂载了a
+  obj.a(); // 2
+  Foo.a(); // 1
+```
 ## var、let 和 const 区别的实现原理是什么
 - var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
 存里开辟一个内存空间存储实际内容，栈内存会存储一个指向堆内存的指针
