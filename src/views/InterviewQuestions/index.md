@@ -172,6 +172,30 @@ console.log(a[b]); c
   obj.a(); // 2
   Foo.a(); // 1
 ```
+```js
+  var name = 'Tom';
+  (function() {
+    if (typeof name == 'undefined') {
+      var name = 'Jack';
+      console.log('Goodbye ' + name);
+    } else {
+      console.log('Hello ' + name);
+    }
+  })();
+```
+```js
+  var name = 'Tom';
+  (function() {
+     var name;
+    if (typeof name == 'undefined') {
+      name = 'Jack';
+      console.log('Goodbye ' + name);
+    } else {
+      console.log('Hello ' + name);
+    }
+  })(); // Goodbye Jack
+```
+
 ## var、let 和 const 区别的实现原理是什么
 - var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
 存里开辟一个内存空间存储实际内容，栈内存会存储一个指向堆内存的指针
