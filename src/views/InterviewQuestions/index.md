@@ -206,6 +206,42 @@ console.log(a[b]); c
 "a" + + "b" //aNaN  是先+"b", 所以是NaN => "a" + NaN => "aNaN"
 ```
 
+```js
+function wait() {
+  return new Promise(resolve =>
+    setTimeout(resolve, 10 * 1000)
+  )
+}
+
+async function main() {
+  console.time();
+  const x = wait();
+  const y = wait();
+  const z = wait(); // x,y,z 同时异步进行 包括setTimeout（10*1000）的执行时间
+  await x;
+  await y;
+  await z;
+  console.timeEnd();//default: 10001.52880859375ms
+}
+main();
+```
+```js
+function wait() {
+  return new Promise(resolve =>
+    setTimeout(resolve, 10 * 1000)
+  )
+}
+
+async function main() {
+  console.time();
+  await wait();
+  await wait();
+  await wait();
+  console.timeEnd(); // 大概30s左右
+}
+main(); 
+```
+
 ## var、let 和 const 区别的实现原理是什么
 - var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
 存里开辟一个内存空间存储实际内容，栈内存会存储一个指向堆内存的指针
