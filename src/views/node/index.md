@@ -90,3 +90,5 @@ check 阶段执行 setImmediate
 - close callbacks
 
 close callbacks 阶段执行 close 事件
+
+参考：https://juejin.im/post/6844903761949753352#heading-12
