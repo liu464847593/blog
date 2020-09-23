@@ -856,6 +856,18 @@ _s(_f("suffix")(_f("capitalize")(message,'!')))
 ### 解析过滤器
 vue 在对模板进行编译的时候，会将模板字符解析成抽象语法树 AST，通过`parseFilter`函数解析`filter`
 
+## 生命周期
+`new Vue()` 到 `created`之间的阶段叫做`初始化阶段`。主要目的是在Vue实例上初始化一些属性，事件以及响应式数据，如`props`,`methods`,`data`,
+`computed`,`watch`,`provide`,`inject`
+
+`created` 钩子函数到`beforeMount`钩子函数之间的阶段是`模版编译阶段`。只要目的是讲模版编译成渲染函数，只存在完整版中
+
+`beforeMount` 钩子函数到mounted钩子函数之间是`挂载阶段`。将实例挂载到DOM元素上。在挂载的过程中，Vue.js会开启Watcher来持续追踪依赖的变化
+
+调用`vm.$destroy`方法后，Vue.js生命周期进入`卸载阶段`。Vue.js会将自己从父组件中删除，取消实例上所有依赖的追踪并且移除所有的事件监听器
+
+
+
 ## 最佳实践
 
 - 为列表渲染设置属性key
