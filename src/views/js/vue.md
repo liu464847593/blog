@@ -794,11 +794,11 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 
 初始化阶段：`new Vue()` 到 `created`。 主要是在Vue.js实例上初始化属性，事件，以及响应式数据，如`props`，`methods`，`data`，`computed`，`watch`，`provide`和`inject`等
 
-模板编译阶段：created 到 beforeMount。主要是将模版编译成渲染函数，只存在完整版，如果只包含运行时的构建版本中执行new Vue（），则不会存在这个阶段
+模板编译阶段：`created` 到 `beforeMount`。主要是将模版编译成渲染函数，只存在完整版，如果只包含运行时的构建版本中执行new Vue（），则不会存在这个阶段
 
-挂载阶段：beforeMount 到 mounted。将模版渲染到指定的DOM中。vue会开启Watcher来持续追踪依赖变化
+挂载阶段：`beforeMount` 到 `mounted`。将模版渲染到指定的DOM中。vue会开启Watcher来持续追踪依赖变化
 
-卸载阶段：vue会将自身从父组件移除，取消实例上所有依赖的追踪并且移除所有的事件监听器
+卸载阶段：`beforeDestory` 到 `destroyed` vue会将自身从父组件移除，取消实例上所有依赖的追踪并且移除所有的事件监听器
 
 
 
