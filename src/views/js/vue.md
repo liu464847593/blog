@@ -663,85 +663,7 @@ path的过程：
 - 注释节点 `createEmptyVnode` `_e`
 
 
-## new vue 发生了什么
-```js
-//src/core/instance/index.js
-function Vue (options) {
-  if (process.env.NODE_ENV !== 'production' &&
-    !(this instanceof Vue)
-  ) {
-    warn('Vue is a constructor and should be called with the `new` keyword')
-  }
-  this._init(options)
-}
 
-//src/core/instance/init.js
-
-export function initMixin (Vue: Class<Component>) {
-  Vue.prototype._init = function (options?: Object) {
-    const vm: Component = this
-    // a uid
-    vm._uid = uid++
-
-    let startTag, endTag
-    /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-      startTag = `vue-perf-start:${vm._uid}`
-      endTag = `vue-perf-end:${vm._uid}`
-      mark(startTag)
-    }
-
-    // a flag to avoid this being observed
-    vm._isVue = true
-    // merge options
-    if (options && options._isComponent) {
-      // optimize internal component instantiation
-      // since dynamic options merging is pretty slow, and none of the
-      // internal component options needs special treatment.
-      initInternalComponent(vm, options)
-    } else {
-      vm.$options = mergeOptions(
-        resolveConstructorOptions(vm.constructor),
-        options || {},
-        vm
-      )
-    }
-    /* istanbul ignore else */
-    if (process.env.NODE_ENV !== 'production') {
-      initProxy(vm)
-    } else {
-      vm._renderProxy = vm
-    }
-    // expose real self
-    vm._self = vm
-    initLifecycle(vm)
-    initEvents(vm)
-    initRender(vm)
-    callHook(vm, 'beforeCreate')
-    initInjections(vm) // resolve injections before data/props
-    initState(vm)
-    initProvide(vm) // resolve provide after data/props
-    callHook(vm, 'created')
-
-    /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && config.performance && mark) {
-      vm._name = formatComponentName(vm, false)
-      mark(endTag)
-      measure(`vue ${vm._name} init`, startTag, endTag)
-    }
-
-    if (vm.$options.el) {
-      vm.$mount(vm.$options.el)
-    }
-  }
-}
-
-```
-`new Vue` 执行了`_init` 方法
-
-Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等。
-
-执行this.xxx 其实是调用了proxy 进行了拦截调用 this._data.xxx 
 
 ## 为什么Vue.js使用异步更新队列
 vue 的变化侦测通知只发送到组件，组件用到的所有状态的变化都会通知到同一个watcher，等到所有状态修改完后，然后虚拟DOM会对比整个组件进行对比更改DOM
@@ -800,7 +722,22 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 
 卸载阶段：`beforeDestory` 到 `destroyed` vue会将自身从父组件移除，取消实例上所有依赖的追踪并且移除所有的事件监听器
 
+## new vue() 发生了什么
+<img width="500" src="https://images-cdn.shimo.im/GI0DqzLscmewOYoD__thumbnail.jpg"/>
 
+- `initLifecycle` 初始化实例属性。在Vue实例上设置一些属性并提供一个默认值
+
+- `initEvents` 初始化事件。将父组件在模版中使用的 `v-on` 注册事件添加到子组件的事件监听系统中
+
+- `initjections` 初始化inject。inject和provide一起使用，他们允许祖先组件向其所有子孙后台注入依赖，并在其上下游关系成立的事件始终生效
+
+- `initState` 初始化状态。 包括 `props`,`methods`,`data`,`computed`,`watch`
+
+- `initProvide` 初始化provide
+
+Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等。
+
+执行this.xxx 其实是调用了proxy 进行了拦截调用 this._data.xxx 
 
 ## 指令
 
