@@ -291,6 +291,10 @@ const ul = {
 - `History` 模式    
 `history.pushState` 和 `history.replaceState` 改变 `URL`。
 
+## vue 双向绑定原理
+vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty()来劫持各个属性的 setter，getter，在数据变动时发布消息给订阅
+者，触发相应的监听回调。
+
 ## vue 生命周期
 - `beforeCreate`
   是获取不到 `props` 或者 `data` 中的数据的
