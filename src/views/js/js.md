@@ -344,7 +344,7 @@ function SubType() {
   this.subproperty = false
 }
 SubType.prototype = new SuperType();
-SubType.prototype.getSuperValue = function () {
+SubType.prototype.getSubValue = function () {
   return this.subproperty;
 }
 var instance = new SuperType();
