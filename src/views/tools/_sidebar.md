@@ -1,0 +1,9 @@
+* 工具篇
+  - [linux常用命令](/src/views/linux/linux.md)  
+  - [docsify](/src/views/tools/blog.md)
+  - [jenkins](/src/views/tools/jenkins.md)
+  - [rap](/src/views/tools/rap2.md)
+  - [apidoc](/src/views/tools/apidoc.md)
+  - [webpack](/src/views/tools/webpack.md)
+  - [markdown](/src/views/others/markdown.md)
+  - [WebStorm](/src/views/webstorm/index.md)

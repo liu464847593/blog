@@ -7,19 +7,5 @@
   - [架构](/src/views/architecture/index.md)
   - [代码规范](/src/views/specification/index.md)
   - [常见问题](/src/views/question/index.md)
-  - [面试题目](/src/views/InterviewQuestions/index.md)
 * 后端
   - [Node.Js](/src/views/node/index.md)
-* 运维
-  - [linux常用命令](/src/views/linux/linux.md)
-* 网络
-* 工具
-  - [docsify](/src/views/tools/blog.md)
-  - [jenkins](/src/views/tools/jenkins.md)
-  - [rap](/src/views/tools/rap2.md)
-  - [apidoc](/src/views/tools/apidoc.md)
-  - [webpack](/src/views/tools/webpack.md)
-  
-* 其它
-  - [markdown](/src/views/others/markdown.md)
-  - [WebStorm](/src/views/webstorm/index.md)
