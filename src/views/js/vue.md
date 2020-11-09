@@ -1,4 +1,5 @@
 ## 什么是vue
+---
 `Vue`是一套用于构建用户界面的渐进式框架。  
 
 如果你已经有一个现成的服务端应用，也就是非单页面应用，可以将Vue.js作为该应用的一部分嵌入其中，带来更加丰富的交互体验  
@@ -10,9 +11,22 @@
 ![](../../../src/asstes/img/js/vue.jpg)
 
 ## 变化侦测
-变化侦测是响应式系统的核心，作用是侦测数据的变化。当数据变化时，会通知视图进行相应的更新
+---
+
+`变化侦测`是响应式系统的核心，作用是侦测数据的变化。当数据变化时，会通知视图进行相应的更新
+
+### 渲染
+
+`Vue.js` 通过状态生成DOM，并将其输出到页面上显示，这个过程叫做`渲染`
+
+`变化侦测`是响应式系统的核心，作用是侦测数据的变化。当数据变化时，会通知视图进行相应的更新
 
 一个状态所绑定的依赖不再是具体的DOM节点，而是一个组件。状态变化后，会通知到组件，组件内部再使用虚拟DOM进行对比，重新渲染
+
+### 怎么检测变化侦测
+
+- `Object.defineProperty`
+- ES6的`Proxy`
 
 利用`object.defineProperty` 侦测变化
 ```js
@@ -32,7 +46,8 @@ function defineReactive(data,key,val) {
   })
 }
 ```
-### 如何收集依赖
+
+### 通过Dep收集依赖
 在`getter`中收集依赖，在`setter`中触发依赖
 ```js
 function defineReactive(data,key,val) {
@@ -114,9 +129,11 @@ function defineReactive(data,key,val) {
 }
 ```
 
-### watcher
----
+### Watcher的原理
+
 我们收集的依赖是`window.target`其实就是`Watcher`
+
+只有`Watcher`触发的`getter`才会收集依赖
 
 原理：先把自己设置到全局唯一的指定位置，然后读取数据，触发这个数据的`getter`，接着`getter`读取当前正在读取数据的`Watcher`，并把这个`Watcher`收集到
 Dep中
@@ -149,24 +166,6 @@ export default class Watcher{
     const oldValue = this.value
     this.value = this.get()
     this.cb.call(this.vm,this.value,oldValue)
-  }
-}
-```
-
-```js
-const bailRe = /[^\w.$]/;
-
-export function parsePath(path) {
-  if (bailRe.test(path)) {
-    return
-  }
-  const segments = path.split('.');
-  return function (obj) {
-    for (let i = 0; i < segments.length; i++) {
-      if (!obj) return
-      obj = obj[segments[i]]
-    }
-    return obj
   }
 }
 ```
@@ -221,14 +220,27 @@ function defineReactive(data,key,val) {
 }
 ```
 
-### 关于object的问题
+### 无法追踪新增和删除属性
 `getter`/`setter`只能追踪一个数据是否修改，无法追踪新增属性和删除属性  
 为obj新增属性，删除属性，vue无法检测到变化，所有不会向依赖发送通知 要用到 `vm.$set`，`vm.$delete`
 
-### data,observer,dep,watcher关系  
+### 总结
+- `defineReactive`定义响应式数据，只检测某一个属性
+- `dep`收集依赖
+- `Watcher`就是依赖。数据发生变化就通知它，它再通知其他地方
+- `Observer` 通过 `walk` 将`Object` 每一个属性转换成`getter/setter`形式
+
+#### data,observer,dep,watcher关系  
 ![](../../../src/asstes/img/js/vue1.jpg)
 
+- `Data`通过`Observer`转化成`getter`/`setter`形式来追踪变化
+- 当外界通过`Watcher`读取数据时，会触发`getter`从而将`Watcher`添加到依赖中
+- 当数据发生了变化时，会触发setter，从而向`Dep`中的依赖（ `Watcher` ）发送通知
+- `Watcher`接收到通知后，会向外界发送通知，变化通知到外界可能会触发试图更新，也有可可能触发用户的某个回调函数
+
 ## Array 的变化侦测
+---
+
 因为可以通过`Array`原型的方法改变数组内容，所以`Object`的`getter/setter`的实现方式行不通
 
 用一个拦截器覆盖掉Array.prototype。每当使用Array原型上的方法操作数组时，其实执行的都是拦截器中提供的方法，这样我们就可以追踪Array的变化
@@ -809,6 +821,12 @@ vue 在对模板进行编译的时候，会将模板字符解析成抽象语法�
 - 模版中的组件名应该是单词首字母大写
 - data必须是个函数
 - prop指定类型
+
+## Vue2和Vue1区别
+- vue2开始引入虚拟DOM
+- 一个状态所绑定的依赖不再是具体的DOM节点而是一个组件
+- 数据发生变化时通知到组件，组件内部再通过虚拟dom重新渲染
+
 
 参考：https://cn.vuejs.org/v2/style-guide/
 
