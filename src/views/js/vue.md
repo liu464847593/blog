@@ -239,13 +239,18 @@ function defineReactive(data,key,val) {
 - `Watcher`接收到通知后，会向外界发送通知，变化通知到外界可能会触发试图更新，也有可可能触发用户的某个回调函数
 
 ## Array 的变化侦测
----
 
 因为可以通过`Array`原型的方法改变数组内容，所以`Object`的`getter/setter`的实现方式行不通
 
-用一个拦截器覆盖掉Array.prototype。每当使用Array原型上的方法操作数组时，其实执行的都是拦截器中提供的方法，这样我们就可以追踪Array的变化
-### 拦截器
+### 怎么检测变化侦测
+
+用一个拦截器覆盖掉`Array.prototype`。每当使用Array原型上的方法操作数组时，其实执行的都是拦截器中提供的方法，这样我们就可以追踪Array的变化
+
+#### 拦截器
 ```js
+/**
+ * 利用arrayMethods覆盖Array.prototype
+ */
 const arrayProto = Array.prototype;
 export const arrayMethods = Object.create(arrayProto);
 ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
@@ -275,9 +280,14 @@ export class Observer {
 
 如果没有__proto__ 直接将arrayMethods身上的方法设置到被侦测的数组上
 ```js
+/**
+ * 判断浏览器是否支持__proto__
+ * 支持则使用protoAugment函数覆盖原型
+ * 不支持则使用copyAument函数将拦截器的方法直接挂载到value上
+ */
 import {arrayMethods}from './array'
 
-const  hasProto = '__proto__' in {};
+const  hasProto = '__proto__' in {}; // 判断__proto__是否可用
 const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 
 export class Observer {
@@ -303,9 +313,16 @@ function copyAument(target,src,keys) {
   }
 }
 ```
-Array 在getter中收集依赖，在拦截器中触发依赖
-```js
 
+### 如何收集依赖
+
+`Array` 在`getter`中收集依赖，在拦截器中触发依赖
+
+```js
+/**
+ * 依赖列表存在Observer
+ * Observer必须要再getter和拦截器中都访问到
+ */
 export class Observer {
   constructor(value) {
     this.value = value;
@@ -320,7 +337,7 @@ export class Observer {
   ......
 }
 ```
-### 收集依赖
+
 ```js
   function defineReactive(data,key,val) {
     let childOb = observe(val)
@@ -344,11 +361,11 @@ export class Observer {
       }
     })
   }
-    /**
-     * 尝试为value创建一个Observe实例，
-     * 如果创建成功，直接返回新建的Observe实例
-     * 如果value已经存在一个Observe实例，则直接返回它
-     */
+  /**
+   * 尝试为value创建一个Observe实例，
+   * 如果创建成功，直接返回新建的Observe实例
+   * 如果value已经存在一个Observe实例，则直接返回它
+   */
   export function observe(value,asRootData) {
     if(!isObject(value)){
       return
@@ -373,7 +390,12 @@ function def(obj,key,val,enumerable) {
       configurable:true
     })
   }
-  
+
+/**
+ * 通过__ob__拿到Observe实例
+ * 通过__ob__判断是不是响应式数据，
+ * 是就直接返回，不是就new Observer将数据转成响应式数据，
+ */
 export class Observe{
   constructor(value){
     this.val = value
@@ -407,6 +429,9 @@ export class Observe{
 
 ### 侦测数组中的元素变化
 ```js
+/**
+ * 把Object和Array都转成getter/setter形式
+ */
 export class Observe{
   constructor(value) {
    this.value = value
@@ -417,7 +442,9 @@ export class Observe{
       this.walk(value)
     }
   }
-
+  /**
+   * 侦测Array中的每一项
+   */
   observeArray(items){
     for (let i=0,l=items.length;i<l;i++){
       observe(items[i])
@@ -428,6 +455,9 @@ export class Observe{
 ```
 ### 侦测新增数组元素的变化
 ```js
+/**
+ * 把新增的数据暂存在inserted中，再把它转换成响应式数据
+ */
 ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse'].forEach(function (method) {
   const original = arrayProto[method];
   def(arrayMethods,method,function mutator(...args) {
@@ -450,7 +480,11 @@ export class Observe{
 })
 ```
 ### 总结
-Array是通过创建拦截器去覆盖数组原型来追踪变化，在getter中收集依赖，依赖是保存在Observer上，通过__ob__可以访问
+- Array是通过创建拦截器去覆盖数组原型来追踪变化
+- Observer只针对需要侦测变化的数据使用`_prototype_`来覆盖原型，不支持`_prototype_`的直接挂载到数组上
+- 在getter中收集依赖，依赖是保存在Observer上，通过`_ob_`可以访问
+- `_ob_`作用：1. 标记数据是否被侦测变化 2.通过`_ob_`获取到Observer实例上
+- 新增的数据也要变化侦测
 
 ## vm.$watch
 ```js
