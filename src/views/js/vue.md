@@ -278,7 +278,7 @@ export class Observer {
 }
 ```
 
-如果没有__proto__ 直接将arrayMethods身上的方法设置到被侦测的数组上
+如果没有`__proto__` 直接将arrayMethods身上的方法设置到被侦测的数组上
 ```js
 /**
  * 判断浏览器是否支持__proto__
@@ -487,7 +487,15 @@ export class Observe{
 - 新增的数据也要变化侦测
 
 ## vm.$watch
+---
+
+### 原理
 ```js
+/**
+ * new Watcher 实现$watch
+ * 有immediate会立即执行
+ * 返回一个unwatchFn用来取消观察
+ */
 Vue.prototype.$watch = function (expOrFn,cb,options) {
   const vm = this
   options = options || {}
@@ -496,7 +504,7 @@ Vue.prototype.$watch = function (expOrFn,cb,options) {
     cb.call(vm,watcher.value)
   }
   return function unwatchFn() {
-    watcher.teardown() // 取消观察数据
+    watcher.teardown() // 取消观察数据,把watcher实例从当前正在观察的人状态列表中移除
   }
 }
 
@@ -514,6 +522,41 @@ export default class Watcher{
   ......
 }
 ```
+
+#### unwatch 原理
+```js
+/**
+ * 从所有依赖项的Dep列表中将自己移除
+ */
+teardown(){
+  let i = this.deps.length
+  while (i--){
+    this.deps[i].removeSub(this)
+  }
+}
+  
+export default class Dep{
+  ......
+  removeSub(sub){
+    const index = this.subs.indexOf(sub)
+      if (index > -1){
+        return this.subs.splice(index,1)
+      }
+  }
+  ......
+}
+```
+
+#### deep参数原理
+
+有`deep`则在`window.target = undefined` 之前调用`traverse`来处理`deep`逻辑
+
+`traverse（val）`递归`value`所有子值来触发收集依赖
+- `val`如果不是`Array`和`Object`或者已经被冻结则直接返回
+- 拿到`val`的`dep.id`,用`id`保证不会重复收集依赖
+- 如果是数组，将数组的每一项递归调用`_traverse`
+- 如果是`Object`，循环`Object`所有`key`,执行一次读取操作，再递归子值
+
 ## vm.$set
 ```js
 export function set(target,key,value) {
