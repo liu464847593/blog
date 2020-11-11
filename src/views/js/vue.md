@@ -558,6 +558,15 @@ export default class Dep{
 - 如果是`Object`，循环`Object`所有`key`,执行一次读取操作，再递归子值
 
 ## vm.$set
+
+### 原理
+
+- `Array`,通过 `splice` 方法添加新增元素。拦截器会侦测到 `target` 发生变化并自动把 `val` 转化成响应式，最后返回 `val`
+- `key` 已经在 `target` 中，说明 `key` 已经被侦测变化，直接用 `key` 和 `val` 改数据 会自动向依赖发送通知
+- 新增的 `key` ，如果 `target` 不是响应式（没有`_ob_`属性），直接通过`key`和`value`在`target`上设置，是响应式的使用`defineReactive`
+将新增属性转化成 `getter`/`setter`形式
+- 最后向`target`依赖发送变化通知并返`val`
+
 ```js
 export function set(target,key,value) {
   if (Array.isArray(target) && isValidArrayIndex(key)){
@@ -592,9 +601,15 @@ export function set(target,key,value) {
 ```
 
 ## vm.$delete
+
+### 原理
+
+- 如果是数组`splice`删除指定元素
+- 如果是对象则`delete`删除对象属性，如果`target`是响应式数据就发送通知
+
 ```js
 export function del(target,key) {
-  if (Array.isArray(target) && isValidArrayIndex(key)){
+  if (Array.isArray(target) && isValidArrayIndex(key)){ // 处理数组
     target.splice(key,1)
     return
   }
