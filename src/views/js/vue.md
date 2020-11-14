@@ -703,6 +703,9 @@ export function cloneVNode(vnode,deep) {
 ```
 
 ## patch
+---
+### 什么是patch
+
 虚拟DOM最核心的部分，它可以将vnode渲染成真实的DOM
 
 path的过程：
@@ -714,20 +717,107 @@ path的过程：
 当`oldVnode`和`vnode`都存在但并不是同一个节点时，使用vnode创建的DOM元素替换旧的DOM元素  
 当`oldVnode`和`vnode`是同一个节点时，使用更详细的对比操作对真实的DOM节点进行更新
 
-### 新增节点
-- 当oldVnode不存在而vnode存在时，需要使用vnode生成真实的DOM元素并将其插入到视图当中
-- 当vnode和oldVnode完全不是同一个节点时,需要使用vnode生成真实的DOM元素并将其插入到视图当中
+#### 新增节点
+- 当`oldVnode`不存在而`vnode`存在时，需要使用`vnode`生成真实的`DOM`元素并将其插入到视图当中
+- 当`vnode`和`oldVnode`完全不是同一个节点时,需要使用`vnode`生成真实的DOM元素并将其插入到视图当中
 
-### 删除节点
-- 当一个节点只在oldVnode中存在时，需要从DOM中删除
-- 当oldVnode和vnode完全不是同一个节点时,在DOM中需要使用vnode创建的新节点替换oldVnode所对应的旧节点
+#### 删除节点
+- 当一个节点只在`oldVnode`中存在时，需要从`DOM`中删除
 
-### 更新节点
+#### 更新节点
 - 新旧两个节点是用同一个节点，使用更详细的对比操作对真实DOM节点进行更新
 
 ### 创建节点
 只有`元素类型`，`注释类型`，`文本类型` 的类型节点会被创建并插入到DOM
 
+#### 创建节点的过程
+
+创建一个元素节点，如果有子节点也创建出来并插入到刚创建的节点下，再把当前节点插入指定父节点下面。如果这个指定的父节点已经被渲染到视图，那么当前这个
+节点插入进去之后，会将当前节点（包括其子节点）渲染到视图中
+
+### 删除节点
+```js
+  /**
+   * 删除vnodes数组从startIdx到endIdx的内容
+   */
+  function removeVnodes(vnodes, startIdx, endIdx) {
+    for (; startIdx <= endIdx; ++startIdx) {
+      const ch = vnodes[startIdx]
+      if (isDef(ch)) {
+        removeNode(ch.elm)
+      }
+    }
+  }
+  /**
+   * 为了跨平台所以对节点进行封装
+   */
+  const nodeOps = {
+    removeChild(node, child) {
+      node.removeChild(child)
+    }
+  }
+
+  /**
+   * 删除单个节点
+   */
+  function removeNode(el){
+    const parent = nodeOps.parentNode(el)
+    if (isDef(parent)){
+      nodeOps.removeChild(parent,el)
+    }
+  }
+```
+
+### 更新节点
+- 静态节点不需要进行更新
+- 新虚拟节点有文本属性
+  - 和旧虚拟节点文本属性不一样时，直接调用`setTextContent`方法把试图中的真实DOM节点内容改成新虚拟节点的文本
+- 新虚拟节点无文本属性
+  - 有children
+    - 旧虚拟节点有children，需要详细对比新旧两个虚拟节点
+    - 旧虚拟节点无children，说明就虚拟节点是空标签或有文本的文本节点。如果是文本节点，先把文本清空让它变成空标签，然后将新虚拟节点中的children
+    挨个创建成真实的DOM元素节点并将其插入到视图中的DOM节点下面
+  - 无children 说明新创建的节点是空节点，删除就虚拟节点的所有内容
+  
+#### 更新子节点
+四种操作：更新节点，新增节点，删除节点，移动节点
+
+##### 创建子节点
+在`oldChildren`中没有找到新子节点相同的节点，执行创建节点的操作并将该节点插入到`oldChilren中所有未处理节点的前面`  
+
+##### 更新子节点
+当两个节点是同一个节点并且位置相同只需要进行更新节点的操作。  
+如果位置不同除了对真实DOM节点进行更新外，还需要对真实DOM进行移动节点的操作
+
+##### 移动子节点
+从左到右循环newChildren,每循环一个节点就去oldChildren中寻找与这个节点相同的节点处理，`把需要移动的节点移动到所有未处理节点的最前面`
+
+##### 删除子节点
+删除那些`oldChildren`中存在但`newChildren`中不存在的节点
+
+#### 优化策略
+并不是所有子节点的位置都会发生移动，我们可以通过`新前和旧前`，`新后和旧后`，`新后和旧前`，`新前和旧后`快捷查找，如果是同一个节点进入更新操作，如果
+不是再循环查找节点
+
+- 新前：newChildren中未处理的第一个节点
+- 新后：newChildren中未处理的最后一个节点
+- 旧前：oldChildren中未处理的第一个节点
+- 旧后：oldChildren中未处理的最后一个节点
+
+- 新前和旧前: 位置相同不需要移动节点，更新节点即可
+- 新后和旧后: 位置相同不需要移动节点，更新节点即可
+- 新后和旧前: 位置不同，将节点移动到oldChildren中所有未处理节点最后面
+- 新前和旧后: 位置不同，将节点移动到oldChildren中所有未处理节点最前面
+
+#### 哪些节点是未处理过的
+准备oldStartIdx(oldChildren开始的下标),oldEndIdx(oldChildren结束的下标）,newStartIdx（newChildren开始的下标）和newEndIdx（newChildren结束的下标）
+从两边向中间循环
+
+- 当开始位置耽于等于结束位置，说明所有节点都遍历过了，则结束循环
+- oldChildren先循环完毕，如果newChildren还有剩余节点说明都是新增的节点（newStartIdx和newEndIdx之间的节点），直接把它们插入到DOM就行
+- newChildren先循环完毕，如果oldChildren还有剩余节点说明都是废弃节点（oldStartIdx和oldEndIdx之间的节点），直接把它们从DOM删除
+
+   
 ## 模板编译
 主要目标是生成渲染函数。渲染函数的作用是每次执行它，它就会使用当前最新状态生成一份新的`vnode`，然后使用这个`vnode`进行渲染
 
