@@ -907,6 +907,42 @@ AST的层级关系是通过维护一个栈来记录层级关系。通过触发�
 直到最后拼接成完整字符串，最后将字符串拼在`width`中返回调用者
 
 
+## 实例方法与全局API的实现原理
+
+### $on
+- 当`event`参数是数组是时，遍历数组，将其中每一项调用`vm.$o`n,使回调注册到数组中每项事件名所指定的事件列表
+- 当`event`参数不是数组时，向事件列表中添加回调。
+
+`vm._events` 用来存储事件
+
+### $emit
+- 使用事件名从vm.events中取出对应事件监听器回调函数列表，然后依次执行列表中的监听器回调并将参数传递给监听器回调
+
+### $off
+- 如果没有提供参数，移除所有事件监听器  
+    ```
+    vm._events = Object.create(null)
+    ```
+    如果第一个参数是数组，遍历数组，每一项调用`vm.$off`
+- 如果只提供事件名，移除该事件所有监听器  
+  * 将事件名在`vm._events`中的属性设置为null
+- 如果同时提供了事件名与回调，只移除这个回调的监听器
+  * 取出`vm._events`的事件列表并遍历，如果某项和`fn`相同，使用`splice`移除
+
+### vm.$once
+- 在vm.$once中调用vm.$on监听自定义事件，自定义事件触发后会执行拦截器，将监听器从事件列表移除
+```js
+Vue.prototype.$once = function (event,fn){
+  const vm = this
+  function on(){
+    vm.$off(event,on)
+    fn.apply(vm,arguments)
+  }
+  on.fn = fn
+  vm.$on(event,on)
+  return vm
+}
+```
 
 
 ## 为什么Vue.js使用异步更新队列
