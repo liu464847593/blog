@@ -909,16 +909,16 @@ AST的层级关系是通过维护一个栈来记录层级关系。通过触发�
 
 ## 实例方法与全局API的实现原理
 
-### $on
+### vm.$on
 - 当`event`参数是数组是时，遍历数组，将其中每一项调用`vm.$o`n,使回调注册到数组中每项事件名所指定的事件列表
 - 当`event`参数不是数组时，向事件列表中添加回调。
 
 `vm._events` 用来存储事件
 
-### $emit
+### vm.$emit
 - 使用事件名从vm.events中取出对应事件监听器回调函数列表，然后依次执行列表中的监听器回调并将参数传递给监听器回调
 
-### $off
+### vm.$off
 - 如果没有提供参数，移除所有事件监听器  
     ```
     vm._events = Object.create(null)
@@ -943,6 +943,26 @@ Vue.prototype.$once = function (event,fn){
   return vm
 }
 ```
+
+### vm.$forceUpdate
+vm._watcher就是vue实例的watcher
+```js
+Vue.prototype.$forceUpdate = function (){
+  const vm = this
+  if (vm._watcher){
+    vm._watcher.update()
+  }
+}
+```
+
+### vm.$destroy
+- 触发beforeDestroy钩子函数
+- 清理当前组件与父组件的连接(将当前组件从父组件实例的$children属性中删除)
+- 销毁实例上的所有watcher(执行watcher的teardown方法)
+- 将模版的所有指令解绑
+- 触发destory钩子函数
+- 移除实例上的所有事件监听器
+
 
 
 ## 为什么Vue.js使用异步更新队列
