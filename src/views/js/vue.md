@@ -963,6 +963,13 @@ Vue.prototype.$forceUpdate = function (){
 - 触发destory钩子函数
 - 移除实例上的所有事件监听器
 
+### vm.$nextTick
+下次微任务执行时更新DOM。vm.$nextTick会将回调添加到微任务中。只有在特殊情况下才会降级成宏任务，默认会添加到微任务
+
+vm.$nextTick会将回调添加到任务队列中延迟执行，在回调执行前，反复调用vm.$nextTick，只会向任务队列添加一个任务。vue内部有一个列表用来存储vm.$nextTick
+参数中提供的回调。在一轮事件循环中，vm.$nextTick只会向任务队列添加一个任务，多次使用vm.$nextTick只会将回调添加到回调列表中缓存起来。当任务触发时
+依次执行列表中的所有回调并清空列表。
+
 
 
 ## 为什么Vue.js使用异步更新队列
