@@ -1003,6 +1003,36 @@ Vue.directive = function (id,definition){
 }
 ```
 
+### Vue.filter
+```js
+Vue.options['filters'] = Object.create(null)
+Vue.filter = function (id,definition){
+  if (!definition){
+    return this.options['filters'][id]
+  }else{
+    this.options['filters'][id] = definition
+    return definition
+  }
+}
+```
+
+### Vue.component
+```js
+Vue.options['components'] = Object.create(null)
+Vue.component = function (id,definition){
+  if (!definition){
+    return this.options['components'][id]
+  }else{
+    if (isPlainObject(definition)){
+      definition.name = definition.name || id
+      definition = Vue.extend(definition)
+    }
+    this.options['components'][id] = definition
+    return definition
+  }
+}
+```
+
 ## 为什么Vue.js使用异步更新队列
 vue 的变化侦测通知只发送到组件，组件用到的所有状态的变化都会通知到同一个watcher，等到所有状态修改完后，然后虚拟DOM会对比整个组件进行对比更改DOM
 
