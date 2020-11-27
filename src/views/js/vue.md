@@ -976,6 +976,32 @@ vm.$nextTick会将回调添加到任务队列中延迟执行，在回调执行�
  
 - 运行版
  没有编译步骤，默认实例上已经存在渲染函数，如果不存在，则会设置一个。
+ 
+### Vue.extend
+创建一个Sub函数并继承了父级
+
+- 创建一个子类
+- 将父类的原型继承到子类中
+- 将父类的options选项继承到子类中，如果选项存在props，则初始化。存在computed也初始化
+- 将父类存在的属性依次复制到子类
+
+### Vue.directive
+注册或获取全局指令
+```js
+Vue.options = Object.create(null)
+Vue.options['directives'] = Object.create(null)
+Vue.directive = function (id,definition){
+  if (!definition){
+    return this.options['directives'][id]
+  }else{ // 注册
+    if (typeof  definition === 'function'){
+      definition = {bind:definition,update:definition}
+    }
+    this.options['directives'][id] = definition
+    return definition
+  }
+}
+```
 
 ## 为什么Vue.js使用异步更新队列
 vue 的变化侦测通知只发送到组件，组件用到的所有状态的变化都会通知到同一个watcher，等到所有状态修改完后，然后虚拟DOM会对比整个组件进行对比更改DOM
