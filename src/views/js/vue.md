@@ -1082,13 +1082,10 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - `deactivated`  被 keep-alive 缓存的组件停用时调用。
 - `errorCaptured` 当捕获一个来自子孙组件的错误时被调用
 
-初始化阶段：`new Vue()` 到 `created`。 主要是在Vue.js实例上初始化属性，事件，以及响应式数据，如`props`，`methods`，`data`，`computed`，`watch`，`provide`和`inject`等
-
-模板编译阶段：`created` 到 `beforeMount`。主要是将模版编译成渲染函数，只存在完整版，如果只包含运行时的构建版本中执行new Vue（），则不会存在这个阶段
-
-挂载阶段：`beforeMount` 到 `mounted`。将模版渲染到指定的DOM中。vue会开启Watcher来持续追踪依赖变化
-
-卸载阶段：`beforeDestory` 到 `destroyed` vue会将自身从父组件移除，取消实例上所有依赖的追踪并且移除所有的事件监听器
+1. 初始化阶段：`new Vue()` 到 `created`。 主要是在Vue.js实例上初始化属性，事件，以及响应式数据，如`props`，`methods`，`data`，`computed`，`watch`，`provide`和`inject`等
+2. 模板编译阶段：`created` 到 `beforeMount`。主要是将模版编译成渲染函数，只存在完整版，如果只包含运行时的构建版本中执行new Vue（），则不会存在这个阶段
+3. 挂载阶段：`beforeMount` 到 `mounted`。将模版渲染到指定的DOM中。vue会开启Watcher来持续追踪依赖变化
+4. 卸载阶段：`beforeDestory` 到 `destroyed` vue会将自身从父组件移除，取消实例上所有依赖的追踪并且移除所有的事件监听器
 
 ## new vue() 发生了什么
 <img width="500" src="https://images-cdn.shimo.im/GI0DqzLscmewOYoD__thumbnail.jpg"/>
@@ -1096,6 +1093,8 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 - `initLifecycle` 初始化实例属性。在Vue实例上设置一些属性并提供一个默认值
 
 - `initEvents` 初始化事件。将父组件在模版中使用的 `v-on` 注册事件添加到子组件的事件监听系统中
+
+- `initRender`
 
 - `initjections` 初始化inject。inject和provide一起使用，他们允许祖先组件向其所有子孙后台注入依赖，并在其上下游关系成立的事件始终生效
 
@@ -1106,6 +1105,10 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等。
 
 执行this.xxx 其实是调用了proxy 进行了拦截调用 this._data.xxx 
+
+### callhook
+从vm.$options中获取生命周期钩子函数列表，遍历列表，执行每一个生命周期钩子
+
 
 ## 指令
 
