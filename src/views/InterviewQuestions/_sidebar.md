@@ -1,1 +1,2 @@
 - [JS](/src/views/InterviewQuestions/index)
+- [GitHub前端面试](/src/views/InterviewQuestions/github)
