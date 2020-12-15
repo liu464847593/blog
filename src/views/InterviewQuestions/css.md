@@ -48,3 +48,61 @@
 - 父元素塌陷
 - 外边距重叠
 - 清除浮动
+
+## 清除浮动
+- clearfix 伪类
+- 额外加一个div，clear:both
+- 触发父盒子BFC，overflow:hidden
+
+## 绝对定位和相对定位
+
+`relative`： 相对于原来位置移动，不会脱离文档流。
+
+`absolute`：相对最近的非 `static` 定位祖先元素偏移，如果找不到，将以 `初始包含快` 为参照物。脱离文档流
+>初始包含块：包含 `html`元素的块，具有视口的尺寸
+
+## 重绘和回流
+`重绘` 是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘  
+`回流` 是布局或者几何属性需要改变就称为回流  
+以下情况发生`回流`：
+- 添加或删除可见的DOM元素
+- 元素的位置发生变化
+- 元素的尺寸发生变化（包括外边距、内边框、边框大小、高度和宽度等）
+- 内容发生变化，比如文本变化或图片被另一个不同尺寸的图片所替代。
+- 页面一开始渲染的时候（这肯定避免不了）
+- 浏览器的窗口尺寸变化（因为回流是根据视口的大小来计算元素的位置和大小的）
+
+`回流`必定会发生`重绘`，`重绘`不一定会引发`回流`。  
+
+## 自适应的正方形
+```css
+.square {
+    width: 10vw;
+    height: 10vw;
+    background: red;
+}
+/*第二种*/
+.square {
+   width: 10%;
+   padding-bottom: 10%; 
+   height: 0; // 防止内容撑开多余的高度
+   background: red;
+}
+```
+## css 实现3角形
+```css
+.triangle {
+    height:0;
+    width:0;
+    border-color:red transparent transparent transparent;
+    border-style:solid;
+    border-width:30px;
+}
+.triangle{
+    width: 30px;
+    height: 30px;
+    background: red;
+    clip-path: polygon(0px 0px, 0px 30px, 30px 0px); // 将坐标(0,0),(0,30),(30,0)连成一个三角形
+    transform: rotate(225deg); // 旋转225，变成下三角
+}
+```
