@@ -64,6 +64,21 @@ function deepClone(arr){
 }
 ```
 
+## 数组乱序
+```js
+/**
+* 著名的Fisher–Yates shuffle 洗牌算法
+*/
+const shuffle = ([...arr]) => {
+  let m = arr.length;
+  while (m) {
+    const i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  }
+  return arr;
+};
+```
+
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
 /**
