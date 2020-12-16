@@ -86,6 +86,30 @@ Array.from(new Set(arr))
 // 2
 [...new Set(arr)]
 ```
+## 多维数组展平
+```js
+const deepFlatten = arr =>
+  [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
+```
+
+## 数组filter
+```js
+Array.prototype.filter = function(fn,context){
+    if(typeof fn != 'function'){
+        throw new TypeError(`${fn} is not a function`)
+    }
+    let arr = this;
+    let reuslt = []
+    for(var i = 0;i < arr.length; i++){
+        let temp= fn.call(context,arr[i],i,arr);
+        if(temp){
+            result.push(arr[i]);
+        }
+    }
+    return result
+}
+```
+
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
