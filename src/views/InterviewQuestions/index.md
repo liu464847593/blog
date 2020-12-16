@@ -109,6 +109,42 @@ Array.prototype.filter = function(fn,context){
     return result
 }
 ```
+## 手写call,apply,bind
+```js
+Function.prototype.myCall = function(context, ...args) {
+  // 判断是否是undefined和null
+  if (typeof context === 'undefined' || context === null) {
+    context = window
+  }
+  let fnSymbol = Symbol()
+  context[fnSymbol] = this
+  let fn = context[fnSymbol] (...args)
+  delete context[fnSymbol] 
+  return fn
+}
+
+Function.prototype.myApply = function(context, args) {
+  // 判断是否是undefined和null
+  if (typeof context === 'undefined' || context === null) {
+    context = window
+  }
+  let fnSymbol = Symbol()
+  context[fnSymbol] = this
+  let fn = context[fnSymbol] (...args)
+  return fn
+}
+
+Function.prototype.myBind = function(context) {
+// 判断是否是undefined和null
+    if (typeof context === "undefined" || context === null) {
+    	context = window;
+    }
+    let self = this;
+    return function(...args) {
+    	return self.apply(context, args);
+    }
+}
+```
 
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
