@@ -42,6 +42,27 @@ function throttle(fn) {
     }
     window.addEventListener('resize', throttle(sayHi));
 ```
+## 深拷贝
+```js
+const deepClone = obj => {
+  if (obj === null) return null;
+  let clone = Object.assign({}, obj);
+  Object.keys(clone).forEach(
+    key =>
+      (clone[key] =
+        typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
+  );
+  if (Array.isArray(obj)) {
+    clone.length = obj.length;
+    return Array.from(clone);
+  }
+  return clone;
+};
+// 影响性能
+function deepClone(arr){
+    return JSON.parse(JSON.stringify(arr))
+}
+```
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
