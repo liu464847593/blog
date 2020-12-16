@@ -79,6 +79,14 @@ const shuffle = ([...arr]) => {
 };
 ```
 
+## 数组去重
+```js
+// 1 
+Array.from(new Set(arr))
+// 2
+[...new Set(arr)]
+```
+
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
 /**
