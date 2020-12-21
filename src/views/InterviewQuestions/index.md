@@ -329,6 +329,55 @@ function _LazyMan(name){
     return new _LazyMan(name)
   }
 ```
+## 实现jsonp
+```js
+function jsonp(obj) {
+    const {url,data} = obj;
+    if (!url) return
+    return new Promise((resolve, reject) => {
+        const cbFn = `jsonp_${Date.now()}` 
+        data.callback = cbFn
+        const head = document.querySelector('head')
+        const script = document.createElement('script')
+        const src = `${url}?${data2Url(data)}`
+        console.log('scr',src)
+        script.src = src
+        head.appendChild(script)
+        
+        window[cbFn] = function(res) {
+            res ? resolve(res) : reject('error')
+            head.removeChild(script)
+            window[cbFn] = null 
+        }
+    })
+}
+
+function data2Url(data) {
+    return Object.keys(data).reduce((acc, cur) => {
+        acc.push(`${cur}=${data[cur]}`)
+        return acc
+    }, []).join('&')
+}
+// jsonp({url:'www.xxx.com',data:{a:1,b:2}})
+```
+
+## 函数curring
+```js
+function currying(fn,...args){
+    if(fn.length <= args.length){
+        return fn(...args)
+    }
+    return function(...args1){
+        return currying(fn,...args,...args1)
+    }
+}
+function add(a,b,c){
+    return a + b + c
+}
+add(1,2,3) // 6
+var curryingAdd = currying(add);
+curryingAdd(1)(2)(3) // 6
+```
 
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
