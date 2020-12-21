@@ -223,6 +223,22 @@ class Child extends Parents{
     }
 }
 ```
+## 实现instanceof
+```js
+function myInstanceof(left,right){
+    var proto = left.__proto__;
+    var protoType = right.prototype;
+    while(true){
+        if(proto === null){
+            return false
+        }
+        if(proto == protoType){
+            return true
+        }
+        proto = proto.__proto__
+    }
+}
+```
 
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
