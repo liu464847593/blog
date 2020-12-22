@@ -378,7 +378,10 @@ add(1,2,3) // 6
 var curryingAdd = currying(add);
 curryingAdd(1)(2)(3) // 6
 ```
-
+## sleep 函数
+```js
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+```
 
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
