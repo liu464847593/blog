@@ -383,6 +383,79 @@ curryingAdd(1)(2)(3) // 6
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 ```
 
+## 实现Promise.all
+```js
+Promise.all = function(arr){
+    return new Promise((resolve,reject) => {
+        if(!Array.isArray(arr)){
+            throw new TypeError(`argument must be a array`)
+        }
+        var length = arr.length;
+        var resolveNum = 0;
+        var resolveResult = [];
+        for(let i = 0; i < length; i++){
+            arr[i].then(data => {
+                resolveNum++;
+                resolveResult.push(data)
+                if(resolveNum == length){
+                    return resolve(resolveResult)
+                }
+            }).catch(data => {
+                return reject(data)
+            })
+        }
+    })
+    
+}
+```
+## promise.retry
+```js
+Promise.retry = function(fn, times, delay) {
+    return new Promise(function(resolve, reject){
+        var error;
+        var attempt = function() {
+            if (times == 0) {
+                reject(error);
+            } else {
+                fn().then(resolve)
+                    .catch(function(e){
+                        times--;
+                        error = e;
+                        setTimeout(function(){attempt()}, delay);
+                    });
+            }
+        };
+        attempt();
+    });
+};
+```
+## 将一个同步callback包装成promise形式
+```js
+nodeGet(param, function (err, data) { })
+  // 转化成promise形式
+  function nodeGetAysnc(param) {
+    return new Promise((resolve, reject) => {
+      nodeGet(param, function (err, data) {
+        if (err !== null) return reject(err)
+        resolve(data)
+      })
+  })}
+```
+```js
+// 按照上面的思路，即可写出通用版的形式。
+function promisify(fn,context){
+  return (...args) => {
+    return new Promise((resolve,reject) => {
+        fn.apply(context,[...args,(err,res) => {
+            return err ? reject(err) : resolve(res)
+        }])
+    })
+  }
+}
+
+```
+
+
 ##### ['1', '2', '3'].map(parseInt) what & why ?
 ```js
 /**
