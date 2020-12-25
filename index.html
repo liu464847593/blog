@@ -13,7 +13,6 @@
   <div id="app">加载中</div>
   <script>
     window.$docsify = {
-      ga: 'G-CDZGYJ4LM5', // 谷歌统计
       name: '追风',
       repo: '',
       coverpage: true, // 封面
@@ -37,5 +36,14 @@
   </script>
   <script src="./static/docsify.min.js"></script>
   <script src="./static/search.min.js"></script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-CDZGYJ4LM5"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CDZGYJ4LM5');
+  </script>
 </body>
 </html>
