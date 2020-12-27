@@ -453,11 +453,17 @@ function SubType(name,age) {
   SuperType.call(this,name);
   this.age = age
 }
-inheritPrototype(SuperType,SuperType);
+inheritPrototype(SuperType,SuperType); // 去掉了前面的为子类型赋值语句
 SuperType.prototype.sayAge = function () {
   alert(this.age)
 }
 ```
+优点：只调用了一次SuperType构造函数，避免了在SubType.prototype上创建不必要、多余的属性
+
+## 原型链
+每个实例对象（ object ）都有一个私有属性（称之为 __proto__ ）指向它的构造函数的原型对象（prototype ）。该原型对象也有一个自己的原型对象
+( __proto__ ) ，层层向上直到一个对象的原型对象为 null。这种关系被称为原型链
+
 ## 闭包
 有权访问另一个函数作用域中的变量的函数
 
