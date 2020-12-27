@@ -860,3 +860,10 @@ plugin是一个扩展器，它丰富了webpack本身，针对是loader结束后�
 - happyPack 多进程
 - 配置dll
 - tree-shaking 删除无用代码
+
+## 事件循环机制，node和浏览器的事件循环机制区别
+node 事件循环顺序
+外部输入数据-->轮询阶段(poll)-->检查阶段(check)-->关闭事件回调阶段(close callback)-->定时器检测阶段(timer)-->I/O事件回调阶段(I/O callbacks)-->闲置阶段(idle, prepare)-->轮询阶段（按照该顺序反复运行）
+
+Node端，microtask 在事件循环的各个阶段之间执行
+浏览器端，microtask 在事件循环的 macrotask 执行完之后执行
