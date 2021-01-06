@@ -12,7 +12,7 @@
 - `position` + 负`margin`
 - 已知宽高 设置各个方向的距离都是0，再将`margin`设为`auto`
 
-## 三栏布局
+## 三栏布局 （左右固定中间自适应）
 - flex
 - position + margin
 - float + margin
