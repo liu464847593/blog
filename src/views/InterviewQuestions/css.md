@@ -5,6 +5,7 @@
 组成：`margin` + `border` + `padding` + `content`
 - W3C的标准盒模型：`width` = `content`
 - IE盒模型：`width` = `border` + `padding` + `content`
+- 弹性盒子模型
 
 ## 垂直水平居中
 - `flex` 
@@ -17,6 +18,8 @@
 - position + margin
 - float + margin
 - calc
+- 圣杯
+- 双飞翼
 
 ## BFC
 `块格式化上下文`：它是一个独立的容器，并且容器里元素的布局不会影响到容器外
