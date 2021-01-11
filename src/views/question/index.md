@@ -13,6 +13,7 @@
 2. <div v-for="item in (menu ? menu.items : [])">{{ item.text }}</div>    
 ```
 2. 尽量不用EventBus事件总线进行通信，在keepAlive的环境下，容易多次触发点击
+ - EventBus 适合同一页面不同组件通信，不同页面通信要加唯一值防止其他页面多次触发
 
 ## 小程序
 1. `picker`组件第一次滑动不会触发`bindcolumnchange`，原因：没有`value`值
@@ -25,3 +26,6 @@ https://github.com/ichord/At.js/
 
 小程序实现拖拽效果，类似支付宝
 https://www.cnblogs.com/haha1212/p/11562944.html
+
+## ie11
+ie11 new Date() 为`Invalid Date`应该讲时间格式的 `-` 转`/`
