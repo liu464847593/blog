@@ -1,3 +1,8 @@
+## Vue中的scoped原理及穿透方法
+在标签加上v-data-something属性，再在选择器时加上对应[v-data-xxxx]，即CSS带属性选择器，以此完成类似作用域的选择方式。
+防止全局同名CSS污染  
+`/deep/` 用来穿透，选择器后面不会带[v-data-xxxx]
+
 ## vue 双向绑定原理
 vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过 Object.defineProperty()来劫持各个属性的 setter，getter，在数据变动时发布消息给订阅
 者，触发相应的监听回调。
