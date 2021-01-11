@@ -93,20 +93,34 @@
    background: red;
 }
 ```
-## css 实现3角形
+## css 实现图形
 ```css
+/*三角形*/
 .triangle {
-    height:0;
     width:0;
-    border-color:red transparent transparent transparent;
-    border-style:solid;
-    border-width:30px;
+    height:0;
+    border: 30px solid transparent;
+    border-top-color: red;
 }
-.triangle{
-    width: 30px;
-    height: 30px;
-    background: red;
-    clip-path: polygon(0px 0px, 0px 30px, 30px 0px); // 将坐标(0,0),(0,30),(30,0)连成一个三角形
-    transform: rotate(225deg); // 旋转225，变成下三角
+/*梯形*/
+.trapezoid{
+    width:100px;
+    height:100px;
+    border: 30px solid transparent;
+    border-top-color: red;
+}
+/*圆形*/
+.round{
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: red;
+}
+/*半圆*/
+.semicircle{
+    width:100px;
+    height:50px;
+    border-radius: 50px 50px 0 0;
+    background-color: red;
 }
 ```
