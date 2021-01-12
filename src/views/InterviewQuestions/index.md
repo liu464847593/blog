@@ -688,6 +688,56 @@ async function main() {
 }
 main(); 
 ```
+```js
+function Foo(){
+  getName= function (){
+    console.log(1);
+  }
+  return this;
+}
+Foo.getName = function (){
+  console.log(2);
+}
+Foo.prototype.getName = function (){
+  console.log(3);
+}
+var getName = function (){
+  console.log(4);
+}
+function getName(){
+  console.log(5);
+}
+Foo.getName(); // 2
+getName(); // 4
+Foo().getName(); // window.getName() 1
+getName();// 1
+new Foo.getName(); // 考察运算符优先级 先Foo.getName() 再new 2
+new Foo().getName();// 先new Foo() 实例上的getName()找原型 3
+new new Foo().getName(); // new 实例.getName() 先执行右边再new 3
+```
+```js
+async function async1(){
+  console.log('async1 start');
+  await async2();
+  console.log('async end');
+}
+async function async2(){
+  console.log('async2');
+}
+
+console.log('script start');
+setTimeout(function (){
+  console.log('setTimeout');
+},0)
+async1();
+new Promise(function (resolve){
+  console.log('promise1');
+  resolve()
+}).then(function (){
+  console.log('promise2');
+})
+console.log('script end');
+```
 
 ## var、let 和 const 区别的实现原理是什么
 - var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
