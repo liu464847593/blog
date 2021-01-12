@@ -738,6 +738,71 @@ new Promise(function (resolve){
 })
 console.log('script end');
 ```
+```js
+var x = 2;
+var y ={
+  x:3,
+  z:(function (x){
+    this.x*=x;
+    x+=2;
+    return function (n){
+      this.x*=n;
+      x+=3;
+      console.log(x);
+    }
+  })(x)
+}
+var m = y.z;
+m(4);
+y.z(5);
+console.log(x, y.x);
+```
+```js
+  function A(){
+      console.log(1);
+    }
+    function Func(){
+      A = function (){
+        console.log(2);
+      }
+      return this
+    }
+    Func.A = A;
+    Func.prototype = {
+      A:()=>{
+        console.log(3);
+      }
+    }
+    A();
+    Func.A();
+    Func().A();
+    new Func.A();
+    new Func().A();
+    new new Func().A();
+```
+```js
+async function async1(){
+  console.log('async1 start');
+  await async2();
+  console.log('async end');
+}
+async function async2(){
+  console.log('async2');
+}
+
+console.log('script start');
+setTimeout(function (){
+  console.log('setTimeout');
+},0)
+async1();
+new Promise(function (resolve){
+  console.log('promise1');
+  resolve()
+}).then(function (){
+  console.log('promise2');
+})
+console.log('script end');
+```
 
 ## var、let 和 const 区别的实现原理是什么
 - var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
