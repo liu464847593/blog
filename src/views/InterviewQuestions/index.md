@@ -828,6 +828,9 @@ console.log('script end');
 
 `Vue`是通过`object.defineProperty`来实现`MVVM`
 
+- MVC 是单向数据改变，数据的改变控制视图
+- MVVM 双向数据改变，数据控制视图，视图控制数据（onChange实现）
+
 ## 什么是 Virtual DOM？为什么 Virtual DOM 比原生 DOM 快？
 js 描述的dom对象
 ```js
