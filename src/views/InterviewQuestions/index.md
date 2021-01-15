@@ -931,5 +931,24 @@ Node端，microtask 在事件循环的各个阶段之间执行
 
 ## Node.js的加载机制
 
-## 数据去重
-## 冒泡排序，插入排序，快速排序
+## 算法
+### 数组去重
+```js
+
+let arr = [1, 6, 3, 3, 5, 8, 3, 1, 6];
+
+// 第一种 Set
+let result = [...new Set(arr)]
+
+// 第二种 reduce
+let result = arr.reduce((pre, cur) => pre.includes(cur) ? pre : [...pre, cur], []);
+
+// 第三种 filter
+let result = arr.filter((item, index, arr) => arr.indexOf(item) === index);
+
+// 第四种 includes
+let result = [];
+arr.map(i => result.includes(i) ? i : result.push(i));
+console.log(result);
+```
+### 冒泡排序，插入排序，快速排序
