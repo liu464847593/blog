@@ -952,3 +952,68 @@ arr.map(i => result.includes(i) ? i : result.push(i));
 console.log(result);
 ```
 ### 冒泡排序，插入排序，快速排序
+
+### 数组扁平化
+
+```js
+let arr = [
+  [1,2,2],
+  [3,4,5,5],
+  [6,7,8,9,[11,12,[12,13,[14]]],10 ]
+]
+arr = arr.flat(infinity);
+arr = arr.toString().split(',').map(item=>parseInt(item));
+// 循环
+while (arr.some(item=>Array.isArray(item))){
+  arr = [].concat(...arr)
+}
+```
+### 斐波那契额数列
+```js
+function fibonacci(n){
+  if (n<1) return 1;
+  let arr = [1,1];
+  let i = n+1-2;
+  while (i>0){
+    let a = arr[arr.length - 2],
+        b = arr[arr.length-1];
+    arr.push(a+b);
+    i--;
+  }
+    return arr[arr.length - 1]
+}
+```
+### 输入一个正数N，输出所有和为N的连续正数序列
+// 例如输入 15，结果 [[1,2,3,4,5],[4,5,6],[7,8]]
+```js
+  function createArr(n, len) {
+    let arr = new Array(len).fill(null), temp = [];
+    arr[0] = n;
+    arr = arr.map((item, index) => {
+      if (item === null) {
+        item = temp[index - 1] + 1;
+      }
+      temp.push(item);
+      return item;
+    })
+    return arr;
+  }
+
+  function fn(count) {
+    let result = [];
+    let middle = Math.ceil(count / 2);
+    for (let i = 1; i <= middle; i++) {
+      for (let j = 2; ; j++) {
+        let total = (i + (i + j - 1))* (j / 2);
+        if (total > count) {
+          break
+        } else if (total === count) {
+          result.push(createArr(i, j));
+          break
+        }
+      }
+    }
+    return result
+  }
+```
+
