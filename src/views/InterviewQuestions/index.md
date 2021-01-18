@@ -933,6 +933,7 @@ Node端，microtask 在事件循环的各个阶段之间执行
 
 
 ## promise async await区别
+## promise 原理
 
 ## 算法
 ### 数组去重
