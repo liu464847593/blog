@@ -931,6 +931,9 @@ Node端，microtask 在事件循环的各个阶段之间执行
 
 ## Node.js的加载机制
 
+
+## promise async await区别
+
 ## 算法
 ### 数组去重
 ```js
@@ -1016,4 +1019,5 @@ function fibonacci(n){
     return result
   }
 ```
+
 
