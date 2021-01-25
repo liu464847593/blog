@@ -110,6 +110,10 @@ Array.prototype.filter = function(fn,context){
 }
 ```
 ## 手写call,apply,bind
+1. this 参数可以传 null 或者 undefined，此时 this 指向 window
+2. this 参数可以传基本类型数据，原生的 call 会自动用 Object() 转换
+3. 函数是可以有返回值的
+
 ```js
 Function.prototype.myCall = function(context, ...args) {
   // 判断是否是undefined和null
