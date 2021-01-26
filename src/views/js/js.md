@@ -461,7 +461,7 @@ Object.create()规范了原型式继承
 ### 寄生式继承
 ```js
 function createAnother(original) {
-  var clone = bject(original);
+  var clone = object(original);
   clone.sayHi = function () {
     alert('hi')
   };
