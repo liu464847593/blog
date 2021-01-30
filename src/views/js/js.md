@@ -123,6 +123,64 @@ Js每个对象都有个`__proto__`属性,这个属性指向了原型，原型也
 this 指向问题：  
 ![](../../../src/asstes/img/js/this.png)
 
+## 深浅拷贝
+
+### 浅拷贝
+```js
+let a = {
+  age: 1
+}
+let b = Object.assign({}, a)
+a.age = 2
+console.log(b.age) // 1
+```
+```js
+let a = {
+  age: 1
+}
+let b = { ...a }
+a.age = 2
+console.log(b.age) // 1
+```
+### 深拷贝
+```js
+const deepClone = obj => {
+  if (obj === null) return null;
+  let clone = Object.assign({}, obj);
+  Object.keys(clone).forEach(
+    key =>
+      (clone[key] =
+        typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
+  );
+  if (Array.isArray(obj)) {
+    clone.length = obj.length;
+    return Array.from(clone);
+  }
+  return clone;
+};
+```
+```js
+let a = {
+  age: 1,
+  jobs: {
+    first: 'FE'
+  }
+}
+let b = JSON.parse(JSON.stringify(a))
+a.jobs.first = 'native'
+console.log(b.jobs.first) // FE
+```
+缺点：
+- 会忽略 `undefined`
+- 会忽略 `symbol`
+- 不能序列化函数
+- 不能解决循环引用的对象
+
+推荐使用lodash 的深拷贝函数
+
+赋值运算符 `=`和数组或对象提供的拷贝方法都是`首层浅拷贝`
+`JSON.stringfy` 是深拷贝但对对象有要求
+
 
 ## 数组的迭代，归并
 - `every()`
@@ -508,45 +566,6 @@ SuperType.prototype.sayAge = function () {
 
 ### DOM事件流
 事件捕获阶段 -> 处于目标阶段 -> 事件冒泡阶段
-
-## 拷贝
-
-### 浅拷贝
-```js
-let a = {
-  age: 1
-}
-let b = Object.assign({}, a)
-a.age = 2
-console.log(b.age) // 1
-```
-```js
-let a = {
-  age: 1
-}
-let b = { ...a }
-a.age = 2
-console.log(b.age) // 1
-```
-### 深拷贝
-```js
-let a = {
-  age: 1,
-  jobs: {
-    first: 'FE'
-  }
-}
-let b = JSON.parse(JSON.stringify(a))
-a.jobs.first = 'native'
-console.log(b.jobs.first) // FE
-```
-缺点：
-- 会忽略 `undefined`
-- 会忽略 `symbol`
-- 不能序列化函数
-- 不能解决循环引用的对象
-
-推荐使用lodash 的深拷贝函数
 
 ## 进程和线程
 进程描述了 `CPU` 在运行指令及加载和保存上下文所需的时间，放在应用上来说就代表了一个程序。  
