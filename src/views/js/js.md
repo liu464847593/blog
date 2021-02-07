@@ -586,13 +586,6 @@ SuperType.prototype.sayAge = function () {
 - 内存堆：这是内存分配发生的地方 （存储引用类型值的空间）
 - 调用栈：这是你的代码执行时的地方 （存储基本类型值和指定环境）
 
-## 跨域
-如果`协议`、`域名`或者`端口`有一个不同就是跨域
-
-JSONP 的原理很简单，就是利用 `<script>` 标签没有跨域限制的漏洞。通过` <script>` 标签指向一个需要访问的地址并提供一个回调函数来接收数据当需要通讯时。
-只限于 get 请求。
-
-
 ## 存储
 
 |特性|cookie|localStorage|sessionStorage|indexDB|
