@@ -1,4 +1,4 @@
-* 前端
+* 目录
   - [css](/src/views/css/index.md)
   - [JS](/src/views/js/js.md)
   - [Vue](/src/views/js/vue.md)
@@ -8,5 +8,4 @@
   - [设计模式](/src/views/js/JSDesignPattern.md)
   - [架构](/src/views/architecture/index.md)
   - [代码规范](/src/views/specification/index.md)
-* 后端
   - [Node.Js](/src/views/node/index.md)
