@@ -5,6 +5,9 @@
 ### 怎么清除浮动
 ### 绝对定位和相对定位的区别
 ### 自适应的正方形
+<details>
+<summary>代码</summary>
+
 ```css
 .square {
     width: 10vw;
@@ -19,7 +22,13 @@
    background: red;
 }
 ```
+</details> 
+
 ### css 实现图形
+<details>
+<summary>代码</summary>
+
+
 ```css
 /*三角形*/
 .triangle {
@@ -50,3 +59,11 @@
     background-color: red;
 }
 ```
+</details> 
+
+### flex：1代表什么
+flex:1 === flex: 1 1 0%
+
+- `flex-grow`: 项目的放大比例
+- `flex-shrink`: 项目的缩小比例
+- `flex-basis`: 项目的本来大小
