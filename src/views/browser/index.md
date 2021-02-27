@@ -64,3 +64,6 @@
 
 ## 浏览器缓存
 [浏览器缓存](https://shimo.im/mindmaps/g3Jpx6dQyxKRXygH/)
+
+## 浏览器渲染原理
+[浏览器渲染原理](https://shimo.im/mindmaps/ctQWDtq8VVPKrDhG/)
