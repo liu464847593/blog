@@ -67,3 +67,59 @@ flex:1 === flex: 1 1 0%
 - `flex-grow`: 项目的放大比例
 - `flex-shrink`: 项目的缩小比例
 - `flex-basis`: 项目的本来大小
+
+### 如何解决移动端 Retina 屏 1px 像素问题
+1. `border-image` 实现
+```css
+.border-image-1px {
+  border-bottom: 1px solid #666;
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 2) {
+  .border-image-1px {
+    border-bottom: none;
+    border-width: 0 0 1px 0;
+    -webkit-border-image: url(../img/linenew.png) 0 0 2 0 stretch;
+    border-image: url(../img/linenew.png) 0 0 2 0 stretch;
+  }
+}
+```
+2. `background-image` 实现
+```css
+.background-image-1px {
+  background: url(../img/line.png) repeat-x left bottom;
+  -webkit-background-size: 100% 1px;
+  background-size: 100% 1px;
+}
+```
+3. `box-shadow`实现
+```css
+.box-shadow-1px {
+  box-shadow: inset 0px -1px 1px -1px #c8c7cc;
+}
+```
+4. `viewport + rem` 实现
+```html
+<!--在devicePixelRatio = 2 时，输出viewport：-->
+<meta name="viewport" content="initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no">
+<!--在devicePixelRatio = 3 时，输出viewport：-->
+<meta name="viewport" content="initial-scale=0.3333333333333333, maximum-scale=0.3333333333333333, minimum-scale=0.3333333333333333, user-scalable=no">
+```
+5. 伪类 + transform 实现
+```css
+.scale-1px{
+  position: relative;
+  border:none;
+}
+.scale-1px:after{
+  content: '';
+  position: absolute;
+  bottom: 0;
+  background: #000;
+  width: 100%;
+  height: 1px;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+```
