@@ -321,7 +321,15 @@ function _LazyMan(name){
     return new _LazyMan(name)
   }
 ```
-## 实现jsonp
+
+## JSONP跨域原理
+- 客户端先定一个回调函数并通过`script`标签发起请求
+- 服务端返回这个回调函数的执行，并将需要响应的数据放到回调函数的参数里，客户端请求到这个回调函数会立即执行
+
+缺点：只能发起`get`请求
+
+### 实现JSONP
+
 ```js
 function jsonp(obj) {
     const {url,data} = obj;
