@@ -66,4 +66,8 @@
 [浏览器缓存](https://shimo.im/mindmaps/g3Jpx6dQyxKRXygH/)
 
 ## 浏览器渲染原理
-[浏览器渲染原理](https://shimo.im/mindmaps/ctQWDtq8VVPKrDhG/)
+- 浏览器接收到 `HTML` 文件并转换为 `DOM` 树（`字节数据`->`字符串`->`Token`->`Node`->`DOM`）
+- 将 `CSS` 文件转换为 `CSSOM` 树 （`字节数据`->`字符串`->`Token`->`Node`->`CSSOM`）
+- 生成渲染树(当我们生成 `DOM` 树和 `CSSOM` 树以后，就需要将这两棵树组合为渲染树)
+- 根据渲染树来布局，以计算每个节点的几何信息
+- 将各个节点绘制到屏幕上
