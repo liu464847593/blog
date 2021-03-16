@@ -321,7 +321,7 @@ function copyAument(target,src,keys) {
 ```js
 /**
  * 依赖列表存在Observer
- * Observer必须要再getter和拦截器中都访问到
+ * Observer必须要在getter和拦截器中都访问到
  */
 export class Observer {
   constructor(value) {
