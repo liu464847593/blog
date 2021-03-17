@@ -662,47 +662,12 @@ export function del(target,key) {
 每次渲染视图都是先创建vnode，然后使用它创建真实DOM插入页面中，将上次渲染视图的vnode缓存起来，并与当前新创建的vnode进行对比，只更新发生变化的节点
 
 ### VNode 类型
-- 注释节点
-- 文本节点
-- 元素节点
-- 组件节点
-- 函数式组件
-- 克隆节点
-```js
-// 注释节点
-export const createEmptyVnode = text =>{
-  const node = new VNode()
-  node.text = text
-  node.isComment = true
-  return node
-}
-// 文本节点
-export function createTextVNode(val) {
-  return new VNode(undefined,undefined,undefined,String(val))
-}
-// 克隆节点
-export function cloneVNode(vnode,deep) {
-  const cloned = new VNode(
-    vnode.tag,
-    vnode.data,
-    vnode.children,
-    vnode.text,
-    vnode.elm,
-    vnode.context,
-    vnode.componentOptions,
-    vnode.asyncFactory,
-  )
-  cloned.ns = vnode.ns
-  cloned.isStatic = vnode.isStatic
-  cloned.key = vnode.key
-  cloned.isComment = vnode.isComment
-  cloned.isCloned = true
-  if (deep && vnode.children){
-    cloned.children = cloneVNode(vnode.children)
-  }
-  return cloned
-}
-```
+- `注释节点` (只有`text`，`isComment`属性)
+- `文本节点` (只有`text`属性)
+- `元素节点` (存在`tag`,`data`,`children`,`context`)
+- `组件节点` (存在`componentOptions`，`componentInstance`)
+- `函数式组件` (存在`functionalContext`,`functionalOptions`)
+- `克隆节点` (`isCloned`:`true`)
 
 ## patch
 ---
