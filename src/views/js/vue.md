@@ -604,8 +604,10 @@ export function set(target,key,value) {
 
 ### 原理
 
-- 如果是数组`splice`删除指定元素
+- 如果是数组`splice`删除指定元素,拦截器自动向依赖发送通知  
 - 如果是对象则`delete`删除对象属性，如果`target`是响应式数据就发送通知
+- 如果`key`不是`target`属性直接退出即可
+- 数据是响应式才发送通知（判断ob）
 
 ```js
 export function del(target,key) {
