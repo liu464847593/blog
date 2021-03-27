@@ -1076,7 +1076,8 @@ Vue 初始化主要就干了几件事情，合并配置，初始化生命周期�
 ### callhook内部原理
 从vm.$options中获取生命周期钩子函数列表，遍历列表，执行每一个生命周期钩子
 
-### 
+### handleError 原理
+依次执行父组件的`errorCaptured`钩子函数和全局的`config.errorHandler`
 
 
 ## 指令
