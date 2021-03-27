@@ -1061,7 +1061,7 @@ JS是一门单线程且非阻塞的脚本语言。意味着JS在执行代码任�
 
 - `initEvents` 初始化事件。将父组件在模版中使用的 `v-on` 注册事件添加到子组件的事件监听系统中
 
-- `initRender`
+- `initRender` 初始化渲染
 
 - `initjections` 初始化inject。inject和provide一起使用，他们允许祖先组件向其所有子孙后台注入依赖，并在其上下游关系成立的事件始终生效
 
@@ -1073,8 +1073,10 @@ Vue 初始化主要就干了几件事情，合并配置，初始化生命周期�
 
 执行this.xxx 其实是调用了proxy 进行了拦截调用 this._data.xxx 
 
-### callhook
+### callhook内部原理
 从vm.$options中获取生命周期钩子函数列表，遍历列表，执行每一个生命周期钩子
+
+### 
 
 
 ## 指令
