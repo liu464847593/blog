@@ -217,7 +217,10 @@ class Child extends Parents{
 ```
 ## 实现instanceof
 ```js
-function myInstanceof(left,right){
+  /**
+   * 判断构造函数的prototype是否在实例对象的原型链上
+   */
+function _instanceof(left,right){
     var proto = left.__proto__;
     var protoType = right.prototype;
     while(true){
