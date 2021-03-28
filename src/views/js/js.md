@@ -53,13 +53,14 @@
 从一个变量向另一个变量复制引用类型的值时，会将存储在变量对象中的`指针`复制一份放到新变量分配的空间中，指针指向存储在堆中的另一个对象  
 函数的参数都是按值来传递的
 ```
-//typeof 可以检测变量的数据类型
+// typeof 可以检测变量的数据类型
 - undefined
-- boolean
-- string
-- number
-- object
 - function
+- boolean
+- number
+- string
+- object
+- symbol
 
 // instanceof 检测是什么类型的对象 返回boolean 值
 person instanceof Object
