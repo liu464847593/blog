@@ -56,6 +56,7 @@ function deepClone(arr){
 ```js
 /**
 * 著名的Fisher–Yates shuffle 洗牌算法
+* 随机从数组抽一个元素把它与最后一个元素交换
 */
 const shuffle = ([...arr]) => {
   let m = arr.length;
