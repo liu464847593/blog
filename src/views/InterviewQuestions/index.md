@@ -935,7 +935,7 @@ plugin是一个扩展器，它丰富了webpack本身，针对是loader结束后�
 node 事件循环顺序
 外部输入数据-->轮询阶段(poll)-->检查阶段(check)-->关闭事件回调阶段(close callback)-->定时器检测阶段(timer)-->I/O事件回调阶段(I/O callbacks)-->闲置阶段(idle, prepare)-->轮询阶段（按照该顺序反复运行）
 
-Node端，microtask 在事件循环的各个阶段之间执行
+node11以下，microtask 在事件循环的各个阶段之间执行，node11以上（跟浏览器一样）顺序执行宏任务和微任务
 浏览器端，microtask 在事件循环的 macrotask 执行完之后执行
 
 ## Node.js的加载机制
