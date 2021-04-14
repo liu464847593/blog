@@ -23,6 +23,89 @@
 - `圣杯`
 - `双飞翼`
 
+圣杯布局
+```
+  .container {
+    padding-left: 220px;
+    padding-right: 220px;
+  }
+  .left {
+    float: left;
+    width: 200px;
+    height: 400px;
+    background: red;
+    margin-left: -100%;
+    position: relative;
+    left: -220px;
+  }
+  .center {
+    float: left;
+    width: 100%;
+    height: 500px;
+    background: yellow;
+  }
+  .right {
+    float: left;
+    width: 200px;
+    height: 400px;
+    background: blue;
+    margin-left: -200px;
+    position: relative;
+    right: -220px;
+  }
+
+```
+
+```
+  <article class="container">
+    <div class="center">
+      <h2>圣杯布局</h2>
+    </div>
+    <div class="left"></div>
+    <div class="right"></div>
+  </article>
+```
+
+双飞翼布局
+```
+    .container {
+        min-width: 600px;
+    }
+    .left {
+        float: left;
+        width: 200px;
+        height: 400px;
+        background: red;
+        margin-left: -100%;
+    }
+    .center {
+        float: left;
+        width: 100%;
+        height: 500px;
+        background: yellow;
+    }
+    .center .inner {
+        margin: 0 200px; //新增部分
+    }
+    .right {
+        float: left;
+        width: 200px;
+        height: 400px;
+        background: blue;
+        margin-left: -200px;
+    }
+```
+```
+    <article class="container">
+        <div class="center">
+            <div class="inner">双飞翼布局</div>
+        </div>
+        <div class="left"></div>
+        <div class="right"></div>
+    </article>
+
+```
+
 ## BFC
 `块格式化上下文`：它是一个独立的容器，并且容器里元素的布局不会影响到容器外
 
