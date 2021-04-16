@@ -10,3 +10,4 @@
   - [架构](/src/views/architecture/index.md)
   - [代码规范](/src/views/specification/index.md)
   - [NodeJs](/src/views/node/index.md)
+  - [github 推荐](/src/views/github/index.md)
