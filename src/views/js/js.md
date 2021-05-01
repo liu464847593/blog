@@ -464,12 +464,12 @@ SuperType.prototype.getSuperValue = function () {
 function SubType() {
   this.subproperty = false
 }
-SubType.prototype = new SuperType();
+SubType.prototype = new SuperType(); // 继承了SuperType
 SubType.prototype.getSubValue = function () {
   return this.subproperty;
 }
 var instance = new SubType();
-alert(instance.getSuperValue())
+alert(instance.getSuperValue()) // true
 ```
 !>通过原型链实现继承时，不能使用对象字面量创建原型方法。会重写原型链
 
@@ -580,6 +580,26 @@ SuperType.prototype.sayAge = function () {
 }
 ```
 优点：只调用了一次SuperType构造函数，避免了在SubType.prototype上创建不必要、多余的属性
+
+### Class继承
+```js
+class Parent {
+  constructor(value) {
+    this.val = value
+  }
+  getValue() {
+    console.log(this.val)
+  }
+}
+class Child extends Parent {
+  constructor(value) {
+    super(value) // 相当于 Parent.call(this, value)
+  }
+}
+let child = new Child(1)
+child.getValue() // 1
+child instanceof Parent // true
+```
 
 ## 进程和线程
 进程描述了 `CPU` 在运行指令及加载和保存上下文所需的时间，放在应用上来说就代表了一个程序。  
