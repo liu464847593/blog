@@ -468,7 +468,7 @@ SubType.prototype = new SuperType();
 SubType.prototype.getSubValue = function () {
   return this.subproperty;
 }
-var instance = new SuperType();
+var instance = new SubType();
 alert(instance.getSuperValue())
 ```
 !>通过原型链实现继承时，不能使用对象字面量创建原型方法。会重写原型链
