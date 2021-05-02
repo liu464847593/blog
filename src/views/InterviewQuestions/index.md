@@ -231,15 +231,15 @@ function _instanceof(left,right){
 ```
 
 ## new的过程
-1. 创建一个空的简单 JavaScript 对象（即{}）
-2. 链接该对象（即设置该对象的构造函数）到另一个对象 
-3. 将步骤1新创建的对象作为 this 的上下文
-4. 如果该函数没有返回对象，则返回 this
+1. 新生成了一个对象
+2. 链接到原型
+3. 绑定 `this`
+4. 返回新对象
 ```js
   function _new() {
-    var obj = new Object(), Constructor = [].shift.call(arguments);
+    let obj = {}, Constructor = [].shift.call(arguments);
     obj.__proto__ = Constructor.prototype;
-    var ret = Constructor.apply(obj, arguments);
+    let ret = Constructor.apply(obj, arguments);
     return typeof ret === 'object' ? ret : obj;
   }
 ```
