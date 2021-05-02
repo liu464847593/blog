@@ -108,10 +108,7 @@ Array.prototype.filter = function(fn,context){
 
 ```js
 Function.prototype.myCall = function(context, ...args) {
-  // 判断是否是undefined和null
-  if (typeof context === 'undefined' || context === null) {
-    context = window
-  }
+  context = context || window
   let fnSymbol = Symbol()
   context[fnSymbol] = this
   let fn = context[fnSymbol] (...args)
@@ -120,10 +117,7 @@ Function.prototype.myCall = function(context, ...args) {
 }
 
 Function.prototype.myApply = function(context, args) {
-  // 判断是否是undefined和null
-  if (typeof context === 'undefined' || context === null) {
-    context = window
-  }
+  context = context || window
   let fnSymbol = Symbol()
   context[fnSymbol] = this
   let fn = context[fnSymbol] (...args)
@@ -131,10 +125,7 @@ Function.prototype.myApply = function(context, args) {
 }
 
 Function.prototype.myBind = function(context) {
-// 判断是否是undefined和null
-    if (typeof context === "undefined" || context === null) {
-    	context = window;
-    }
+    context = context || window
     let self = this;
     return function(...args) {
     	return self.apply(context, args);
