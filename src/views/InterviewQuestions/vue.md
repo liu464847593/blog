@@ -60,6 +60,28 @@ computed内部实现了一个惰性的watcher，在实例化的时候不会去�
 
 缺点：浏览器的兼容性不好
 
+## 手写一个数据绑定
+```
+<input id="input" type="text" />
+<div id="text"></div>
+
+let input = document.getElementById("input");
+let text = document.getElementById("text");
+let data = { value: "" };
+Object.defineProperty(data, "value", {
+  set: function(val) {
+    text.innerHTML = val;
+    input.value = val;
+  },
+  get: function() {
+    return input.value;
+  }
+});
+input.onkeyup = function(e) {
+  data.value = e.target.value;
+};
+```
+
 ## Vue的整个实现原理
 
 ## axios 底层原理
