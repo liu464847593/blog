@@ -1159,3 +1159,29 @@ vue 在对模板进行编译的时候，会将模板字符解析成抽象语法�
 
 参考：https://cn.vuejs.org/v2/style-guide/
 
+## Vue.use
+用法：`Vue.use(plugin)`  
+参数：`{Object| Function} plugin`  
+用法：安装`Vue.js`插件。如果插件是一个对象，必须提供`install`方法。如果插件是一个函数，它会被作为i`nstall`方法。调用用`install`方法时，会将`Vue`作为
+参数传入。`install`方法被同一个插件多次调用，插件也只会被安装一次.
+```js
+  Vue.use = function (plugin: Function | Object) {
+    const installedPlugins = (this._installedPlugins || (this._installedPlugins = []))
+    if (installedPlugins.indexOf(plugin) > -1) { // 判断是否被注册，如果注册过则终止
+      return this
+    }
+
+    // additional parameters
+    const args = toArray(arguments, 1) // 除第一个参数外，剩余所有参数将得到的列表赋值到args中
+    args.unshift(this) // 把vue添加到最前面，包装install方法第一个参数是vue
+    if (typeof plugin.install === 'function') {
+      plugin.install.apply(plugin, args)
+    } else if (typeof plugin === 'function') {
+      plugin.apply(null, args)
+    }
+    installedPlugins.push(plugin)
+    return this
+  }
+```
+
+
