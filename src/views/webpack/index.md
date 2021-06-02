@@ -41,3 +41,7 @@
 3. webpack重新编译构建一个或多个模块，并通知HMR服务器进行更新
 4. HMR Server 使用webSocket通知HMR runtime 需要更新，HMR运行时通过HTTP请求更新jsonp
 5. HMR运行时替换更新中的模块，如果确定这些模块无法更新，则触发整个页面刷新
+
+## tree sharking 原理
+- `es6 Module` 引入进行静态分析，编译的时候就能判断加载了哪些模块
+- 静态分析程序流，判断哪些模块和变量未被引用进而删除对应代码
