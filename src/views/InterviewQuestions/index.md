@@ -1119,3 +1119,24 @@ alert(instance2.colors); // red,blue,green
 instance2.sayName(); // Grep
 instance2.sayAge(); // 27
 ```
+
+### 手写promise.all
+```js
+Promise.all = function (iterator){
+  let count = 0;
+  let len = iterator.length;
+  let res = [];
+  return new Promise(((resolve, reject) => {
+    for (let i in iterator) {
+      Promise.resolve(iterator[i]).then((data)=>{
+        res[i] = data;
+        if (++count === len){
+          resolve(res)
+        }
+      }).catch(e=>{
+        reject(e)
+      })
+    }
+  }))
+}
+```
