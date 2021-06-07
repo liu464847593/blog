@@ -1140,3 +1140,14 @@ Promise.all = function (iterator){
   }))
 }
 ```
+
+### 实现一个reduce
+```js
+Array.prototype.myReduce = function(reducer, initialValue) {
+    let ret = initialValue;
+    for (let i = 0; i < this.length; i++) {
+        ret = reducer(ret, this[i], i, this);
+    }
+    return ret;
+}
+```
