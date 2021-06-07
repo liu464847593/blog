@@ -1044,3 +1044,78 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
 ```
 0.1 + 0.2 === 0.30000000000000004 // true
 ```
+
+## 手写代码
+
+### 手写一个单例模式
+```js
+var Singleton = function (name){
+  this.name = name;
+  this.instance = null
+}
+Singleton.getInstance = function (name){
+  if (!this.instance){
+    this.instance = new Singleton(name)
+  }
+  return this.instance
+}
+var a = Singleton.getInstance('1');
+var b = Singleton.getInstance('b');
+console.log(a === b);
+```
+
+### 手写一个发布订阅模式
+```js
+    var salesOffices = {};
+    salesOffices.clientList = [];
+    salesOffices.listen = function (fn) {
+        this.clientList.push(fn);
+    };
+    salesOffices.trigger = function () {
+        for (var i = 0,fn;fn = this.clientList[i++];){
+            fn.apply(this,arguments)
+        }
+    };
+    salesOffices.listen(function (price,squareMeter) { // 小明订阅的消息
+        console.log('价格=' + price);
+        console.log('squareMeter=' + squareMeter);
+    });
+    salesOffices.listen(function (price,squareMeter) { // 小红订阅的消息
+        console.log('价格=' + price);
+        console.log('squareMeter=' + squareMeter);
+    });
+
+    salesOffices.trigger(2000000,88);
+    salesOffices.trigger(3000000,110);
+```
+
+### 手写一个组合继承
+```js
+function SuperType(name) {
+  this.name = name;
+  this.colors = ['red','blue','green']
+}
+SuperType.prototype.sayName = function () {
+  alert(this.name)
+}
+function SubType(name,age) {
+  SuperType.call(this,name) // 第2次调用SuperType
+  this.age = age
+}
+SubType.prototype = new SuperType(); // 第1次调用SuperType
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function () {
+  alert(this.age)
+}
+
+var instance1 = new SubType('Nicholas',29);
+instance1.colors.push('black');
+alert(instance1.colors); // red,blue,green,black
+instance1.sayName(); // Nicholas
+instance1.sayAge(); // 29
+
+var instance2 = new SubType('Grep',27);
+alert(instance2.colors); // red,blue,green
+instance2.sayName(); // Grep
+instance2.sayAge(); // 27
+```
