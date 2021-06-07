@@ -520,7 +520,6 @@ instance1.sayName(); // Nicholas
 instance1.sayAge(); // 29
 
 var instance2 = new SubType('Grep',27);
-instance1.colors.push('black');
 alert(instance2.colors); // red,blue,green
 instance2.sayName(); // Grep
 instance2.sayAge(); // 27
