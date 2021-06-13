@@ -1058,6 +1058,7 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
 ## 手写代码
 
 ### 手写一个单例模式
+<details>
 ```js
 var Singleton = function (name){
   this.name = name;
@@ -1073,8 +1074,11 @@ var a = Singleton.getInstance('1');
 var b = Singleton.getInstance('b');
 console.log(a === b);
 ```
+</details>
 
 ### 手写一个发布订阅模式
+<details>
+
 ```js
     var salesOffices = {};
     salesOffices.clientList = [];
@@ -1098,8 +1102,11 @@ console.log(a === b);
     salesOffices.trigger(2000000,88);
     salesOffices.trigger(3000000,110);
 ```
+</details>
 
 ### 手写一个组合继承
+<details>
+
 ```js
 function SuperType(name) {
   this.name = name;
@@ -1129,8 +1136,11 @@ alert(instance2.colors); // red,blue,green
 instance2.sayName(); // Grep
 instance2.sayAge(); // 27
 ```
+</details>
 
 ### 手写promise.all
+<details>
+
 ```js
 Promise.all = function (iterator){
   let count = 0;
@@ -1150,8 +1160,11 @@ Promise.all = function (iterator){
   }))
 }
 ```
+</details>
 
 ### 实现一个reduce
+<details>
+
 ```js
 Array.prototype.myReduce = function(reducer, initialValue) {
     let ret = initialValue;
@@ -1161,3 +1174,4 @@ Array.prototype.myReduce = function(reducer, initialValue) {
     return ret;
 }
 ```
+</details>
