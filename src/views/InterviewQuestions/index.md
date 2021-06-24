@@ -1059,6 +1059,7 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
 
 ### 手写一个单例模式
 <details>
+
 ```js
 var Singleton = function (name){
   this.name = name;
