@@ -1059,6 +1059,8 @@ class EventEmitter {
 </details>
 
 ### 实现继承
+<details>
+
 ```js
 // ES5
 function Parent(name,age){
@@ -1077,6 +1079,7 @@ function Child(name, age, sex){
 Child.prototype = Object.create(Parent.prototype);
 Child.prototype.constructor = Child;
 ```
+
 ```js
 // ES6
 class Parent {
@@ -1093,6 +1096,8 @@ class Child extends Parents{
     }
 }
 ```
+</details>
+
 
 
 
