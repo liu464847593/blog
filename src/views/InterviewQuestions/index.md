@@ -1,28 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 深拷贝
-```js
-const deepClone = obj => {
-  if (obj === null) return null;
-  let clone = Object.assign({}, obj);
-  Object.keys(clone).forEach(
-    key =>
-      (clone[key] =
-        typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
-  );
-  if (Array.isArray(obj)) {
-    clone.length = obj.length;
-    return Array.from(clone);
-  }
-  return clone;
-};
-// 影响性能
-function deepClone(arr){
-    return JSON.parse(JSON.stringify(arr))
-}
-```
-
 ## 数组乱序
 ```js
 /**
@@ -1060,6 +1038,32 @@ const throttle = (func, wait = 50) => {
 }
 ```
 </details>
+
+### 深拷贝
+<details>
+
+```js
+const deepClone = obj => {
+  if (obj === null) return null;
+  let clone = Object.assign({}, obj);
+  Object.keys(clone).forEach(
+    key =>
+      (clone[key] =
+        typeof obj[key] === 'object' ? deepClone(obj[key]) : obj[key])
+  );
+  if (Array.isArray(obj)) {
+    clone.length = obj.length;
+    return Array.from(clone);
+  }
+  return clone;
+};
+// 影响性能
+function deepClone(arr){
+    return JSON.parse(JSON.stringify(arr))
+}
+```
+</details>
+
 
 
 ### 手写一个单例模式
