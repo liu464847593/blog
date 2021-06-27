@@ -1,84 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 数组乱序
-```js
-/**
-* 著名的Fisher–Yates shuffle 洗牌算法
-* 随机从数组抽一个元素把它与最后一个元素交换
-*/
-const shuffle = ([...arr]) => {
-  let m = arr.length;
-  while (m) {
-    const i = Math.floor(Math.random() * m--);
-    [arr[m], arr[i]] = [arr[i], arr[m]];
-  }
-  return arr;
-};
-```
-
-## 数组去重
-```js
-// 1 
-Array.from(new Set(arr))
-// 2
-[...new Set(arr)]
-```
-## 多维数组展平
-```js
-const deepFlatten = arr =>
-  [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
-```
-
-## 数组filter
-```js
-Array.prototype.filter = function(fn,context){
-    if(typeof fn != 'function'){
-        throw new TypeError(`${fn} is not a function`)
-    }
-    let arr = this;
-    let reuslt = []
-    for(var i = 0;i < arr.length; i++){
-        let temp= fn.call(context,arr[i],i,arr);
-        if(temp){
-            result.push(arr[i]);
-        }
-    }
-    return result
-}
-```
-## 手写call,apply,bind
-1. this 参数可以传 null 或者 undefined，此时 this 指向 window
-2. this 参数可以传基本类型数据，原生的 call 会自动用 Object() 转换
-3. 函数是可以有返回值的
-
-```js
-Function.prototype.myCall = function(context, ...args) {
-  context = context || window
-  let fnSymbol = Symbol()
-  context[fnSymbol] = this
-  let fn = context[fnSymbol] (...args)
-  delete context[fnSymbol] 
-  return fn
-}
-
-Function.prototype.myApply = function(context, args) {
-  context = context || window
-  let fnSymbol = Symbol()
-  context[fnSymbol] = this
-  let fn = context[fnSymbol] (...args)
-  return fn
-}
-
-Function.prototype.myBind = function(context) {
-    context = context || window
-    let self = this;
-    return function(...args) {
-    	return self.apply(context, args);
-    }
-}
-```
-
 ## 实现eventEmitter
 ```js
 class EventEmitter {
@@ -1063,6 +985,111 @@ function deepClone(arr){
 }
 ```
 </details>
+
+### 数组乱序
+<details>
+
+```js
+/**
+* 著名的Fisher–Yates shuffle 洗牌算法
+* 随机从数组抽一个元素把它与最后一个元素交换
+*/
+const shuffle = ([...arr]) => {
+  let m = arr.length;
+  while (m) {
+    const i = Math.floor(Math.random() * m--);
+    [arr[m], arr[i]] = [arr[i], arr[m]];
+  }
+  return arr;
+};
+```
+</details>
+
+### 数组去重
+<details>
+
+```js
+// 1 
+Array.from(new Set(arr))
+// 2
+[...new Set(arr)];
+// 3
+arr.filter(function(item, index, arr) {
+    //当前元素，在原始数组中的第一个索引==当前索引值，否则返回当前元素
+    return arr.indexOf(item) === index;
+  });
+```
+</details>
+
+### 多维数组展平
+<details>
+
+```js
+const deepFlatten = arr =>
+  [].concat(...arr.map(v => (Array.isArray(v) ? deepFlatten(v) : v)));
+
+// 2
+arr.flat(Infinity)
+```
+</details>
+
+### 数组filter
+<details>
+
+```js
+Array.prototype.filter = function(fn,context){
+    if(typeof fn != 'function'){
+        throw new TypeError(`${fn} is not a function`)
+    }
+    let arr = this;
+    let result = []
+    for(var i = 0;i < arr.length; i++){
+        let temp= fn.call(context,arr[i],i,arr);
+        if(temp){
+            result.push(arr[i]);
+        }
+    }
+    return result
+}
+```
+</details>
+
+### 手写call,apply,bind
+<details>
+
+1. this 参数可以传 null 或者 undefined，此时 this 指向 window
+2. this 参数可以传基本类型数据，原生的 call 会自动用 Object() 转换
+3. 函数是可以有返回值的
+
+```js
+Function.prototype.myCall = function(context, ...args) {
+  context = context || window
+  let fnSymbol = Symbol()
+  context[fnSymbol] = this
+  let fn = context[fnSymbol] (...args)
+  delete context[fnSymbol] 
+  return fn
+}
+
+Function.prototype.myApply = function(context, args) {
+  context = context || window
+  let fnSymbol = Symbol()
+  context[fnSymbol] = this
+  let fn = context[fnSymbol] (...args)
+  return fn
+}
+
+Function.prototype.myBind = function(context) {
+    context = context || window
+    let self = this;
+    return function(...args) {
+    	return self.apply(context, args);
+    }
+}
+```
+</details>
+
+
 
 
 
