@@ -1,48 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 实现eventEmitter
-```js
-class EventEmitter {
-    constructor() {
-      this.events = {}
-    }
-
-    on(name, cb) {
-      if (!this.events[name]) {
-        this.events[name] = [cb];
-      } else {
-        this.events[name].push(cb)
-      }
-    }
-
-    emit(name, ...arg) {
-      if (this.events[name]) {
-        this.events[name].forEach(fn => {
-          fn.call(this, ...arg)
-        })
-      }
-    }
-
-    off(name, cb) {
-      if (this.events[name]) {
-        this.events[name] = this.events[name].filter(fn => {
-          return fn != cb
-        })
-      }
-    }
-
-    once(name, fn) {
-      var onlyOnce = () => {
-        fn.apply(this, arguments);
-        this.off(name, onlyOnce)
-      }
-      this.on(name, onlyOnce);
-      return this;
-    }
-  }
-```
-
 ## 实现继承
 ```js
 // ES5
@@ -1089,6 +1047,53 @@ Function.prototype.myBind = function(context) {
 ```
 </details>
 
+### 实现eventEmitter 发布订阅模式
+<details>
+
+```js
+class EventEmitter {
+    constructor() {
+      this.events = {}
+    }
+
+    on(name, cb) {
+      if (!this.events[name]) {
+        this.events[name] = [cb];
+      } else {
+        this.events[name].push(cb)
+      }
+    }
+
+    emit(name, ...arg) {
+      if (this.events[name]) {
+        this.events[name].forEach(fn => {
+          fn.call(this, ...arg)
+        })
+      }
+    }
+
+    off(name, cb) {
+      if (this.events[name]) {
+        this.events[name] = this.events[name].filter(fn => {
+          return fn != cb
+        })
+      }
+    }
+
+    once(name, fn) {
+      var onlyOnce = () => {
+        fn.apply(this, arguments);
+        this.off(name, onlyOnce)
+      }
+      this.on(name, onlyOnce);
+      return this;
+    }
+  }
+```
+
+</details>
+
+
 
 
 
@@ -1110,34 +1115,6 @@ Singleton.getInstance = function (name){
 var a = Singleton.getInstance('1');
 var b = Singleton.getInstance('b');
 console.log(a === b);
-```
-</details>
-
-### 手写一个发布订阅模式
-<details>
-
-```js
-    var salesOffices = {};
-    salesOffices.clientList = [];
-    salesOffices.listen = function (fn) {
-        this.clientList.push(fn);
-    };
-    salesOffices.trigger = function () {
-        for (var i = 0,fn;fn = this.clientList[i++];){
-            fn.apply(this,arguments)
-        }
-    };
-    salesOffices.listen(function (price,squareMeter) { // 小明订阅的消息
-        console.log('价格=' + price);
-        console.log('squareMeter=' + squareMeter);
-    });
-    salesOffices.listen(function (price,squareMeter) { // 小红订阅的消息
-        console.log('价格=' + price);
-        console.log('squareMeter=' + squareMeter);
-    });
-
-    salesOffices.trigger(2000000,88);
-    salesOffices.trigger(3000000,110);
 ```
 </details>
 
