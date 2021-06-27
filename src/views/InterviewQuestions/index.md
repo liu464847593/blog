@@ -1,115 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 实现instanceof
-```js
-  /**
-   * 判断构造函数的prototype是否在实例对象的原型链上
-   */
-function _instanceof(left,right){
-    var proto = left.__proto__;
-    var protoType = right.prototype;
-    while(true){
-        if(proto === null){
-            return false
-        }
-        if(proto == protoType){
-            return true
-        }
-        proto = proto.__proto__
-    }
-}
-```
-
-## new的过程
-1. 新生成了一个对象
-2. 链接到原型
-3. 绑定 `this`
-4. 返回新对象
-```js
-  function _new() {
-    let obj = {}, Constructor = [].shift.call(arguments);
-    obj.__proto__ = Constructor.prototype;
-    let ret = Constructor.apply(obj, arguments);
-    return typeof ret === 'object' ? ret : obj;
-  }
-```
-## lazyMan
-```
-实现一个LazyMan，可以按照以下方式调用:
-LazyMan("Hank")输出:
-Hi! This is Hank!
- 
-LazyMan("Hank").sleep(10).eat("dinner")输出
-Hi! This is Hank!
-//等待10秒..
-Wake up after 10
-Eat dinner~
- 
-LazyMan("Hank").eat("dinner").eat("supper")输出
-Hi This is Hank!
-Eat dinner~
-Eat supper~
- 
-LazyMan("Hank").sleepFirst(5).eat("supper")输出
-//等待5秒
-Wake up after 5
-Hi This is Hank!
-Eat supper
- 
-以此类推。
-```
-```js
-function _LazyMan(name){
-    this.nama = name;
-    this.queue = [];
-    this.queue.push(() => {
-        console.log("Hi! This is " + name + "!");
-        this.next();
-    })
-    setTimeout(()=>{
-        this.next()
-    },0)
-  }
-  
-  _LazyMan.prototype.eat = function(name){
-    this.queue.push(() =>{
-        console.log("Eat " + name + "~");
-        this.next()
-    })
-    return this;
-  }
-
-  _LazyMan.prototype.next = function(){
-    var fn = this.queue.shift();
-    fn && fn();
-  }
-
-  _LazyMan.prototype.sleep = function(time){
-    this.queue.push(() =>{
-        setTimeout(() => {
-            console.log("Wake up after " + time + "s!");
-            this.next()
-        },time * 1000)
-    })
-    return this;
-  }
-
-  _LazyMan.prototype.sleepFirst = function(time){
-    this.queue.unshift(() =>{
-        setTimeout(() => {
-            console.log("Wake up after " + time + "s!");
-            this.next()
-        },time * 1000)
-    })
-    return this;
-  }
-
-  function LazyMan(name){
-    return new _LazyMan(name)
-  }
-```
-
 ## JSONP跨域原理
 - 客户端先定一个回调函数并通过`script`标签发起请求
 - 服务端返回这个回调函数的执行，并将需要响应的数据放到回调函数的参数里，客户端请求到这个回调函数会立即执行
@@ -147,28 +38,6 @@ function data2Url(data) {
     }, []).join('&')
 }
 // jsonp({url:'www.xxx.com',data:{a:1,b:2}})
-```
-
-## 函数curring
-```js
-function currying(fn,...args){
-    if(fn.length <= args.length){
-        return fn(...args)
-    }
-    return function(...args1){
-        return currying(fn,...args,...args1)
-    }
-}
-function add(a,b,c){
-    return a + b + c
-}
-add(1,2,3) // 6
-var curryingAdd = currying(add);
-curryingAdd(1)(2)(3) // 6
-```
-## sleep 函数
-```js
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 ```
 
 ## 实现Promise.all
@@ -1097,6 +966,158 @@ class Child extends Parents{
 }
 ```
 </details>
+
+### 实现instanceof
+<details>
+
+```js
+  /**
+   * 判断构造函数的prototype是否在实例对象的原型链上
+   */
+function _instanceof(left,right){
+    var proto = left.__proto__;
+    var protoType = right.prototype;
+    while(true){
+        if(proto === null){
+            return false
+        }
+        if(proto == protoType){
+            return true
+        }
+        proto = proto.__proto__
+    }
+}
+```
+</details>
+
+### new的过程
+<details>
+
+1. 新生成了一个对象
+2. 链接到原型
+3. 绑定 `this`
+4. 返回新对象
+
+```js
+  function _new() {
+    let obj = {}, Constructor = [].shift.call(arguments);
+    obj.__proto__ = Constructor.prototype;
+    let ret = Constructor.apply(obj, arguments);
+    return typeof ret === 'object' ? ret : obj;
+  }
+```
+</details>
+
+### lazyMan
+<details>
+
+```
+实现一个LazyMan，可以按照以下方式调用:
+LazyMan("Hank")输出:
+Hi! This is Hank!
+ 
+LazyMan("Hank").sleep(10).eat("dinner")输出
+Hi! This is Hank!
+//等待10秒..
+Wake up after 10
+Eat dinner~
+ 
+LazyMan("Hank").eat("dinner").eat("supper")输出
+Hi This is Hank!
+Eat dinner~
+Eat supper~
+ 
+LazyMan("Hank").sleepFirst(5).eat("supper")输出
+//等待5秒
+Wake up after 5
+Hi This is Hank!
+Eat supper
+ 
+以此类推。
+```
+```js
+function _LazyMan(name){
+    this.nama = name;
+    this.queue = [];
+    this.queue.push(() => {
+        console.log("Hi! This is " + name + "!");
+        this.next();
+    })
+    setTimeout(()=>{
+        this.next()
+    },0)
+  }
+  
+  _LazyMan.prototype.eat = function(name){
+    this.queue.push(() =>{
+        console.log("Eat " + name + "~");
+        this.next()
+    })
+    return this;
+  }
+
+  _LazyMan.prototype.next = function(){
+    var fn = this.queue.shift();
+    fn && fn();
+  }
+
+  _LazyMan.prototype.sleep = function(time){
+    this.queue.push(() =>{
+        setTimeout(() => {
+            console.log("Wake up after " + time + "s!");
+            this.next()
+        },time * 1000)
+    })
+    return this;
+  }
+
+  _LazyMan.prototype.sleepFirst = function(time){
+    this.queue.unshift(() =>{
+        setTimeout(() => {
+            console.log("Wake up after " + time + "s!");
+            this.next()
+        },time * 1000)
+    })
+    return this;
+  }
+
+  function LazyMan(name){
+    return new _LazyMan(name)
+  }
+```
+</details>
+
+### 函数curring
+<details>
+
+```js
+function currying(fn,...args){
+    if(fn.length <= args.length){
+        return fn(...args)
+    }
+    return function(...args1){
+        return currying(fn,...args,...args1)
+    }
+}
+function add(a,b,c){
+    return a + b + c
+}
+add(1,2,3) // 6
+var curryingAdd = currying(add);
+curryingAdd(1)(2)(3) // 6
+```
+</details>
+
+### sleep 函数
+<details>
+
+```js
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+```
+</details>
+
+
+
 
 
 
