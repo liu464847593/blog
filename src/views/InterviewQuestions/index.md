@@ -1,38 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 什么是防抖和节流
-
-### 防抖
-
-触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间
-```js
-const debounce = (func, wait = 50) => {
-  let timer = 0
-  return function(...args) {
-    if (timer) clearTimeout(timer)
-    timer = setTimeout(() => {
-      func.apply(this, args)
-    }, wait)
-  }
-}
-```
-
-### 节流
-
-高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率
-```js
-const throttle = (func, wait = 50) => {
-  let lastTime = 0
-  return function(...args) {
-    let now = +new Date()
-    if (now - lastTime > wait) {
-      lastTime = now
-      func.apply(this, args)
-    }
-  }
-}
-```
 ## 深拷贝
 ```js
 const deepClone = obj => {
@@ -1056,6 +1024,43 @@ IEEE 754 双精度版本（64位）将 64 位分为了三段
   - `this`指向undefined  
 
 ## 手写代码
+
+### 防抖
+触发高频事件后n秒内函数只会执行一次，如果n秒内高频事件再次被触发，则重新计算时间
+<details>
+
+```js
+const debounce = (func, wait = 50) => {
+  let timer = 0
+  return function(...args) {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      func.apply(this, args)
+    }, wait)
+  }
+}
+```
+</details>
+
+### 节流
+
+高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率
+<details>
+
+```js
+const throttle = (func, wait = 50) => {
+  let lastTime = 0
+  return function(...args) {
+    let now = +new Date()
+    if (now - lastTime > wait) {
+      lastTime = now
+      func.apply(this, args)
+    }
+  }
+}
+```
+</details>
+
 
 ### 手写一个单例模式
 <details>
