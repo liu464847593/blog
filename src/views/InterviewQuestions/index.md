@@ -1,41 +1,6 @@
 ## typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
 
-## 实现继承
-```js
-// ES5
-function Parent(name,age){
-    this.name = name;
-    this.age = age;
-}
-Parent.prototype.say = function(){
-    console.log('I am' + this.name)
-}
-
-function Child(name, age, sex){
-    Parent.call(this,name,age);
-    this.sex = sex;
-}
-
-Child.prototype = Object.create(Parent.prototype);
-Child.prototype.constructor = Child;
-```
-```js
-// ES6
-class Parent {
-    constructor(name,age){
-        this.name = name;
-        this.age = age;
-    }
-}
-
-class Child extends Parents{
-    constructor(name,age,sex){
-        super(name,age);
-        this.sex = sex; // 必须先调用super，才能使用this
-    }
-}
-```
 ## 实现instanceof
 ```js
   /**
@@ -1093,6 +1058,42 @@ class EventEmitter {
 
 </details>
 
+### 实现继承
+```js
+// ES5
+function Parent(name,age){
+    this.name = name;
+    this.age = age;
+}
+Parent.prototype.say = function(){
+    console.log('I am' + this.name)
+}
+
+function Child(name, age, sex){
+    Parent.call(this,name,age);
+    this.sex = sex;
+}
+
+Child.prototype = Object.create(Parent.prototype);
+Child.prototype.constructor = Child;
+```
+```js
+// ES6
+class Parent {
+    constructor(name,age){
+        this.name = name;
+        this.age = age;
+    }
+}
+
+class Child extends Parents{
+    constructor(name,age,sex){
+        super(name,age);
+        this.sex = sex; // 必须先调用super，才能使用this
+    }
+}
+```
+
 
 
 
@@ -1115,40 +1116,6 @@ Singleton.getInstance = function (name){
 var a = Singleton.getInstance('1');
 var b = Singleton.getInstance('b');
 console.log(a === b);
-```
-</details>
-
-### 手写一个组合继承
-<details>
-
-```js
-function SuperType(name) {
-  this.name = name;
-  this.colors = ['red','blue','green']
-}
-SuperType.prototype.sayName = function () {
-  alert(this.name)
-}
-function SubType(name,age) {
-  SuperType.call(this,name) // 第2次调用SuperType
-  this.age = age
-}
-SubType.prototype = new SuperType(); // 第1次调用SuperType
-SubType.prototype.constructor = SubType;
-SubType.prototype.sayAge = function () {
-  alert(this.age)
-}
-
-var instance1 = new SubType('Nicholas',29);
-instance1.colors.push('black');
-alert(instance1.colors); // red,blue,green,black
-instance1.sayName(); // Nicholas
-instance1.sayAge(); // 29
-
-var instance2 = new SubType('Grep',27);
-alert(instance2.colors); // red,blue,green
-instance2.sayName(); // Grep
-instance2.sayAge(); // 27
 ```
 </details>
 
