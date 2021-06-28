@@ -8,14 +8,20 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过 Ob
 者，触发相应的监听回调。
 
 ## vue 生命周期
-- `beforeCreate`
+- `beforeCreate`  
   是获取不到 `props` 或者 `data` 中的数据的
-- `created`
-- `beforeMount`
-- `mounted`
+- `created`  
+    Vue 实例观察的数据对象data已经配置好，已经可以得到data的值，但Vue 实例使用的根 DOM 元素el还未初始化
+- `beforeMount`  
+    data和el均已经初始化，但此时el并没有渲染进数据，el的值为“虚拟”的元素节点
+- `mounted`  
+    此时el已经渲染完成并挂载到实例上
 - `beforeUpdate`
+    beforeUpdate函数在数据更新后虽然没立即更新数据，但是DOM中的数据会改变，这是Vue双向数据绑定的作用
 - `updated`
+    el中的数据都已经渲染完成，但只有updated钩子被调用时候，组件dom才被更新。
 - `beforeDestroy`
+    清除vue实例与DOM的关联
 - `destroyed`
 
 ## 组件通信
