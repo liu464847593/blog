@@ -1,5 +1,21 @@
-## typeof null === 'object'
+### typeof null === 'object'
 JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存储变量的类型信息，`000` 开头代表是对象，然而 `null` 表示为全零,所以将它错误的判断为 `object`
+
+### var、let 和 const 区别的实现原理是什么
+- var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
+存里开辟一个内存空间存储实际内容，栈内存会存储一个指向堆内存的指针
+- let的话，是不会在栈内存里预分配内存空间，而且在栈内存分配变量时，做一个检查，如果已经有相同变量名存在就会报错
+- const的话，也不会预分配内存空间，在栈内存分配变量时也会做同样的检查。不过const存储的变量是不可修改的，对于基本类型来说
+你无法修改定义的值，对于引用类型来说你无法修改栈内存里分配的指针，但是你可以修改指针指向的对象里面的属性
+
+### 箭头函数与普通函数的区别
+- 箭头函数没有自己的`this`,只会从自己的作用域链上一层继承`this`
+- 箭头函数继承而来的this指向永远不变
+- call/apply/bind 无法改变箭头函数的this指向
+- 箭头函数不能作为构造函数
+- 箭头函数没有自己的arguments
+- 箭头函数没有原型
+- 箭头函数不用用作Generator函数，不能使用yeild关键字
 
 ## JSONP跨域原理
 - 客户端先定一个回调函数并通过`script`标签发起请求
@@ -40,52 +56,6 @@ function data2Url(data) {
 // jsonp({url:'www.xxx.com',data:{a:1,b:2}})
 ```
 
-## 实现Promise.all
-```js
-Promise.all = function(arr){
-    return new Promise((resolve,reject) => {
-        if(!Array.isArray(arr)){
-            throw new TypeError(`argument must be a array`)
-        }
-        var length = arr.length;
-        var resolveNum = 0;
-        var resolveResult = [];
-        for(let i = 0; i < length; i++){
-            arr[i].then(data => {
-                resolveNum++;
-                resolveResult.push(data)
-                if(resolveNum == length){
-                    return resolve(resolveResult)
-                }
-            }).catch(data => {
-                return reject(data)
-            })
-        }
-    })
-    
-}
-```
-## promise.retry
-```js
-Promise.retry = function(fn, times, delay) {
-    return new Promise(function(resolve, reject){
-        var error;
-        var attempt = function() {
-            if (times == 0) {
-                reject(error);
-            } else {
-                fn().then(resolve)
-                    .catch(function(e){
-                        times--;
-                        error = e;
-                        setTimeout(function(){attempt()}, delay);
-                    });
-            }
-        };
-        attempt();
-    });
-};
-```
 ## 将一个同步callback包装成promise形式
 ```js
 nodeGet(param, function (err, data) { })
@@ -108,39 +78,6 @@ function promisify(fn,context){
         }])
     })
   }
-}
-```
-## 写一个函数，可以控制最大并发数
-```js
-function concurrentPoll(){
-    this.tasks = [];
-    this.max = 10;
-    setTimeout(() => {
-        this.run()
-    },0)
-}
-
-concurrentPoll.prototype.addTask = function(task){
-    this.tasks.push(task)
-}
-
-concurrentPoll.prototype.run = function(){
-    if(this.tasks.length == 0){
-        return
-    }
-    var min = Math.min(this.tasks.length, max);
-    for(var i = 0; i < min; i++){
-        this.max--;
-        var task = this.tasks.shift();
-        task().then((res) => {
-            console.log(res)
-        }).catch((err) => {
-            console.log(err)
-        }).finally(() => {
-            this.max++;
-            this.run();
-        })
-    }
 }
 ```
 
@@ -437,13 +374,6 @@ console.log(x, y.x);
     new Func().A();
     new new Func().A();
 ```
-
-## var、let 和 const 区别的实现原理是什么
-- var的话会直接在栈内存里预分配内存空间，然后等到实际语句执行的时候，再存储对应的变量，如果传的是引用类型，那么会在堆内
-存里开辟一个内存空间存储实际内容，栈内存会存储一个指向堆内存的指针
-- let的话，是不会在栈内存里预分配内存空间，而且在栈内存分配变量时，做一个检查，如果已经有相同变量名存在就会报错
-- const的话，也不会预分配内存空间，在栈内存分配变量时也会做同样的检查。不过const存储的变量是不可修改的，对于基本类型来说
-你无法修改定义的值，对于引用类型来说你无法修改栈内存里分配的指针，但是你可以修改指针指向的对象里面的属性
 
 ## 什么是MVVM，比MVC有什么区别
 不管是 `React` 还是 `Vue`，它们都不是 `MVVM` 框架，只是有借鉴 `MVVM` 的思路
@@ -1115,6 +1045,100 @@ curryingAdd(1)(2)(3) // 6
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 ```
 </details>
+
+### 实现Promise.all
+<details>
+
+```js
+Promise.all = function(arr){
+    return new Promise((resolve,reject) => {
+        if(!Array.isArray(arr)){
+            throw new TypeError(`argument must be a array`)
+        }
+        var length = arr.length;
+        var resolveNum = 0;
+        var resolveResult = [];
+        for(let i = 0; i < length; i++){
+            arr[i].then(data => {
+                resolveNum++;
+                resolveResult.push(data)
+                if(resolveNum == length){
+                    return resolve(resolveResult)
+                }
+            }).catch(data => {
+                return reject(data)
+            })
+        }
+    })
+    
+}
+```
+</details>
+
+
+### promise.retry
+<details>
+
+```js
+Promise.retry = function(fn, times, delay) {
+    return new Promise(function(resolve, reject){
+        var error;
+        var attempt = function() {
+            if (times == 0) {
+                reject(error);
+            } else {
+                fn().then(resolve)
+                    .catch(function(e){
+                        times--;
+                        error = e;
+                        setTimeout(function(){attempt()}, delay);
+                    });
+            }
+        };
+        attempt();
+    });
+};
+```
+</details>
+
+### 写一个函数，可以控制最大并发数
+<details>
+
+```js
+function concurrentPoll(){
+    this.tasks = [];
+    this.max = 10;
+    setTimeout(() => {
+        this.run()
+    },0)
+}
+
+concurrentPoll.prototype.addTask = function(task){
+    this.tasks.push(task)
+}
+
+concurrentPoll.prototype.run = function(){
+    if(this.tasks.length == 0){
+        return
+    }
+    var min = Math.min(this.tasks.length, max);
+    for(var i = 0; i < min; i++){
+        this.max--;
+        var task = this.tasks.shift();
+        task().then((res) => {
+            console.log(res)
+        }).catch((err) => {
+            console.log(err)
+        }).finally(() => {
+            this.max++;
+            this.run();
+        })
+    }
+}
+```
+</details>
+
+
 
 
 
