@@ -27,6 +27,9 @@ JS 的最初版本中使用的是 32 位系统,为了性能考虑使用低位存
 - ES6中子类可以直接通过 `__proto__` 寻址到父类,ES5 `Sub.__proto__ === Function.prototype`
 - ES6的继承实现在于使用`super`关键字调用父类，反观ES5是通过`call`或者`apply`回调方法调用父类
 
+### JS模块化 commonjs 和es6 modules区别
+https://shimo.im/mindmaps/kPQPqT69dkD8HyK6
+
 ## JSONP跨域原理
 - 客户端先定一个回调函数并通过`script`标签发起请求
 - 服务端返回这个回调函数的执行，并将需要响应的数据放到回调函数的参数里，客户端请求到这个回调函数会立即执行
