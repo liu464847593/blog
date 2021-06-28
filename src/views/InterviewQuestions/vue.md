@@ -24,6 +24,20 @@ vue.js 是采用数据劫持结合发布者-订阅者模式的方式，通过 Ob
     清除vue实例与DOM的关联
 - `destroyed`
 
+## vue父子组件生命周期执行顺序
+加载渲染过程
+```
+父beforeCreate->父created->父beforeMount->子beforeCreate->子created->子beforeMount->子mounted->父mounted
+```
+更新过程
+```
+父beforeUpdate->子beforeUpdate->子updated->父updated
+```
+销毁过程
+```
+父beforeDestroy->子beforeDestroy->子destroyed->父destroyed
+```
+
 ## 组件通信
 父组件到子组件 `props`，子组件到父组件`emit`   
 `$parent`，`$children`对象来访问组件实例中的方法和数据   
