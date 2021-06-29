@@ -36,8 +36,15 @@ plugin是一个扩展器，它丰富了webpack本身，针对是loader结束后�
 - `define-plugin`：定义环境变量
 
 ### 如何写一个webpack plugin
-- 一个 JS 命名函数或一个类
-- 在插件类/函数的 (prototype) 上定义一个 apply 方法。
-- 通过 apply 函数中传入 compiler 并插入指定的事件钩子，在钩子回调中取到 compilation 对象
-- 通过 compilation 处理 webpack 内部特定的实例数据
-- 如果是插件是异步的，在插件的逻辑编写完后调用 webpack 提供的 callback
+- 一个 `JS` 命名函数或一个类
+- 在插件类/函数的 (`prototype`) 上定义一个 `apply` 方法。
+- 通过 `apply` 函数中传入 `compiler` 并插入指定的事件钩子，在钩子回调中取到 `compilation` 对象
+- 通过 `compilation` 处理 `webpack` 内部特定的实例数据
+- 如果是插件是异步的，在插件的逻辑编写完后调用 `webpack` 提供的 `callback`
+
+
+- `loader` 支持链式调用,遵循单一原则，每个`loader`只处理一件事情
+- `loader` 获取源码，可以以返回值处理后的内容输出，也可以`this.callback()`,将内容返回给`webpack`，还可以通过`this.async()`生成
+   callback函数输出出去
+- `Loader` 是无状态的，我们不应该在 `Loader` 中保留状态
+- 使用 `loader-utils `和 `schema-utils`为我们提供的实用工具
