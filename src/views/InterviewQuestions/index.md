@@ -537,7 +537,6 @@ let result = [];
 arr.map(i => result.includes(i) ? i : result.push(i));
 console.log(result);
 ```
-### 冒泡排序，插入排序，快速排序
 
 ### 数组扁平化
 
