@@ -86,4 +86,44 @@ const bubbleSort = arr => {
   return a;
 };
 ```
+```js
+// 快速排序
+const quickSort = arr => {
+  const a = [...arr];
+  if (a.length < 2) return a;
+  const pivotIndex = Math.floor(arr.length / 2);
+  const pivot = a[pivotIndex];
+  const [lo, hi] = a.reduce(
+    (acc, val, i) => {
+      if (val < pivot || (val === pivot && i != pivotIndex)) {
+        acc[0].push(val);
+      } else if (val > pivot) {
+        acc[1].push(val);
+      }
+      return acc;
+    },
+    [[], []]
+  );
+  return [...quickSort(lo), pivot, ...quickSort(hi)];
+};
+```
+```js
+// 插入排序
+const insertionSort = arr =>
+  arr.reduce((acc, x) => {
+    if (!acc.length) return [x];
+    acc.some((y, j) => {
+      if (x <= y) {
+        acc.splice(j, 0, x);
+        return true;
+      }
+      if (x > y && j === acc.length - 1) {
+        acc.splice(j + 1, 0, x);
+        return true;
+      }
+      return false;
+    });
+    return acc;
+  }, []);
+```
 
