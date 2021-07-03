@@ -39,34 +39,27 @@ https://shimo.im/mindmaps/kPQPqT69dkD8HyK6
 ### 实现JSONP
 
 ```js
-function jsonp(obj) {
-    const {url,data} = obj;
-    if (!url) return
-    return new Promise((resolve, reject) => {
-        const cbFn = `jsonp_${Date.now()}` 
-        data.callback = cbFn
-        const head = document.querySelector('head')
-        const script = document.createElement('script')
-        const src = `${url}?${data2Url(data)}`
-        console.log('scr',src)
-        script.src = src
-        head.appendChild(script)
-        
-        window[cbFn] = function(res) {
-            res ? resolve(res) : reject('error')
-            head.removeChild(script)
-            window[cbFn] = null 
-        }
-    })
+const jsonp = ({ url, params, callbackName }) => {
+  const generateUrl = () => {
+    let dataSrc = '';
+    for (let key in params) {
+      if (Object.prototype.hasOwnProperty.call(params, key)) {
+        dataSrc += `${key}=${params[key]}&`;
+      }
+    }
+    dataSrc += `callback=${callbackName}`;
+    return `${url}?${dataSrc}`;
+  }
+  return new Promise((resolve, reject) => {
+    const scriptEle = document.createElement('script');
+    scriptEle.src = generateUrl();
+    document.body.appendChild(scriptEle);
+    window[callbackName] = data => {
+      resolve(data);
+      document.removeChild(scriptEle);
+    }
+  })
 }
-
-function data2Url(data) {
-    return Object.keys(data).reduce((acc, cur) => {
-        acc.push(`${cur}=${data[cur]}`)
-        return acc
-    }, []).join('&')
-}
-// jsonp({url:'www.xxx.com',data:{a:1,b:2}})
 ```
 
 ## 将一个同步callback包装成promise形式
