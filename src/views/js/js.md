@@ -463,13 +463,8 @@ function SuperType() {
 SuperType.prototype.getSuperValue = function () {
   return this.property
 }
-function SubType() {
-  this.subproperty = false
-}
+function SubType() {}
 SubType.prototype = new SuperType(); // 继承了SuperType
-SubType.prototype.getSubValue = function () {
-  return this.subproperty;
-}
 var instance = new SubType();
 alert(instance.getSuperValue()) // true
 ```
