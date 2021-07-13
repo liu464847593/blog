@@ -772,6 +772,7 @@ Function.prototype.myApply = function(context, args) {
   let fnSymbol = Symbol()
   context[fnSymbol] = this
   let fn = context[fnSymbol] (...args)
+  delete context[fnSymbol] 
   return fn
 }
 
