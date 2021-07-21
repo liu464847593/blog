@@ -488,24 +488,24 @@ node11以下，microtask 在事件循环的各个阶段之间执行，node11以�
 ## 实现双向绑定
 ```
 <body>
-    <div id="app">
-        <input type="text" id="txt">
-        <p id="show-txt"></p>
-    </div>
+    <input id="input" type="text" />
+    <div id="text"></div>
     <script>
-        var obj = {}
-        Object.defineProperty(obj, 'txt', {
-            get: function () {
-                return obj
-            },
-            set: function (newValue) {
-                document.getElementById('txt').value = newValue
-                document.getElementById('show-txt').innerHTML = newValue
-            }
-        })
-        document.addEventListener('keyup', function (e) {
-            obj.txt = e.target.value
-        })
+     let input = document.getElementById("input");
+     let text = document.getElementById("text");
+     let data = { value: "" };
+     Object.defineProperty(data, "value", {
+       set: function(val) {
+         text.innerHTML = val;
+         input.value = val;
+       },
+       get: function() {
+         return input.value;
+       }
+     });
+     input.onkeyup = function(e) {
+       data.value = e.target.value;
+     };
     </script>
 </body>
 
