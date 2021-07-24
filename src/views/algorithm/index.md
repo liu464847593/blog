@@ -141,4 +141,69 @@ const binarySearch = (arr, item) => {
   return -1;
 };
 ```
+## 广度优先遍历二叉树
+队列先进先出 
+```js
+  let tree = {
+    val: 1,
+    left: {
+      val: 2,
+      left: {
+        val: 4
+      },
+      right: {
+        val: 5
+      }
+    },
+    right: {
+      val: 3,
+      right: {
+        val: 6
+      }
+    }
+  }
 
+  function ergodic(tree) {
+    let list = [], queue = [tree];
+    while (queue.length !== 0) {
+      let target = queue.shift();
+      list.push(target.val);
+      if (target.left) queue.push(target.left)
+      if (target.right) queue.push(target.right)
+    }
+    return list
+  }
+```
+## 深度优先遍历二叉树
+栈后进先出 
+```js
+  let tree = {
+    val: 1,
+    left: {
+      val: 2,
+      left: {
+        val: 3
+      },
+      right: {
+        val: 4
+      }
+    },
+    right: {
+      val: 5,
+      right: {
+        val: 6
+      }
+    }
+  }
+
+  function ergodic(tree) {
+    let list = [], stack = [tree];
+    while (stack.length !== 0) {
+      let target = stack.pop();
+      list.push(target.val);
+      if (target.right) stack.push(target.right)
+      if (target.left) stack.push(target.left)
+    }
+    return list
+  }
+```
