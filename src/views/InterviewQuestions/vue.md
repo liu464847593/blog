@@ -111,6 +111,13 @@ input.onkeyup = function(e) {
 如何在`install`方法中获取vue实例上的`router`属性。  
 可以利用`Vue.mixin`混入声明周期函数`beforeCreate`，在`beforeCreate`函数中可以获取到`Vue`实例上的属性并赋值到`Vue`原型链上。
 
+## vuex 原理
+数据存放到全局的`store`，再将`store`挂载到每个`vue`实例组件中(使用`vue`混入机制，`vue`的生命周期`beforeCreate`钩子函数前混入`vuexInit`方法)，
+利用`Vue.js`的细粒度数据响应机制来进行高效的状态更新。
+
+- `Vuex`的`state`状态是响应式，是借助`vue`的`data`是响应式，将`state`存入`vue`实例组件的`data`中；
+- `Vuex`的`getters`则是借助`vue`的计算属性`computed`实现数据实时监听。
+
 ## Vue的整个实现原理
 
 ## axios 底层原理
