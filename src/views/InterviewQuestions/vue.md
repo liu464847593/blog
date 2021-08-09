@@ -103,6 +103,13 @@ input.onkeyup = function(e) {
   data.value = e.target.value;
 };
 ```
+## vue router原理
+
+通过`Vue.use`注册插件，在插件的`install`方法中获取用户配置的router对象。当浏览器地址发生变化的时候，根据`router`对象匹配相应路由，获取组件，并将组件
+渲染到视图上。
+
+如何在`install`方法中获取vue实例上的`router`属性。  
+可以利用`Vue.mixin`混入声明周期函数`beforeCreate`，在`beforeCreate`函数中可以获取到`Vue`实例上的属性并赋值到`Vue`原型链上。
 
 ## Vue的整个实现原理
 
