@@ -1,0 +1,4 @@
+- [30-seconds-of-code](https://github.com/30-seconds/30-seconds-of-code)
+- [JavaScript Questions](https://github.com/lydiahallie/javascript-questions)
+- [Clean JavaScript Code](https://github.com/ryanmcdermott/clean-code-javascript)
+- [33-js-concepts](https://github.com/stephentian/33-js-concepts)
