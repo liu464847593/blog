@@ -369,7 +369,10 @@ console.log(b.jobs.first) // FE
 
 调用构造函数时会为实例添加一个指向最初原型的指针，而把原型修改为另一个对象就等于切断了构造函数与最初原型之间的联系  
 
-!>实例中的指针仅指向原型，而不指向构造函数
+::: tip 提示
+实例中的指针仅指向原型，而不指向构造函数
+:::
+
 ```js
 var friend = new Person();
 Person.prototype = {
@@ -476,7 +479,10 @@ SubType.prototype = new SuperType(); // 继承了SuperType
 var instance = new SubType();
 alert(instance.getSuperValue()) // true
 ```
-!>通过原型链实现继承时，不能使用对象字面量创建原型方法。会重写原型链
+::: tip 提示
+通过原型链实现继承时，不能使用对象字面量创建原型方法。会重写原型链
+:::
+
 
 缺点：
 - 包含引用类型值的原型
