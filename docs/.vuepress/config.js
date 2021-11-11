@@ -24,17 +24,8 @@ module.exports = {
       { text: '算法', link: '/views/algorithm/index.md' },
       { text: '设计模式', link: '/views/js/JSDesignPattern.md' },
       { text: '面试题', link: '/views/InterviewQuestions/css.md' },
-      { text: '学习',
-        items: [
-          {text: 'linux', link: '/views/linux/linux.md'},
-          {text: 'mysql', link: '/views/mysql/index.md'},
-          {text: 'node', link: '/views/node/index.md'},
-          {text: 'markdown', link: '/views/others/markdown.md'},
-          {text: 'jenkins', link: '/views/tools/jenkins.md'},
-          {text: '问题', link: '/views/question/index.md'},
-        ]
-      },
-      { text: 'GitHub推荐', link: '/views/github/js.md' },
+      { text: '问题记录',link: '/views/question/index.md'},
+      { text: 'GitHub推荐', link: '/views/github/index.md' },
       { text: 'GitHub', link: 'https://github.com/liu464847593' },
     ]
   },
